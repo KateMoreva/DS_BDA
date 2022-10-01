@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'spbstu.curs.dsbda'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.13.4'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
+// SLF4J as a facade over Log4j2 required dependencies
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.0'
+
+// Bridges from other logging implementations to SLF4J. Be careful not to bridge SLF4J itself to
+    implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.25' // JUL bridge
+    implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25' // Apache Commons Logging (JCL) bridge
+    implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25' // log4j1.2 bridge
+}
+
+test {
+    useJUnitPlatform()
+}
