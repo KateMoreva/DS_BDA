@@ -20,7 +20,7 @@ public class Salary implements ISearchParam {
 
 
     public Salary(Integer salary) {
-        this(salary, salary, Currency.RUR);
+        this(salary, salary, Constants.Currency.RUR);
     }
 
 
@@ -42,7 +42,7 @@ public class Salary implements ISearchParam {
         Integer toRur = (to != null) ? new Double(to / currency.getRate()).intValue() : null;
         salaryRur.setTo(toRur);
 
-        salaryRur.setCurrency(Currency.RUR);
+        salaryRur.setCurrency(Constants.Currency.RUR);
 
         return salaryRur;
     }

@@ -2,6 +2,7 @@ package search.parser.deserializer;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
+import search.entity.entry.enties.vacancy.extra.Constants;
 import search.entity.entry.enties.vacancy.extra.Currency;
 import search.entity.entry.enties.vacancy.extra.Salary;
 
@@ -25,7 +26,7 @@ public class SalaryDeserializer implements JsonDeserializer<Salary> {
             Currency currency = null;
             if (currencyElement.isJsonPrimitive()) {
                 String currencyId = currencyElement.getAsString();
-                currency = Currency.CURRENCIES.getById(currencyId);
+                currency = Constants.Currency.CURRENCIES.getById(currencyId);
             }
 
             return new Salary(from, to, currency);

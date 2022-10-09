@@ -42,26 +42,12 @@ public class InitialTest {
 
     @Test
     public void employerInVacancyParse() throws SearchException {
-//        final Employer kafeHouse = new Employer("27986");
-//        for (Vacancy vacancy : HhApi.search(kafeHouse)) {
-//            System.out.println("Vacancy: " + vacancy);
-//            assertEquals(vacancy.getEmployer(), kafeHouse);
-//        }
-//
         final Employer bspb = new Employer("3783");
         System.out.println("Employer: " + bspb);
         VacancyList vacancies = HhApi.search(bspb);
         for (Vacancy vacancy : vacancies) {
             System.out.println("Vacancy: " + vacancy);
             assertEquals(vacancy.getEmployer(), bspb);
-        }
-    }
-
-    @Test
-    public void searchLimitLess500() throws Exception {
-        final String nameText = "java";
-        for (Vacancy vacancy : HhApi.search(6, new Text(nameText))) {
-            assertThat(vacancy.getName().toUpperCase(), containsString(nameText.toUpperCase()));
         }
     }
 

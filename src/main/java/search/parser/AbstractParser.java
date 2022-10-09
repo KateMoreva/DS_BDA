@@ -11,7 +11,6 @@ import search.parser.deserializer.*;
 
 import java.util.Date;
 
-@Slf4j
 public abstract class AbstractParser<T> implements IParser<T> {
     private final Gson gson;
 
@@ -22,7 +21,6 @@ public abstract class AbstractParser<T> implements IParser<T> {
                 .registerTypeAdapter(MetroCityEntity.class, new MetroDeserializer())
                 .registerTypeAdapter(AreaEntity.class, new AreaDeserializer())
                 .registerTypeAdapter(ProfFieldEntity.class, new ProfFieldDeserializer());
-        log.info("abstract parser {}", builder);
         gson = builder.create();
     }
 

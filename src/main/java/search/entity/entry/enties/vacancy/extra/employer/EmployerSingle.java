@@ -3,6 +3,7 @@ package search.entity.entry.enties.vacancy.extra.employer;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
+import search.entity.entry.enties.vacancy.extra.Constants;
 
 import java.net.URL;
 
@@ -23,6 +24,6 @@ public class EmployerSingle extends EmployerInVacancy {
     private URL vacanciesUrl;
 
     public EmployerType getType() {
-        return EmployerType.EMPLOYER_TYPES.getById(type);
+        return Constants.EmployerType.EMPLOYER_TYPES.getById(type);
     }
 }
