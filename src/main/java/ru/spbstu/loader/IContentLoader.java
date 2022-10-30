@@ -1,11 +1,13 @@
 package ru.spbstu.loader;
 
+import org.jetbrains.annotations.NotNull;
 import ru.spbstu.search.SearchException;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IContentLoader {
-    String loadContent(final String url) throws SearchException;
+    String loadContent(@NotNull String url,
+                       @NotNull Map<String, List<String>> params) throws SearchException;
 
-    void addHeader(String key, String value);
-
-    void addParam(String key, String value);
 }

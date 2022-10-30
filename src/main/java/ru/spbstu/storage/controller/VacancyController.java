@@ -21,11 +21,7 @@ public class VacancyController {
 
     @RequestMapping(value = "/submitFetchTask", method = RequestMethod.POST)
     public void submit(@RequestBody @NotNull FetchTaskRequest fetchTaskRequest) {
-        vacancyService.submit(
-                fetchTaskRequest.getDateTo(),
-                fetchTaskRequest.getDateFrom(),
-                fetchTaskRequest.getSpecialisationId()
-        );
+        vacancyService.submit(fetchTaskRequest);
     }
 
 }

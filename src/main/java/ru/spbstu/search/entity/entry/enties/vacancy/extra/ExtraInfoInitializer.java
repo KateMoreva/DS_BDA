@@ -1,5 +1,8 @@
 package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
+import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.spbstu.loader.ContentLoaderFactory;
 import ru.spbstu.loader.IContentLoader;
 import ru.spbstu.loader.UrlConstants;
@@ -10,10 +13,15 @@ import ru.spbstu.search.entity.entry.enties.vacancy.VacancyType;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerType;
 import ru.spbstu.search.fields.VacancySearchFields;
 
+import java.util.Collections;
+
 @Slf4j
+@Component
 public class ExtraInfoInitializer {
-    private static ExtraInfoInitializer entity;
-    private final IContentLoader loader = ContentLoaderFactory.newInstanceLongTermCache();
+
+    private final IContentLoader contentLoader;
+    private final ExtraInfoParser extraInfoParser;
+
     private IEntity<Currency> currency;
     private IEntity<Schedule> schedule;
     private IEntity<EducationLevel> educationLevel;
@@ -26,16 +34,12 @@ public class ExtraInfoInitializer {
     private IEntity<LanguageLevel> languageLevel;
     private IEntity<VacancyType> vacancyType;
 
-    private ExtraInfoInitializer() {
+    @Autowired
+    private ExtraInfoInitializer(IContentLoader contentLoader) {
+        this.contentLoader = contentLoader;
+        this.extraInfoParser = new ExtraInfoParser(new GsonBuilder().create());
         log.debug("ExtraInfoInitializer");
         loadSmallDictionaries();
-    }
-
-    public static synchronized ExtraInfoInitializer getInstance() {
-        if (entity == null) {
-            entity = new ExtraInfoInitializer();
-        }
-        return entity;
     }
 
     public IEntity<Currency> getCurrency() {
@@ -84,9 +88,8 @@ public class ExtraInfoInitializer {
 
     private void loadSmallDictionaries() {
         try {
-            String content = loader.loadContent(UrlConstants.DICTINARIES_URL);
-            ExtraInfoParser parse = new ExtraInfoParser();
-            ExtraInfoEntityContainer extraInfoEntityContainer = parse.parse(content);
+            String content = contentLoader.loadContent(UrlConstants.DICTINARIES_URL, Collections.emptyMap());
+            ExtraInfoEntityContainer extraInfoEntityContainer = extraInfoParser.parse(content);
 
             currency = new Entity<>(extraInfoEntityContainer.getCurrency(), Currency.NULL_CURRENCY);
             schedule = new Entity<>(extraInfoEntityContainer.getSchedule(), Schedule.NULL_SCHEDULE);

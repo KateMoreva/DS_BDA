@@ -1,8 +1,11 @@
 package ru.spbstu.storage.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.spbstu.storage.controller.FetchTaskRequest;
 
 import java.util.Queue;
 import java.util.concurrent.ExecutionException;
@@ -15,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class VacancyLoadTaskStatusChecker {
 
 
-    private static final int CHECKER_INITIAL_DELAY = 100;
-    private static final int CHECKER_PERIOD = 100;
+    private static final int CHECKER_INITIAL_DELAY = 5000;
+    private static final int CHECKER_PERIOD = 5000;
     private static final TimeUnit CHECKER_TIMEUNIT = TimeUnit.MILLISECONDS;
     private static final int CHECKER_SERVICE_POOL_SIZE = 1;
 
@@ -24,7 +27,7 @@ public class VacancyLoadTaskStatusChecker {
 
     private final ScheduledExecutorService checkerService = Executors.newScheduledThreadPool(CHECKER_SERVICE_POOL_SIZE);
 
-    private final Queue<Future<Boolean>> futuresQueue = new LinkedBlockingQueue<>();
+    private final Queue<StatusCheckerQueueItem> futuresQueue = new LinkedBlockingQueue<>();
     private boolean shouldNoAcceptNewTask;
 
     public void start() {
@@ -48,41 +51,56 @@ public class VacancyLoadTaskStatusChecker {
      * // TODO: probably here we need some arguments to write them to the log when smth went wrong
      */
     private void checkStatus() {
+        StatusCheckerQueueItem queueItem = futuresQueue.peek();
         try {
-            Future<Boolean> future = futuresQueue.peek();
-            if (future == null) {
+            if (queueItem == null) {
                 logger.info("There is no more task in the futures queue, skip this iteration");
                 return;
             }
+            Future<Boolean> future = queueItem.getFuture();
             if (future.isCancelled()) {
-                logger.warn("Future task from queue is canceled. Probably there is a bug.");
+                logger.warn("Future task from queue is canceled. Probably there is a bug, request=[{}]",
+                        queueItem.getFetchTaskRequest());
             }
             if (!future.isDone()) {
-                logger.info("Future task still not done. Status will be rechecked in the next iteration.");
+                logger.info("Future task still not done. Status will be rechecked in the next iteration, request=[{}]",
+                        queueItem.getFetchTaskRequest());
                 return;
             }
             this.shouldNoAcceptNewTask = future.get();
             if (shouldNoAcceptNewTask) {
+                futuresQueue.poll();
                 stop();
             }
         } catch (RuntimeException ex) {
-            logger.warn("Smth went wrong while checking vacancy load task status", ex);
+            logger.warn("Smth went wrong while checking vacancy load task status, request=[{}]",
+                    queueItem != null ? queueItem.getFetchTaskRequest() : null, ex);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
-            logger.error("Failed to stop", e);
+            logger.error("Failed to stop, request=[{}]", queueItem.getFetchTaskRequest(), e);
             Thread.currentThread().interrupt();
         }
     }
 
-    public void acceptNewFutureTask(@NotNull Future<Boolean> newFuture) {
+    public void acceptNewFutureTask(@NotNull FetchTaskRequest fetchTaskRequest,
+                                    @NotNull Future<Boolean> newFuture) {
         if (newFuture.isCancelled()) {
             logger.warn("Accepted by status checker future is already canceled");
             return;
         }
         if (!newFuture.isDone()) {
-            futuresQueue.add(newFuture);
+            futuresQueue.add(new StatusCheckerQueueItem(fetchTaskRequest, newFuture));
         }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class StatusCheckerQueueItem {
+
+        private final FetchTaskRequest fetchTaskRequest;
+        private final Future<Boolean> future;
+
     }
 
 

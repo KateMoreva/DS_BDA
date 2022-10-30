@@ -11,8 +11,6 @@ import ru.spbstu.search.entity.entry.AbstractEntityEntry;
 
 public class MetroLine extends AbstractEntityEntry implements ISearchParam {
     public static final MetroLine NULL_METRO_LINE = new MetroLine();
-    public static final MetroLineEntity MOSCOW = MetroInitializer.getInstance().getMetroCities().getByName("Москва").getLines();
-    public static final MetroLineEntity SAINT_PETERSBURG = MetroInitializer.getInstance().getMetroCities().getByName("Санкт-Петербург").getLines();
 
     @Getter
     @Setter

@@ -1,9 +1,6 @@
 package ru.spbstu.search.entity.entry.enties.vacancy;
 
 import com.google.gson.annotations.SerializedName;
-import ru.spbstu.loader.ContentLoaderFactory;
-import ru.spbstu.loader.IContentLoader;
-import ru.spbstu.loader.UrlConstants;
 import lombok.Getter;
 import lombok.Setter;
 import ru.spbstu.search.SearchException;
@@ -17,8 +14,6 @@ import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerSingle;
-import ru.spbstu.search.parser.IParser;
-import ru.spbstu.search.parser.VacancyParser;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -80,9 +75,6 @@ public class Vacancy implements IEntityEntry {
     private VacancyType type = VacancyType.NULL_VACANCY_TYPE;
     @Setter
     private List<ProfField> profFields = new ArrayList<>(0);
-    private IContentLoader loader = ContentLoaderFactory.newInstanceLongTermCache();
-    private IParser<Vacancy> parser = new VacancyParser();
-    private boolean singleVacancyLoaded = false;
 
     public Salary getSalary() {
         if (salary == null) {
@@ -97,55 +89,32 @@ public class Vacancy implements IEntityEntry {
         assert (salary != null);
     }
 
-    public Schedule getSchedule() throws SearchException {
-        loadSingleVacancy();
+    public Schedule getSchedule() {
         return schedule;
     }
 
-    public Boolean getAcceptHandicapped() throws SearchException {
-        loadSingleVacancy();
+    public Boolean getAcceptHandicapped() {
         return acceptHandicapped;
     }
 
-    public Experience getExperience() throws SearchException {
-        loadSingleVacancy();
+    public Experience getExperience() {
         return experience;
     }
 
-    public Employment getEmployment() throws SearchException {
-        loadSingleVacancy();
+    public Employment getEmployment() {
         return employment;
     }
 
-    public Boolean getArchived() throws SearchException {
-        loadSingleVacancy();
+    public Boolean getArchived() {
         return archived;
     }
 
-    public List<ProfField> getProfFields() throws SearchException {
-        loadSingleVacancy();
+    public List<ProfField> getProfFields() {
         return profFields;
     }
 
-    public String getDescription() throws SearchException {
-        loadSingleVacancy();
+    public String getDescription() {
         return description;
-    }
-
-    private void loadSingleVacancy() throws SearchException {
-        if (!singleVacancyLoaded) {
-            String content = loader.loadContent(format(UrlConstants.VACANCY_URL, getId()));
-            Vacancy vacancy = parser.parse(content);
-            vacancy.singleVacancyLoaded = true;
-            setDescription(vacancy.getDescription());
-            setSchedule(vacancy.getSchedule());
-            setAcceptHandicapped(vacancy.getAcceptHandicapped());
-            setExperience(vacancy.getExperience());
-            setEmployment(vacancy.getEmployment());
-            setArchived(vacancy.getArchived());
-            setProfFields(vacancy.getProfFields());
-            singleVacancyLoaded = true;
-        }
     }
 
     public Address getAddress() {

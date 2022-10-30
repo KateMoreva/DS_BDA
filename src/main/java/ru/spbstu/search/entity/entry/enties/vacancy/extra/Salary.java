@@ -16,36 +16,12 @@ public class Salary implements ISearchParam {
     private Boolean gross;
 
     public Salary() {
-        this(NULL_VALUE);
     }
-
-
-    public Salary(Integer salary) {
-        this(salary, salary, Constants.Currency.RUR);
-    }
-
 
     public Salary(Integer from, Integer to, Currency currency) {
         setFrom(from);
         setTo(to);
         setCurrency(currency);
-    }
-
-    public static Salary toRur(Salary salary) {
-        Salary salaryRur = new Salary();
-        Currency currency = salary.getCurrency();
-
-        Integer from = salary.getFrom();
-        Integer fromRur = (from != null) ? new Double(from / currency.getRate()).intValue() : null;
-        salaryRur.setFrom(fromRur);
-
-        Integer to = salary.getTo();
-        Integer toRur = (to != null) ? new Double(to / currency.getRate()).intValue() : null;
-        salaryRur.setTo(toRur);
-
-        salaryRur.setCurrency(Constants.Currency.RUR);
-
-        return salaryRur;
     }
 
     @Override

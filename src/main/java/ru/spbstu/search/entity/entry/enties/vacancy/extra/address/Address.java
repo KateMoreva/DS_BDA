@@ -39,18 +39,12 @@ public class Address {
         setCity(NULL_CITY);
     }
 
-    public boolean isNull() {
-        boolean cityEmpty = (getCity() == null || getCity().isEmpty());
-        boolean metroEmpty = getStation().isNull();
-        return ((cityEmpty && metroEmpty) || NULL_CITY.equalsIgnoreCase(getCity()));
-    }
-
-    public MetroStation getStation() {
-        return (station != null) ? MetroStation.getStationById(station.getStationId()) : MetroStation.NULL_METRO_STATION;
+    public Station getStation() {
+        return station;
     }
 
     @Data
-    static final class Station {
+    public static final class Station {
         @SerializedName("station_id")
         private String stationId;
     }

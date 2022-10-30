@@ -1,12 +1,10 @@
 package ru.spbstu.storage.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.util.Date;
 
 @Document(
         indexName = "vacancy_idx"
@@ -16,6 +14,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class VacancyIndexDocument {
 
     @Id
@@ -27,7 +26,7 @@ public class VacancyIndexDocument {
     private SalaryIndexDocument salary;
     private AddressIndexDocument address;
     private EmployerIndexDocument employer;
-    private long createdAt;
+    private Date createdAt;
     private ScheduleIndexDocument schedule;
 
 }

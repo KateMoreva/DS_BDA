@@ -3,7 +3,7 @@ package ru.spbstu.search;
 import static java.lang.String.format;
 
 public final class Page implements ISearchParam {
-    public static final int MIN_PAGE = 1;
+    public static final int MIN_PAGE = 0;
     private Integer page;
 
     public Page(Integer page) throws SearchException {

@@ -2,14 +2,22 @@ package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Constants;
+import org.springframework.stereotype.Component;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Currency;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 
 import java.lang.reflect.Type;
 
 @Slf4j
+@Component
 public class SalaryDeserializer implements JsonDeserializer<Salary> {
+
+    private final ConstantsProvider constants;
+
+    public SalaryDeserializer(ConstantsProvider constants) {
+        this.constants = constants;
+    }
 
     @Override
     public Salary deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
@@ -26,7 +34,7 @@ public class SalaryDeserializer implements JsonDeserializer<Salary> {
             Currency currency = null;
             if (currencyElement.isJsonPrimitive()) {
                 String currencyId = currencyElement.getAsString();
-                currency = Constants.Currency.CURRENCIES.getById(currencyId);
+                currency = constants.getCurrency().CURRENCIES.getById(currencyId);
             }
 
             return new Salary(from, to, currency);

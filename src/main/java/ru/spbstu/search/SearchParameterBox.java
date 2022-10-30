@@ -46,6 +46,11 @@ public final class SearchParameterBox {
         }
     }
 
+    public SearchParameterBox addParameter(ISearchParam searchParam) throws SearchException {
+        addParameter(searchParam.getSearchParameters());
+        return this;
+    }
+
     public Map<SearchParamNames, List<String>> getParameterMap() {
         return params;
     }

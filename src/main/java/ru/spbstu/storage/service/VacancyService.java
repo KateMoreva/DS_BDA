@@ -3,10 +3,15 @@ package ru.spbstu.storage.service;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.Lifecycle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.spbstu.search.SearchComponent;
 import ru.spbstu.storage.controller.FetchTaskRequest;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+import ru.spbstu.storage.repository.VacancyRepository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -15,14 +20,33 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class VacancyService implements Lifecycle {
+public class VacancyService {
 
     private static final int POOL_SIZE = Runtime.getRuntime().availableProcessors() / 2;
 
     private static final Logger logger = LoggerFactory.getLogger(VacancyService.class);
 
+    private final SearchComponent searchComponent;
+    private final VacancyRepository vacancyRepository;
+    private final VacancyIndexDocumentConverter converter;
     private ExecutorService executorService;
     private volatile boolean running;
+
+    @Autowired
+    public VacancyService(SearchComponent searchComponent,
+                          VacancyRepository vacancyRepository,
+                          VacancyIndexDocumentConverter converter) {
+        this.searchComponent = searchComponent;
+        this.vacancyRepository = vacancyRepository;
+        this.converter = converter;
+    }
+
+    @PostConstruct
+    public void start() {
+        logger.info("start");
+        running = true;
+        executorService = Executors.newFixedThreadPool(POOL_SIZE);
+    }
 
     public void submit(@NotNull FetchTaskRequest request) {
         if (!running) {
@@ -30,6 +54,7 @@ public class VacancyService implements Lifecycle {
             return;
         }
         VacancyLoadTaskStatusChecker statusChecker = new VacancyLoadTaskStatusChecker();
+        statusChecker.start();
         splitFetchTaskRequest(request).forEach(req -> schedule(req, statusChecker));
     }
 
@@ -61,6 +86,9 @@ public class VacancyService implements Lifecycle {
     private void schedule(@NotNull FetchTaskRequest request,
                           @NotNull VacancyLoadTaskStatusChecker statusChecker) {
           LoadVacanciesTask loadVacanciesTask = new LoadVacanciesTask(
+                  searchComponent,
+                  vacancyRepository,
+                  converter,
                   request.getDateFrom(),
                   request.getDateTo(),
                   request.getSpecialisationId(),
@@ -68,18 +96,11 @@ public class VacancyService implements Lifecycle {
                   request.getFromPage(),
                   request.getToPage()
           );
-          Future<?> future = executorService.submit(loadVacanciesTask);
-          statusChecker.acceptNewFutureTask(future);
+          Future<Boolean> future = executorService.submit(loadVacanciesTask);
+          statusChecker.acceptNewFutureTask(request, future);
     }
 
-    @Override
-    public void start() {
-        logger.info("start");
-        running = true;
-        executorService = Executors.newFixedThreadPool(POOL_SIZE);
-    }
-
-    @Override
+    @PreDestroy
     public void stop() {
         logger.info("stop");
         running = false;
@@ -93,8 +114,4 @@ public class VacancyService implements Lifecycle {
         }
     }
 
-    @Override
-    public boolean isRunning() {
-        return false;
-    }
 }

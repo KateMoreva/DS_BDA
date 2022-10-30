@@ -18,6 +18,6 @@ public class SalaryIndexDocument {
     private Integer from;
     private Integer to;
     private String currency;
-    private boolean gross;
+    private Boolean gross;
 
 }

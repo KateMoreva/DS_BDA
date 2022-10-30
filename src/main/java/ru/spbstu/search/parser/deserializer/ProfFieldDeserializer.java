@@ -55,7 +55,7 @@ public class ProfFieldDeserializer implements JsonDeserializer<ProfFieldEntity> 
         Specialization newSpecialization;
         String specId = specialization.get("id").getAsString();
         if (specId != null && !specId.isEmpty()) {
-            newSpecialization = new Specialization();
+            newSpecialization = new Specialization(null);
             newSpecialization.setId(specId);
             newSpecialization.setName(specialization.get("name").getAsString());
         } else {

@@ -6,7 +6,6 @@ import java.net.URL;
 
 public class MetroCity extends AbstractEntityEntry {
     public static final MetroCity NULL_METRO_CITY = new MetroCity();
-    public static final MetroCityEntity CITIES = MetroInitializer.getInstance().getMetroCities();
     private URL url;
     private MetroLineEntity lines = new MetroLineEntity();
 

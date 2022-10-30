@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.util.List;
 
 @Data
-@ToString(exclude = "items")
+@ToString//(exclude = "items")
 public class VacancyPage {
 
     private Integer found;

@@ -1,78 +1,83 @@
 package ru.spbstu.loader;
 
-import ru.spbstu.loader.cache.ICache;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.MapUtils;
+import org.jetbrains.annotations.NotNull;
 import ru.spbstu.search.SearchException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class ContentLoader implements IContentLoader {
-    private final Map<String, String> headers = new HashMap<>();
-    private final Map<String, List<String>> params = new HashMap<>();
-    private final ICache storage;
 
-    ContentLoader(ICache storage) {
-        this.storage = storage;
+    private static final int CLIENT_POOL_SIZE = Runtime.getRuntime().availableProcessors() / 2;
+    private static final int CLIENT_TIMEOUT = 10000;
+    private final HttpClient client;
+
+    ContentLoader() {
+        final ExecutorService clientES = Executors.newFixedThreadPool(
+                CLIENT_POOL_SIZE,
+                new ThreadFactoryBuilder()
+                        .setNameFormat("async-client-%d")
+                        .setUncaughtExceptionHandler((t, e) -> log.error("Error when processing request in: {}", t, e))
+                        .build()
+        );
+        this.client = java.net.http.HttpClient.newBuilder()
+                .executor(clientES)
+                .connectTimeout(Duration.ofMillis(CLIENT_TIMEOUT))
+                .version(java.net.http.HttpClient.Version.HTTP_2)
+                .build();
+    }
+
+    public static HttpRequest buildRequest(@NotNull String url) {
+        try {
+            return HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .timeout(Duration.ofMillis(CLIENT_TIMEOUT))
+                    .header("Accept", "application/json")
+                    .header("User-Agent", "")
+                    .GET()
+                    .build();
+        } catch (URISyntaxException e) {
+            log.error("Cannot construct URI for [{}]", url);
+            throw new IllegalArgumentException("Failed to create URI", e);
+        }
     }
 
     @Override
-    public String loadContent(String url) throws SearchException {
-        assert (url != null);
+    public String loadContent(@NotNull String url,
+                              @NotNull Map<String, List<String>> params) throws SearchException {
         try {
-            String urlWithParams = appendParameters(url);
-            String cachedContent = storage.search(urlWithParams);
-            if (cachedContent != null && !cachedContent.isEmpty()) {
-                return cachedContent;
-            } else {
-                String content = loadUrlContent(urlWithParams);
-                storage.save(urlWithParams, content);
-                return content;
+            String urlWithParams = appendParameters(url, params);
+            HttpRequest httpRequest = buildRequest(urlWithParams);
+            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("smth went wrong");
             }
-        } catch (IOException e) {
+            return response.body();
+        } catch (IOException | InterruptedException e) {
             log.error(e.getMessage(), e);
             throw new SearchException(e);
         }
     }
 
-    @Override
-    public void addHeader(String key, String value) {
-        headers.put(key, value);
-    }
-
-    @Override
-    public void addParam(String key, String value) {
-        if (!params.containsKey(key)) {
-            params.put(key, new ArrayList<>(List.of(value)));
-        } else {
-            List<String> values = params.get(key);
-            values.add(value);
+    @NotNull
+    private String appendParameters(@NotNull String url,
+                                    @NotNull Map<String, List<String>> params) {
+        if (MapUtils.isEmpty(params)) {
+            return url;
         }
-    }
-
-    private String loadUrlContent(String url) throws IOException {
-        URL hhUrl = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) hhUrl.openConnection();
-        connection.setRequestMethod("GET");
-        addHeader("User-Agent", "");
-        addHeader("Accept", "application/json");
-        setHeaders(connection);
-        connection.connect();
-        String content = readInputStreamToString(connection);
-        connection.disconnect();
-        return content;
-    }
-
-    private String appendParameters(String url) {
         StringBuilder builder = new StringBuilder(url);
         for (String key : params.keySet()) {
             for (String value : params.get(key)) {
@@ -89,25 +94,4 @@ public class ContentLoader implements IContentLoader {
         return builder.toString();
     }
 
-    private void setHeaders(HttpURLConnection connection) {
-        for (String key : headers.keySet()) {
-            connection.setRequestProperty(key, headers.get(key));
-        }
-    }
-
-    private String readInputStreamToString(HttpURLConnection conn)
-            throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                conn.getInputStream(), StandardCharsets.UTF_8));
-        StringBuilder builder = new StringBuilder();
-        while (true) {
-            String line = reader.readLine();
-            if (line != null) {
-                builder.append(line);
-            } else {
-                break;
-            }
-        }
-        return builder.toString();
-    }
 }

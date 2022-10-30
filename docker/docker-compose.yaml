@@ -2,27 +2,22 @@ version: "3.0"
 services:
   elasticsearch:
     container_name: elastic-container
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
+    image: elasticsearch:7.5.2
     environment:
       - cluster.name=elastic-cluster
       - xpack.security.enabled=false
       - "discovery.type=single-node"
     volumes:
-      - esdata:/usr/share/elasticsearch/data
-      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./esdata:/usr/share/elasticsearch/data
     networks:
       - ek-net
     ports:
       - 9200:9200
   kibana:
     container_name: kibana-container
-    image: docker.elastic.co/kibana/kibana:7.13.4
+    image: kibana:7.5.2
     environment:
       - ELASTICSEARCH_HOSTS=http://elastic-container:9200
-
-    volumes:
-      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
-
     networks:
       - ek-net
     depends_on:
