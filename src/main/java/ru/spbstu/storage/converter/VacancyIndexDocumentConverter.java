@@ -97,11 +97,11 @@ public class VacancyIndexDocumentConverter {
 
         String name = vacancy.getName();
         VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
-        String specialization_sf = vacancyNameParser.getSpecialization();
-        String field_sf = vacancyNameParser.getField();
-        String subdomain_sf = vacancyNameParser.getSubDomain();
-        String level_sf = vacancyNameParser.getLevel();
-        String language_sf = vacancyNameParser.getLanguage();
+        String specializationSf = vacancyNameParser.getSpecialization();
+        String fieldSf = vacancyNameParser.getField();
+        String subdomainSf = vacancyNameParser.getSubDomain();
+        String levelSf = vacancyNameParser.getLevel();
+        String languageSf = vacancyNameParser.getLanguage();
 
         return new VacancyIndexDocument(
             Long.parseLong(vacancy.getId()),
@@ -114,11 +114,11 @@ public class VacancyIndexDocumentConverter {
             employerIndexDocument,
             vacancy.getCreatedAt(),
             scheduleIndexDocument,
-            specialization_sf,
-            field_sf,
-            subdomain_sf,
-            level_sf,
-            language_sf
+            specializationSf,
+            fieldSf,
+            subdomainSf,
+            levelSf,
+            languageSf
         );
     }
 

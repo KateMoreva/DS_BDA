@@ -1,0 +1,33 @@
+{
+  "IOS": [
+    "ios",
+    "айос"
+  ],
+  "Android": [
+    "android",
+    "андроид"
+  ],
+  "Multi mobile": [
+    "Multi"
+  ],
+  "Desktop": [
+    "desktop",
+    "windows",
+    "linux",
+    "mac",
+    "десктоп"
+  ],
+  "NLP": [
+    "nlp"
+  ],
+  "NER": [
+    "ner"
+  ],
+  "NLU": [
+    "nlu"
+  ],
+  "Recommendation Systems": [
+    "recommendation",
+    "рекоменда"
+  ]
+}
