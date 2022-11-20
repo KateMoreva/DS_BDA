@@ -23,23 +23,25 @@
     "игр"
   ],
   "AI": [
-    "ai",
-    "Artificial intelligence",
+    "ai ",
+    "ml ",
+    "artificial intelligence",
+    "machine learning",
     "искусственному интеллекту",
     "машинному обучению"
   ],
   "QA": [
-    "qa",
+    "qa ",
     "quality assurance",
     "тестировщик",
     "тестированию"
   ],
   "Analytics": [
-    "Analytics",
+    "analytics",
     "аналитик"
   ],
   "Automation": [
-    "Automation",
+    "automation",
     "автоматизации"
   ],
   "DevOps": [
@@ -48,21 +50,21 @@
     "инфраструктурный"
   ],
   "Cloud": [
-    "Cloud",
+    "cloud",
     "обла"
   ],
   "Cybersecurity": [
-    "Cybersecurity",
+    "cybersecurity",
     "безопасности",
     "хакер"
   ],
   "Data analytics": [
-    "Data analytics",
+    "data analytics",
     "сайентист"
   ],
   "Database management": [
-    "Database management",
-    "баз"
+    "database management",
+    "баз "
   ],
   "Telecommunications": [
     "telecommunications",

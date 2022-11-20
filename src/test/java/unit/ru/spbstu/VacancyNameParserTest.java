@@ -9,7 +9,11 @@ class VacancyNameParserTest {
     private final String JJD = "Junior Java разработчик";
     private final String SCppD = "Senior C++/Qt developer";
     private final String M1C = "Разработчик 1C";
+    private final String QA = "Инженер по тестированию API/Backend (команда Единого видео)";
+    private final String MML = "Machine Learning Engineer в команду NLP разработки (Python)";
+    private final String MULTI = "Senior UX/UI Product Designer (Web, iOS, Android) ИТ-компания, удаленно";
     private final String WHO_KNOWS = "Ведущий специалист разработки проектов на ПЛИС";
+    private final String WHO_KNOWS2 = "Главный специалист разработчик программируемых логических интегральных схем";
 
 
     @Test
@@ -51,6 +55,21 @@ class VacancyNameParserTest {
         Assertions.assertEquals("Software engineer", spec);
         Assertions.assertEquals("", field);
         Assertions.assertEquals("", sub);
+    }
+
+    @Test
+    void parse_MML(){
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(MML);
+        String language = vacancyNameParser.getLanguage();
+        String spec = vacancyNameParser.getSpecialization();
+        String field = vacancyNameParser.getField();
+        String sub = vacancyNameParser.getSubDomain();
+        String level = vacancyNameParser.getLevel();
+        Assertions.assertEquals("Middle", level);
+        Assertions.assertEquals("Python", language);
+        Assertions.assertEquals("ML engineer", spec);
+        Assertions.assertEquals("AI", field);
+        Assertions.assertEquals("NLP", sub);
     }
 
     @Test

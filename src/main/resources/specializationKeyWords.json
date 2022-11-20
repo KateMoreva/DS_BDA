@@ -1,6 +1,6 @@
 {
   "QA": [
-    "qa",
+    "qa ",
     "тестировщик",
     "тестированию",
     "тестер",
@@ -9,6 +9,15 @@
   "Network engineer": [
     "network",
     "сетевой"
+  ],
+  "ML engineer": [
+    "ml ",
+    "machine learning",
+    "обучению"
+  ],
+  "AI engineer": [
+    "ai ",
+    "artificial intelligence"
   ],
   "Performance engineer": [
     "performance",
@@ -21,6 +30,7 @@
   "Embedded-system engineer": [
     "embedded",
     "встраиваемые",
+    "интегральн",
     "плис"
   ],
   "System engineer": [
@@ -28,9 +38,9 @@
     "системный"
   ],
   "DB engineer": [
-    "db",
+    "db ",
     "database",
-    "баз"
+    "баз "
   ],
   "Security engineer": [
     "security",
@@ -69,7 +79,7 @@
     "системный"
   ],
   "BI analyst": [
-    "bi",
+    "bi ",
     "business intelligence"
   ],
   "Business analyst": [
@@ -87,7 +97,7 @@
   "Product/Project manager": [
     "project",
     "product",
-    "pm",
+    "pm ",
     "менеджер"
   ],
   "Technical writer": [
@@ -95,7 +105,7 @@
     "писатель"
   ],
   "HR": [
-    "hr",
+    "hr ",
     "персоналу",
     "кадров"
   ],
@@ -104,7 +114,7 @@
     "гейм-дизайнер"
   ],
   "UI designer": [
-    "ui",
+    "ui ",
     "интерфейсов",
     "дизайнер"
   ],
