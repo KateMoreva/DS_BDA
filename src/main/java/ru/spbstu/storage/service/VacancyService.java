@@ -63,7 +63,24 @@ public class VacancyService {
         int fromPage = request.getFromPage();
         int toPage = request.getToPage();
         int pagesToProcess = toPage - fromPage;
-        return getFetchTaskRequests(request, pagesToProcess, pagesToProcess > POOL_SIZE ? (pagesToProcess / POOL_SIZE) : pagesToProcess);
+        int pagesPerOneProcess = pagesToProcess / POOL_SIZE;
+        int pagesPerOneProcessMod = pagesToProcess % POOL_SIZE;
+        List<FetchTaskRequest> fetchTaskRequests = new ArrayList<>();
+        int currentStartPage = 0;
+        for (int i = 0; i < POOL_SIZE; ++i) {
+            int realPagesPerOneProcess = pagesPerOneProcess + (pagesPerOneProcessMod != 0 ? 1 : 0);
+            pagesPerOneProcess--;
+            fetchTaskRequests.add(new FetchTaskRequest(
+                request.getDateFrom(),
+                request.getDateTo(),
+                request.getSpecialisationId(),
+                request.getLimitPerPage(),
+                currentStartPage,
+                currentStartPage + realPagesPerOneProcess
+            ));
+            currentStartPage = realPagesPerOneProcess;
+        }
+        return fetchTaskRequests;
     }
 
     @NotNull
