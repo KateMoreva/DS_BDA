@@ -8,6 +8,7 @@ import ru.spbstu.storage.converter.VacancyNameParser;
 class VacancyNameParserTest {
     private final String JJD = "Junior Java разработчик";
     private final String SCppD = "Senior C++/Qt developer";
+    private final String M1C = "Разработчик 1C";
     private final String WHO_KNOWS = "Ведущий специалист разработки проектов на ПЛИС";
 
 
@@ -38,6 +39,21 @@ class VacancyNameParserTest {
     }
 
     @Test
+    void parse_middle1C() {
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(M1C);
+        String language = vacancyNameParser.getLanguage();
+        String spec = vacancyNameParser.getSpecialization();
+        String field = vacancyNameParser.getField();
+        String sub = vacancyNameParser.getSubDomain();
+        String level = vacancyNameParser.getLevel();
+        Assertions.assertEquals("Middle", level);
+        Assertions.assertEquals("1C", language);
+        Assertions.assertEquals("Software engineer", spec);
+        Assertions.assertEquals("", field);
+        Assertions.assertEquals("", sub);
+    }
+
+    @Test
     void parse_whoKnows() {
         VacancyNameParser vacancyNameParser = new VacancyNameParser(WHO_KNOWS);
         String level = vacancyNameParser.getLevel();
@@ -51,5 +67,6 @@ class VacancyNameParserTest {
         Assertions.assertEquals("", field);
         Assertions.assertEquals("", sub);
     }
+
 
 }

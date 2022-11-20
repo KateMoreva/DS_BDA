@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -20,15 +19,21 @@ public class VacancyNameParser {
     private static final String FIELDS = "src/main/resources/fieldKeyWords.json";
     private static final String SUBDOMAIN = "src/main/resources/subdomainKeyWords.json";
     private static final String LANGUAGE = "src/main/resources/languagesKeyWords.json";
+
+    private static final String DEFAULT_KEY = "DEFAULT";
     private final String vacancyName;
+
+    private String detectedSpecialization;
 
     public VacancyNameParser(String vacancyName) {
         this.vacancyName = vacancyName.toLowerCase();
+        detectedSpecialization = "";
     }
 
     public String getSpecialization() {
         Map<String, List<String>> dictionary = getMap(SPECIALIZATION);
-        return findForMap(vacancyName, dictionary);
+        detectedSpecialization = findForMap(vacancyName, dictionary);
+        return detectedSpecialization;
     }
 
     public String getField() {
@@ -43,7 +48,11 @@ public class VacancyNameParser {
 
     public String getLevel() {
         Map<String, List<String>> dictionary = getMap(LEVELS);
-        return findForMap(vacancyName, dictionary);
+        String level = findForMap(vacancyName, dictionary);
+        if (level.isEmpty() && hasDefaultLevel()) {
+            return dictionary.get(DEFAULT_KEY).get(0);
+        }
+        return level;
     }
 
     public String getLanguage() {
@@ -51,8 +60,7 @@ public class VacancyNameParser {
         return findForMap(vacancyName, dictionary);
     }
 
-    private Map<String, List<String>> getMap(String file)
-    {
+    private Map<String, List<String>> getMap(String file) {
         Gson gson = new Gson();
         try {
             String json = new String(Files.readAllBytes(Paths.get(file)));
@@ -64,6 +72,7 @@ public class VacancyNameParser {
             return Collections.emptyMap();
         }
     }
+
     private String findForMap(String string, Map<String, List<String>> map) {
         for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
             if (nameAndValue.getValue().stream().anyMatch(string::contains)) {
@@ -71,5 +80,11 @@ public class VacancyNameParser {
             }
         }
         return "";
+    }
+
+    private boolean hasDefaultLevel() {
+        return !detectedSpecialization.isEmpty() &&
+            (detectedSpecialization.contains("engineer")
+                || detectedSpecialization.contains("QA"));
     }
 }
