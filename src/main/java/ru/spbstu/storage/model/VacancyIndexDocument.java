@@ -28,5 +28,10 @@ public class VacancyIndexDocument {
     private EmployerIndexDocument employer;
     private Date createdAt;
     private ScheduleIndexDocument schedule;
+    private String specialization_sf;
+    private String field_sf;
+    private String subdomain_sf;
+    private String level_sf;
+    private String language_sf;
 
 }

@@ -63,21 +63,27 @@ public class VacancyService {
         int fromPage = request.getFromPage();
         int toPage = request.getToPage();
         int pagesToProcess = toPage - fromPage;
-        int pagesPerOneProcess = pagesToProcess / POOL_SIZE;
+        return getFetchTaskRequests(request, pagesToProcess, pagesToProcess > POOL_SIZE ? (pagesToProcess / POOL_SIZE) : pagesToProcess);
+    }
+
+    @NotNull
+    private List<FetchTaskRequest> getFetchTaskRequests(@NotNull FetchTaskRequest request, int pagesToProcess, int pagesPerOneProcess) {
         int pagesPerOneProcessMod = pagesToProcess % POOL_SIZE;
         List<FetchTaskRequest> fetchTaskRequests = new ArrayList<>();
         int currentStartPage = 0;
         for (int i = 0; i < POOL_SIZE; ++i) {
             int realPagesPerOneProcess = pagesPerOneProcess + (pagesPerOneProcessMod != 0 ? 1 : 0);
             pagesPerOneProcess--;
-            fetchTaskRequests.add(new FetchTaskRequest(
-                    request.getDateFrom(),
-                    request.getDateTo(),
-                    request.getSpecialisationId(),
-                    request.getLimitPerPage(),
-                    currentStartPage,
-                    currentStartPage + realPagesPerOneProcess
-            ));
+            FetchTaskRequest fetchTaskRequest = new FetchTaskRequest(
+                request.getDateFrom(),
+                request.getDateTo(),
+                request.getSpecialisationId(),
+                request.getLimitPerPage(),
+                currentStartPage,
+                currentStartPage + realPagesPerOneProcess
+            );
+            logger.info("FetchTaskRequest [{}]", fetchTaskRequest);
+            fetchTaskRequests.add(fetchTaskRequest);
             currentStartPage = realPagesPerOneProcess;
         }
         return fetchTaskRequests;
@@ -96,6 +102,7 @@ public class VacancyService {
                   request.getFromPage(),
                   request.getToPage()
           );
+          logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
           Future<Boolean> future = executorService.submit(loadVacanciesTask);
           statusChecker.acceptNewFutureTask(request, future);
     }

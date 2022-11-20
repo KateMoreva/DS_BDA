@@ -31,6 +31,7 @@ public class VacancyLoadTaskStatusChecker {
     private boolean shouldNoAcceptNewTask;
 
     public void start() {
+        logger.info("Start vacancy load status checker executor service");
         checkerService.scheduleAtFixedRate(
                 this::checkStatus,
                 CHECKER_INITIAL_DELAY,
@@ -41,6 +42,7 @@ public class VacancyLoadTaskStatusChecker {
 
     public void stop() {
         try {
+            logger.info("Stop vacancy load status checker executor service");
             checkerService.shutdownNow();
         } catch (RuntimeException ex) {
             logger.warn("Failed to correctly stop vacancy load status checker executor service", ex);

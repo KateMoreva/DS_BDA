@@ -1,11 +1,19 @@
 package ru.spbstu.storage.service;
 
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.checkerframework.common.subtyping.qual.Bottom;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.spbstu.search.*;
+
+import ru.spbstu.search.Page;
+import ru.spbstu.search.PerPage;
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParameterBox;
 import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
@@ -14,9 +22,6 @@ import ru.spbstu.search.param.DateTo;
 import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import ru.spbstu.storage.model.VacancyIndexDocument;
 import ru.spbstu.storage.repository.VacancyRepository;
-
-import java.util.List;
-import java.util.concurrent.Callable;
 
 public class LoadVacanciesTask implements Callable<Boolean> {
 
@@ -58,11 +63,11 @@ public class LoadVacanciesTask implements Callable<Boolean> {
         try {
             for (int page = fromPage; page < toPage; ++page) {
                 VacancyPage vacancyPage = searchComponent.search(new SearchParameterBox()
-                        .addParameter(new PerPage(limitPerPage))
-                        .addParameter(new Page(page))
-                        .addParameter(new Specialization(specialisationId))
-                        .addParameter(new DateFrom(dateFrom))
-                        .addParameter(new DateTo(dateTo)));
+                    .addParameter(new PerPage(limitPerPage))
+                    .addParameter(new Page(page))
+                    .addParameter(new Specialization(specialisationId))
+                    .addParameter(new DateFrom(dateFrom))
+                    .addParameter(new DateTo(dateTo)));
                 if (vacancyPage == null || CollectionUtils.isEmpty(vacancyPage.getItems())) {
                     logger.info("Vacancy page is null. No more results?");
                     return true;
@@ -71,9 +76,9 @@ public class LoadVacanciesTask implements Callable<Boolean> {
             }
         } catch (SearchException e) {
             logger.error("Failed to load vacancy page with next params: \n" +
-                            "dateFrom=[{}], dateTo=[{}], specialisationId=[{}], \n" +
-                            "limitPerPage=[{}], fromPage=[{}], toPage=[{}]",
-                    dateFrom, dateTo, specialisationId, limitPerPage, fromPage, toPage);
+                    "dateFrom=[{}], dateTo=[{}], specialisationId=[{}], \n" +
+                    "limitPerPage=[{}], fromPage=[{}], toPage=[{}]",
+                dateFrom, dateTo, specialisationId, limitPerPage, fromPage, toPage);
             return false;
         }
         return true;
@@ -92,4 +97,18 @@ public class LoadVacanciesTask implements Callable<Boolean> {
         }
     }
 
+    @Override
+    public String toString() {
+        return "LoadVacanciesTask{" +
+            "searchComponent=" + searchComponent +
+            ", vacancyRepository=" + vacancyRepository +
+            ", converter=" + converter +
+            ", dateFrom='" + dateFrom + '\'' +
+            ", dateTo='" + dateTo + '\'' +
+            ", specialisationId='" + specialisationId + '\'' +
+            ", limitPerPage=" + limitPerPage +
+            ", fromPage=" + fromPage +
+            ", toPage=" + toPage +
+            '}';
+    }
 }

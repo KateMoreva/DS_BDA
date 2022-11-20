@@ -31,11 +31,11 @@ public class SalaryDeserializer implements JsonDeserializer<Salary> {
             Integer from = (fromElement.isJsonPrimitive()) ? fromElement.getAsInt() : null;
 
             JsonElement currencyElement = object.get("currency");
-            Currency currency = null;
-            if (currencyElement.isJsonPrimitive()) {
-                String currencyId = currencyElement.getAsString();
-                currency = constants.getCurrency().CURRENCIES.getById(currencyId);
-            }
+            String currency = (currencyElement.isJsonPrimitive()) ? currencyElement.getAsString() : null;
+//            if (currencyElement.isJsonPrimitive()) {
+//                String currencyId = currencyElement.getAsString();
+//                currency = constants.getCurrency().CURRENCIES.getById(currencyId);
+//            }
 
             return new Salary(from, to, currency);
         } catch (Exception e) {

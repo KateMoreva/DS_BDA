@@ -1,15 +1,17 @@
 package ru.spbstu.storage.converter;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.spbstu.search.SearchException;
+
+import lombok.extern.slf4j.Slf4j;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Currency;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.*;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStationProvider;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.LogoUrls;
@@ -40,85 +42,99 @@ public class VacancyIndexDocumentConverter {
     public VacancyIndexDocument converter(Vacancy vacancy) {
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
-                Long.parseLong(area.getId()),
-                area.getName()
+            Long.parseLong(area.getId()),
+            area.getName()
         );
         Salary rurSalary = toRur(vacancy.getSalary());
         SalaryIndexDocument salaryIndexDocument = new SalaryIndexDocument(
-                rurSalary.getFrom(),
-                rurSalary.getTo(),
-                rurSalary.getCurrency().getName(),
-                rurSalary.getGross()
+            rurSalary.getFrom(),
+            rurSalary.getTo(),
+            rurSalary.getCurrency(),
+            rurSalary.getGross()
         );
         Address address = vacancy.getAddress();
         Address.Station station = address.getStation();
         MetroStation metroStation = (station != null) ? metroStationProvider.getStationById(station.getStationId()) : MetroStation.NULL_METRO_STATION;
         MetroLine line = metroStation.getLine();
         MetroLineIndexDocument metroLineIndexDocument = line == null ? null : new MetroLineIndexDocument(
-                line.getId(),
-                line.getName(),
-                line.getCity().getName(),
-                line.getHexColor()
+            line.getId(),
+            line.getName(),
+            line.getCity().getName(),
+            line.getHexColor()
         );
         StationIndexDocument stationIndexDocument = new StationIndexDocument(
-                metroStation.getId(),
-                metroLineIndexDocument,
-                metroStation.getOrder(),
-                metroStation.getLat(),
-                metroStation.getLng()
+            metroStation.getId(),
+            metroLineIndexDocument,
+            metroStation.getOrder(),
+            metroStation.getLat(),
+            metroStation.getLng()
         );
         AddressIndexDocument addressIndexDocument = new AddressIndexDocument(
-                address.getCity(),
-                address.getStreet(),
-                address.getBuilding(),
-                stationIndexDocument,
-                address.getLat(),
-                address.getLng(),
-                address.getRaw()
+            address.getCity(),
+            address.getStreet(),
+            address.getBuilding(),
+            stationIndexDocument,
+            address.getLat(),
+            address.getLng(),
+            address.getRaw()
         );
         EmployerInVacancy employer = vacancy.getEmployer();
         LogoUrls logoUrls = employer.getLogoUrls();
         LogoUrlsIndexDocument logoUrlsIndexDocument = logoUrls == null ? null : new LogoUrlsIndexDocument(
-                logoUrls.getLogo90().toString(),
-                logoUrls.getLogo240().toString(),
-                logoUrls.getOriginal().toString()
+            logoUrls.getLogo90().toString(),
+            logoUrls.getLogo240().toString(),
+            logoUrls.getOriginal().toString()
         );
         EmployerIndexDocument employerIndexDocument = new EmployerIndexDocument(
-                employer.getId(),
-                employer.getName(),
-                employer.getUrl().toString(),
-                logoUrlsIndexDocument,
-                employer.getTrusted()
+            employer.getId(),
+            employer.getName(),
+            employer.getUrl().toString(),
+            logoUrlsIndexDocument,
+            employer.getTrusted()
         );
         Schedule schedule = vacancy.getSchedule();
         ScheduleIndexDocument scheduleIndexDocument = new ScheduleIndexDocument(schedule.getId(), schedule.getName());
+
+        String name = vacancy.getName();
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
+        String specialization_sf = vacancyNameParser.getSpecialization();
+        String field_sf = vacancyNameParser.getField();
+        String subdomain_sf = vacancyNameParser.getSubDomain();
+        String level_sf = vacancyNameParser.getLevel();
+        String language_sf = vacancyNameParser.getLanguage();
+
         return new VacancyIndexDocument(
-                Long.parseLong(vacancy.getId()),
-                vacancy.getName(),
-                vacancy.getUrl().toString(),
-                vacancy.getDescription(),
-                areaIndexDocument,
-                salaryIndexDocument,
-                addressIndexDocument,
-                employerIndexDocument,
-                vacancy.getCreatedAt(),
-                scheduleIndexDocument
+            Long.parseLong(vacancy.getId()),
+            name,
+            vacancy.getUrl().toString(),
+            vacancy.getDescription(),
+            areaIndexDocument,
+            salaryIndexDocument,
+            addressIndexDocument,
+            employerIndexDocument,
+            vacancy.getCreatedAt(),
+            scheduleIndexDocument,
+            specialization_sf,
+            field_sf,
+            subdomain_sf,
+            level_sf,
+            language_sf
         );
     }
 
     public Salary toRur(Salary salary) {
         Salary salaryRur = new Salary();
-        Currency currency = salary.getCurrency();
+        String currency = salary.getCurrency();
 
         Integer from = salary.getFrom();
-        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
-        salaryRur.setFrom(fromRur);
+//        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
+        salaryRur.setFrom(from);
 
         Integer to = salary.getTo();
-        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
-        salaryRur.setTo(toRur);
+//        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
+        salaryRur.setTo(to);
 
-        salaryRur.setCurrency(constants.getCurrency().RUR);
+        salaryRur.setCurrency(constants.getCurrency().RUR.toString());
 
         return salaryRur;
     }
