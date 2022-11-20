@@ -23,15 +23,15 @@
     "игр"
   ],
   "AI": [
-    "ai ",
-    "ml ",
+    " ai ",
+    " ml ",
     "artificial intelligence",
     "machine learning",
     "искусственному интеллекту",
     "машинному обучению"
   ],
   "QA": [
-    "qa ",
+    " qa ",
     "quality assurance",
     "тестировщик",
     "тестированию"
@@ -64,7 +64,7 @@
   ],
   "Database management": [
     "database management",
-    "баз "
+    " баз "
   ],
   "Telecommunications": [
     "telecommunications",

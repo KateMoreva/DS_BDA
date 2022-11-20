@@ -26,7 +26,7 @@ public class VacancyNameParser {
     private String detectedSpecialization;
 
     public VacancyNameParser(String vacancyName) {
-        this.vacancyName = vacancyName.toLowerCase();
+        this.vacancyName = " " + vacancyName.toLowerCase();
         detectedSpecialization = "";
     }
 

@@ -23,18 +23,18 @@
     "котлин"
   ],
   "Golang": [
-    "go",
+    " go",
     "golang",
-    "го ",
+    " го ",
     "голанг"
   ],
   "JS": [
-    "js ",
+    " js ",
     "javascript",
     "java script"
   ],
   "TS": [
-    "ts ",
+    " ts ",
     "typescript",
     "type script"
   ],
@@ -51,9 +51,9 @@
     "1с"
   ],
   "C": [
-    "c ",
-    "с ",
-    "си "
+    " c ",
+    " с ",
+    " си "
   ],
   "SQL": [
     "sql"
@@ -141,8 +141,8 @@
     "эйфель"
   ],
   "Ada": [
-    "ada",
-    "ада"
+    " ada ",
+    " ада "
   ],
   "Erlang": [
     "erlang",
@@ -152,7 +152,7 @@
     "f#"
   ],
   "R": [
-    "r "
+    " r "
   ],
   "DataFlex": [
     "dataflex"

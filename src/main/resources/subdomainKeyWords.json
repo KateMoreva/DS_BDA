@@ -14,17 +14,17 @@
     "desktop",
     "windows",
     "linux",
-    "mac ",
+    " mac ",
     "десктоп"
   ],
   "NLP": [
-    "nlp "
+    " nlp "
   ],
   "NER": [
-    "ner "
+    " ner "
   ],
   "NLU": [
-    "nlu "
+    " nlu "
   ],
   "Recommendation Systems": [
     "recommendation",
