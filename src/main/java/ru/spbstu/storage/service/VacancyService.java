@@ -1,23 +1,26 @@
 package ru.spbstu.storage.service;
 
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.spbstu.search.SearchComponent;
-import ru.spbstu.storage.controller.FetchTaskRequest;
-import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
-import ru.spbstu.storage.repository.VacancyRepository;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.storage.controller.FetchTaskRequest;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+import ru.spbstu.storage.repository.VacancyRepository;
 
 @Service
 public class VacancyService {
@@ -62,66 +65,54 @@ public class VacancyService {
     private List<FetchTaskRequest> splitFetchTaskRequest(@NotNull FetchTaskRequest request) {
         int fromPage = request.getFromPage();
         int toPage = request.getToPage();
-        int pagesToProcess = toPage - fromPage;
-        int pagesPerOneProcess = pagesToProcess / POOL_SIZE;
-        int pagesPerOneProcessMod = pagesToProcess % POOL_SIZE;
+        int pagesToProcess = toPage - fromPage + 1;// 2 - 0 + 1 = 3
+
+        int pagesPerOneProcess = pagesToProcess / POOL_SIZE; // 0
+
+        if (pagesPerOneProcess == 0) {
+            return Collections.singletonList(request);
+        }
+
+        int pagesPerOneProcessMod = pagesToProcess % POOL_SIZE; // 3
         List<FetchTaskRequest> fetchTaskRequests = new ArrayList<>();
         int currentStartPage = 0;
         for (int i = 0; i < POOL_SIZE; ++i) {
-            int realPagesPerOneProcess = pagesPerOneProcess + (pagesPerOneProcessMod != 0 ? 1 : 0);
-            pagesPerOneProcess--;
+            int realPagesPerOneProcess = pagesPerOneProcess + (pagesPerOneProcessMod != 0 ? 1 : 0); // 26 26 26 25
+            pagesPerOneProcessMod = pagesPerOneProcessMod > 0 ? pagesPerOneProcessMod - 1 : pagesPerOneProcessMod; // 2 1 0
+            int finalPage = currentStartPage + realPagesPerOneProcess >= pagesToProcess
+                ? currentStartPage + realPagesPerOneProcess : currentStartPage + realPagesPerOneProcess - 1;
             fetchTaskRequests.add(new FetchTaskRequest(
                 request.getDateFrom(),
                 request.getDateTo(),
                 request.getSpecialisationId(),
                 request.getLimitPerPage(),
-                currentStartPage,
-                currentStartPage + realPagesPerOneProcess
+                currentStartPage, // 0 26 52 78
+                finalPage // 25 51 77 103
             ));
-            currentStartPage = realPagesPerOneProcess;
-        }
-        return fetchTaskRequests;
-    }
-
-    @NotNull
-    private List<FetchTaskRequest> getFetchTaskRequests(@NotNull FetchTaskRequest request, int pagesToProcess, int pagesPerOneProcess) {
-        int pagesPerOneProcessMod = pagesToProcess % POOL_SIZE;
-        List<FetchTaskRequest> fetchTaskRequests = new ArrayList<>();
-        int currentStartPage = 0;
-        for (int i = 0; i < POOL_SIZE; ++i) {
-            int realPagesPerOneProcess = pagesPerOneProcess + (pagesPerOneProcessMod != 0 ? 1 : 0);
-            pagesPerOneProcess--;
-            FetchTaskRequest fetchTaskRequest = new FetchTaskRequest(
-                request.getDateFrom(),
-                request.getDateTo(),
-                request.getSpecialisationId(),
-                request.getLimitPerPage(),
-                currentStartPage,
-                currentStartPage + realPagesPerOneProcess
-            );
-            logger.info("FetchTaskRequest [{}]", fetchTaskRequest);
-            fetchTaskRequests.add(fetchTaskRequest);
-            currentStartPage = realPagesPerOneProcess;
+            currentStartPage += realPagesPerOneProcess; // 26 52 78
+            if (currentStartPage >= toPage) {
+                break;
+            }
         }
         return fetchTaskRequests;
     }
 
     private void schedule(@NotNull FetchTaskRequest request,
                           @NotNull VacancyLoadTaskStatusChecker statusChecker) {
-          LoadVacanciesTask loadVacanciesTask = new LoadVacanciesTask(
-                  searchComponent,
-                  vacancyRepository,
-                  converter,
-                  request.getDateFrom(),
-                  request.getDateTo(),
-                  request.getSpecialisationId(),
-                  request.getLimitPerPage(),
-                  request.getFromPage(),
-                  request.getToPage()
-          );
-          logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
-          Future<Boolean> future = executorService.submit(loadVacanciesTask);
-          statusChecker.acceptNewFutureTask(request, future);
+        LoadVacanciesTask loadVacanciesTask = new LoadVacanciesTask(
+            searchComponent,
+            vacancyRepository,
+            converter,
+            request.getDateFrom(),
+            request.getDateTo(),
+            request.getSpecialisationId(),
+            request.getLimitPerPage(),
+            request.getFromPage(),
+            request.getToPage()
+        );
+        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
+        Future<Boolean> future = executorService.submit(loadVacanciesTask);
+        statusChecker.acceptNewFutureTask(request, future);
     }
 
     @PreDestroy

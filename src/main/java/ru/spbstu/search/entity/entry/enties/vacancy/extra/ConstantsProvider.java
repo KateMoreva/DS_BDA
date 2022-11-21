@@ -18,7 +18,7 @@ public class ConstantsProvider {
     private Experience experience;
     private Schedule schedule;
     private Label label;
-    private LanguageLevel languageLevel;
+//    private LanguageLevel languageLevel;
     private VacancyType vacancyType;
     private VacancySearchFields vacancySearchFields;
     private EmployerType employerType;
@@ -38,7 +38,7 @@ public class ConstantsProvider {
         experience = new Experience();
         schedule = new Schedule();
         label = new Label();
-        languageLevel = new LanguageLevel();
+//        languageLevel = new LanguageLevel();
         vacancyType = new VacancyType();
         vacancySearchFields = new VacancySearchFields();
         employerType = new EmployerType();
@@ -73,9 +73,9 @@ public class ConstantsProvider {
         return label;
     }
 
-    public LanguageLevel getLanguageLevel() {
-        return languageLevel;
-    }
+//    public LanguageLevel getLanguageLevel() {
+//        return languageLevel;
+//    }
 
     public VacancyType getVacancyType() {
         return vacancyType;
@@ -295,35 +295,35 @@ public class ConstantsProvider {
      *
      * @see LanguageLevel
      */
-    public class LanguageLevel {
-        IEntity<ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel>
-                LANGUAGE_LEVELS = extraInfoInitializer.getLanguageLevel();
-        /**
-         * Базовые знания.
-         */
-        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
-                BASIC = LANGUAGE_LEVELS.getById("basic");
-        /**
-         * Читаю профессиональную литературу.
-         */
-        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
-                CAN_READ = LANGUAGE_LEVELS.getById("can_read");
-        /**
-         * Могу проходить интервью.
-         */
-        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
-                CAN_PASS_INTERVIEW = LANGUAGE_LEVELS.getById("can_pass_interview");
-        /**
-         * Свободно владею.
-         */
-        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
-                FLUENT = LANGUAGE_LEVELS.getById("fluent");
-        /**
-         * Родной.
-         */
-        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
-                NATIVE = LANGUAGE_LEVELS.getById("native");
-    }
+//    public class LanguageLevel {
+//        IEntity<ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel>
+//                LANGUAGE_LEVELS = extraInfoInitializer.getLanguageLevel();
+//        /**
+//         * Базовые знания.
+//         */
+//        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
+//                BASIC = LANGUAGE_LEVELS.getById("basic");
+//        /**
+//         * Читаю профессиональную литературу.
+//         */
+//        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
+//                CAN_READ = LANGUAGE_LEVELS.getById("can_read");
+//        /**
+//         * Могу проходить интервью.
+//         */
+//        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
+//                CAN_PASS_INTERVIEW = LANGUAGE_LEVELS.getById("can_pass_interview");
+//        /**
+//         * Свободно владею.
+//         */
+//        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
+//                FLUENT = LANGUAGE_LEVELS.getById("fluent");
+//        /**
+//         * Родной.
+//         */
+//        ru.spbstu.search.entity.entry.enties.vacancy.extra.LanguageLevel
+//                NATIVE = LANGUAGE_LEVELS.getById("native");
+//    }
 
     /**
      * Тип вакансии.

@@ -1,5 +1,7 @@
 package ru.spbstu.storage.converter;
 
+import java.net.URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -81,14 +83,16 @@ public class VacancyIndexDocumentConverter {
         EmployerInVacancy employer = vacancy.getEmployer();
         LogoUrls logoUrls = employer.getLogoUrls();
         LogoUrlsIndexDocument logoUrlsIndexDocument = logoUrls == null ? null : new LogoUrlsIndexDocument(
-            logoUrls.getLogo90().toString(),
-            logoUrls.getLogo240().toString(),
-            logoUrls.getOriginal().toString()
+            logoUrls.getLogo90() != null ? logoUrls.getLogo90().toString() : "",
+            logoUrls.getLogo240() != null ? logoUrls.getLogo240().toString() : "",
+            logoUrls.getOriginal() != null ? logoUrls.getOriginal().toString() : ""
         );
+        URL employerURl = employer.getUrl();
+        String url = employerURl != null ? employerURl.getPath() : "";
         EmployerIndexDocument employerIndexDocument = new EmployerIndexDocument(
             employer.getId(),
             employer.getName(),
-            employer.getUrl().toString(),
+            url,
             logoUrlsIndexDocument,
             employer.getTrusted()
         );

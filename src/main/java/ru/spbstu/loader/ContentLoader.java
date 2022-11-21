@@ -63,6 +63,7 @@ public class ContentLoader implements IContentLoader {
             HttpRequest httpRequest = buildRequest(urlWithParams);
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
+                log.error("Invalid response [{}]", response);
                 throw new RuntimeException("smth went wrong");
             }
             return response.body();

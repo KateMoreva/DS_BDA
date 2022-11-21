@@ -85,7 +85,6 @@ public class LoadVacanciesTask implements Callable<Boolean> {
     }
 
     public void indexPageResults(@NotNull VacancyPage vacancyPage) {
-        System.out.println(vacancyPage);
         List<Vacancy> vacancyList = vacancyPage.getItems();
         try {
             for (Vacancy vacancy : vacancyList) {
