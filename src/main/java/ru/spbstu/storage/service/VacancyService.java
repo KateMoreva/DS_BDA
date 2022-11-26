@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ru.spbstu.search.SearchComponent;
+import ru.spbstu.storage.controller.FetchByIdTaskRequest;
+import ru.spbstu.storage.controller.FetchIdsRangeTaskRequest;
 import ru.spbstu.storage.controller.FetchTaskRequest;
 import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import ru.spbstu.storage.repository.VacancyRepository;
@@ -59,6 +61,34 @@ public class VacancyService {
         VacancyLoadTaskStatusChecker statusChecker = new VacancyLoadTaskStatusChecker();
         statusChecker.start();
         splitFetchTaskRequest(request).forEach(req -> schedule(req, statusChecker));
+    }
+
+    public void submit(@NotNull FetchByIdTaskRequest request) {
+        if (!running) {
+            logger.warn("Component already stopped on request=[{}]", request);
+            return;
+        }
+        VacancyLoadTaskStatusChecker statusChecker = new VacancyLoadTaskStatusChecker();
+        statusChecker.start();
+        schedule(request, statusChecker);
+    }
+
+    public void submit(@NotNull FetchIdsRangeTaskRequest request) {
+        if (!running) {
+            logger.warn("Component already stopped on request=[{}]", request);
+            return;
+        }
+        VacancyLoadTaskStatusChecker statusChecker = new VacancyLoadTaskStatusChecker();
+        statusChecker.start();
+        try {
+            long from = Long.parseLong(request.getVacancyIdFrom());
+            long to = Long.parseLong(request.getVacancyIdTo());
+            for (long i = from; i <= to; i++) {
+                schedule(new FetchByIdTaskRequest(String.valueOf(i)), statusChecker);
+            }
+        } catch (NumberFormatException e) {
+            logger.warn("Rubbish range request [{}]", request);
+        }
     }
 
     @NotNull
@@ -109,6 +139,19 @@ public class VacancyService {
             request.getLimitPerPage(),
             request.getFromPage(),
             request.getToPage()
+        );
+        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
+        Future<Boolean> future = executorService.submit(loadVacanciesTask);
+        statusChecker.acceptNewFutureTask(request, future);
+    }
+
+    private void schedule(@NotNull FetchByIdTaskRequest request,
+                          @NotNull VacancyLoadTaskStatusChecker statusChecker) {
+        LoadVacancyByIdTask loadVacanciesTask = new LoadVacancyByIdTask(
+            searchComponent,
+            vacancyRepository,
+            converter,
+            request.getVacancyId()
         );
         logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
         Future<Boolean> future = executorService.submit(loadVacanciesTask);

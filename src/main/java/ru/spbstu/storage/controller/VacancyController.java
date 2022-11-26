@@ -24,4 +24,14 @@ public class VacancyController {
         vacancyService.submit(fetchTaskRequest);
     }
 
+    @RequestMapping(value = "/submitIdTask", method = RequestMethod.POST)
+    public void submit(@RequestBody @NotNull FetchByIdTaskRequest fetchByIdTaskRequest) {
+        vacancyService.submit(fetchByIdTaskRequest);
+    }
+
+    @RequestMapping(value = "/submitIdsTask", method = RequestMethod.POST)
+    public void submit(@RequestBody @NotNull FetchIdsRangeTaskRequest fetchIdsRangeTaskRequest) {
+        vacancyService.submit(fetchIdsRangeTaskRequest);
+    }
+
 }

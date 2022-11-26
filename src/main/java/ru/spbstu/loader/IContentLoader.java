@@ -10,4 +10,5 @@ public interface IContentLoader {
     String loadContent(@NotNull String url,
                        @NotNull Map<String, List<String>> params) throws SearchException;
 
+    String loadContent(@NotNull String urlWithParams) throws SearchException;
 }

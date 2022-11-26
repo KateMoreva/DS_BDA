@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Setter
-public class FetchTaskRequest {
+public class FetchTaskRequest implements TaskRequest {
 
     private String dateFrom;
     private String dateTo;

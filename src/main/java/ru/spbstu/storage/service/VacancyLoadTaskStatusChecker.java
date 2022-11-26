@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ru.spbstu.storage.controller.FetchTaskRequest;
+import ru.spbstu.storage.controller.TaskRequest;
 
 public class VacancyLoadTaskStatusChecker {
 
@@ -87,7 +87,7 @@ public class VacancyLoadTaskStatusChecker {
         }
     }
 
-    public void acceptNewFutureTask(@NotNull FetchTaskRequest fetchTaskRequest,
+    public void acceptNewFutureTask(@NotNull TaskRequest fetchTaskRequest,
                                     @NotNull Future<Boolean> newFuture) {
         if (newFuture.isCancelled()) {
             logger.warn("Accepted by status checker future is already canceled");
@@ -102,7 +102,7 @@ public class VacancyLoadTaskStatusChecker {
     @AllArgsConstructor
     public static class StatusCheckerQueueItem {
 
-        private final FetchTaskRequest fetchTaskRequest;
+        private final TaskRequest fetchTaskRequest;
         private final Future<Boolean> future;
     }
 }

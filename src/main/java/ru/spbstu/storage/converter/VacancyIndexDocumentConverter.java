@@ -110,7 +110,7 @@ public class VacancyIndexDocumentConverter {
         return new VacancyIndexDocument(
             Long.parseLong(vacancy.getId()),
             name,
-            vacancy.getUrl().toString(),
+            vacancy.getUrl() == null ? " " : vacancy.getUrl().toString(),
             vacancy.getDescription(),
             areaIndexDocument,
             salaryIndexDocument,
