@@ -50,15 +50,16 @@ public class VacancyIndexDocumentConverter {
         VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
         List<String> levelList = vacancyNameParser.getLevel();
         List<VacancyIndexDocument> vacancyIndexDocuments = new ArrayList<>();
+        int counter = 0;
         for (String level : levelList) {
-            vacancyIndexDocuments.add(processLevel(vacancyNameParser, vacancy, level));
+            vacancyIndexDocuments.add(processLevel(vacancyNameParser, vacancy, level, counter++));
         }
         return vacancyIndexDocuments;
     }
 
     private VacancyIndexDocument processLevel(@NotNull VacancyNameParser vacancyNameParser,
                                               @NotNull Vacancy vacancy,
-                                              @NotNull String levelSf) {
+                                              @NotNull String levelSf, int counter) {
         String specializationSf = vacancyNameParser.getSpecialization();
         String fieldSf = vacancyNameParser.getField();
         String subdomainSf = vacancyNameParser.getSubDomain();
@@ -126,7 +127,7 @@ public class VacancyIndexDocumentConverter {
         ScheduleIndexDocument scheduleIndexDocument = new ScheduleIndexDocument(schedule.getId(), schedule.getName());
 
         return new VacancyIndexDocument(
-                Long.parseLong(vacancy.getId()),
+                vacancy.getId() + "_" + counter,
                 vacancy.getName(),
                 vacancy.getUrl() == null ? " " : vacancy.getUrl().toString(),
                 vacancy.getDescription(),

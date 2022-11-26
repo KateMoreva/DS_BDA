@@ -23,8 +23,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class VacancyIndexDocument {
 
     @Id
-    @Field(type = FieldType.Long)
-    private long id;
+    @Field(type = FieldType.Text)
+    private String vacancyId;
     @Field(type = FieldType.Text)
     private String name;
     @Field(type = FieldType.Text)
