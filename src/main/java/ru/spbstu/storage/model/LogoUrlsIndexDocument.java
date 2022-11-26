@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Setter
 @Getter
@@ -15,8 +17,11 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LogoUrlsIndexDocument {
 
+    @Field(type = FieldType.Text)
     private String logo90;
+    @Field(type = FieldType.Text)
     private String logo240;
+    @Field(type = FieldType.Text)
     private String original;
 
 }

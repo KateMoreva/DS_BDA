@@ -3,6 +3,7 @@ package ru.spbstu.storage.converter;
 import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,20 +65,24 @@ public class VacancyIndexDocumentConverter {
             line.getCity().getName(),
             line.getHexColor()
         );
+        GeoPoint geoPoint = metroStation.getLng() == null || metroStation.getLat() == null
+                ? null
+                : new GeoPoint(metroStation.getLat(), metroStation.getLng());
         StationIndexDocument stationIndexDocument = new StationIndexDocument(
             metroStation.getId(),
             metroLineIndexDocument,
             metroStation.getOrder(),
-            metroStation.getLat(),
-            metroStation.getLng()
+            geoPoint
         );
+        geoPoint = address.getLng() == null || address.getLat() == null
+                ? null
+                : new GeoPoint(address.getLat(), address.getLng());
         AddressIndexDocument addressIndexDocument = new AddressIndexDocument(
             address.getCity(),
             address.getStreet(),
             address.getBuilding(),
             stationIndexDocument,
-            address.getLat(),
-            address.getLng(),
+            geoPoint,
             address.getRaw()
         );
         EmployerInVacancy employer = vacancy.getEmployer();

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 @Setter
 @Getter
@@ -17,10 +21,13 @@ import org.springframework.data.annotation.Id;
 public class StationIndexDocument {
 
     @Id
+    @Field(type = FieldType.Text)
     private String id;
+    @Field(type = FieldType.Object)
     private MetroLineIndexDocument line;
+    @Field(type = FieldType.Integer)
     private Integer order;
-    private Double lat;
-    private Double lng;
+    @GeoPointField
+    private GeoPoint geo;
 
 }

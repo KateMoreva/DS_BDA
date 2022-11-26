@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 @Setter
 @Getter
@@ -15,12 +19,17 @@ import lombok.ToString;
 @NoArgsConstructor
 public class AddressIndexDocument {
 
+    @Field(type = FieldType.Text)
     private String city;
+    @Field(type = FieldType.Text)
     private String street;
+    @Field(type = FieldType.Text)
     private String building;
+    @Field(type = FieldType.Object)
     private StationIndexDocument station;
-    private Double lat;
-    private Double lng;
+    @GeoPointField
+    private GeoPoint geo;
+    @Field(type = FieldType.Text)
     private String raw;
 
 }
