@@ -88,8 +88,8 @@ public class LoadVacanciesTask implements Callable<Boolean> {
         List<Vacancy> vacancyList = vacancyPage.getItems();
         try {
             for (Vacancy vacancy : vacancyList) {
-                VacancyIndexDocument indexDocument = converter.converter(vacancy);
-                vacancyRepository.save(indexDocument);
+                List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
+                vacancyRepository.saveAll(vacancyIndexDocuments);
             }
         } catch (RuntimeException ex) {
             ex.printStackTrace();

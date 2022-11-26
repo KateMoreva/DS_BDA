@@ -1,5 +1,6 @@
 package ru.spbstu.storage.service;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,8 +53,8 @@ public class LoadVacancyByIdTask implements Callable<Boolean> {
 
     public void indexPageResults(@NotNull Vacancy vacancy) {
         try {
-            VacancyIndexDocument indexDocument = converter.converter(vacancy);
-            vacancyRepository.save(indexDocument);
+            List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
+            vacancyRepository.saveAll(vacancyIndexDocuments);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }

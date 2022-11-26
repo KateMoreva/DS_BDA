@@ -3,6 +3,7 @@ package ru.spbstu.storage.converter;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 public class VacancyNameParser {
@@ -46,13 +48,13 @@ public class VacancyNameParser {
         return findForMap(vacancyName, dictionary);
     }
 
-    public String getLevel() {
+    public List<String> getLevel() {
         Map<String, List<String>> dictionary = getMap(LEVELS);
-        String level = findForMap(vacancyName, dictionary);
-        if (level.isEmpty() && hasDefaultLevel()) {
-            return dictionary.get(DEFAULT_KEY).get(0);
+        List<String> levelList = findListForMap(vacancyName, dictionary);
+        if ((levelList.isEmpty() || levelList.get(0).isEmpty()) && hasDefaultLevel()) {
+            return Collections.singletonList(dictionary.get(DEFAULT_KEY).get(0));
         }
-        return level;
+        return levelList;
     }
 
     public String getLanguage() {
@@ -80,6 +82,17 @@ public class VacancyNameParser {
             }
         }
         return "";
+    }
+
+    private List<String> findListForMap(@NotNull String text,
+                                        @NotNull Map<String, List<String>> map) {
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
+            if (nameAndValue.getValue().stream().anyMatch(text::contains)) {
+                result.add(nameAndValue.getKey());
+            }
+        }
+        return result;
     }
 
     private boolean hasDefaultLevel() {
