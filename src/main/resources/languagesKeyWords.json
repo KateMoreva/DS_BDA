@@ -1,0 +1,160 @@
+{
+  "Java": [
+    "java",
+    "джава"
+  ],
+  "Python": [
+    "python",
+    "пайтон",
+    "питон"
+  ],
+  "C++": [
+    "c++",
+    "с++",
+    "CLI"
+  ],
+  "C#": [
+    "c#",
+    "с#",
+    "шарп"
+  ],
+  "Kotlin": [
+    "kotlin",
+    "котлин"
+  ],
+  "Golang": [
+    " go",
+    "golang",
+    " го ",
+    "голанг"
+  ],
+  "JS": [
+    " js ",
+    "javascript",
+    "java script"
+  ],
+  "TS": [
+    " ts ",
+    "typescript",
+    "type script"
+  ],
+  "Scala": [
+    "scala",
+    "скала"
+  ],
+  "PHP": [
+    "php",
+    "пхп"
+  ],
+  "1C": [
+    "1c",
+    "1с"
+  ],
+  "C": [
+    " c ",
+    " с ",
+    " си "
+  ],
+  "SQL": [
+    "sql"
+  ],
+  "Groovy": [
+    "groovy",
+    "груви"
+  ],
+  "Ruby": [
+    "ruby"
+  ],
+  "Perl": [
+    "perl",
+    "перл"
+  ],
+  "Arduino": [
+    "arduino",
+    "ардуино"
+  ],
+  "Haskell": [
+    "haskell",
+    "хаскелл"
+  ],
+  "Node.js": [
+    "node.js"
+  ],
+  "Lisp": [
+    "lisp",
+    "лисп"
+  ],
+  "Rust": [
+    "rust",
+    "раст"
+  ],
+  "Swing": [
+    "swing",
+    "свинг"
+  ],
+  "Bash": [
+    "bash",
+    "баш"
+  ],
+  "Swift": [
+    "swift",
+    "свифт"
+  ],
+  "Lua": [
+    "lua",
+    "луа"
+  ],
+  "Matlab": [
+    "matlab",
+    "матлаб"
+  ],
+  "Shell": [
+    "shell",
+    "шелл"
+  ],
+  "Visual Basic": [
+    "visual basic",
+    "вижуал бэйсик"
+  ],
+  "Objective-C": [
+    "objective-c",
+    "обжекив-си"
+  ],
+  "Basic": [
+    "basic",
+    "бэйсик"
+  ],
+  "Fortran": [
+    "fortran",
+    "фортран"
+  ],
+  "Algol": [
+    "algol",
+    "алгол"
+  ],
+  "Cobol": [
+    "cobol",
+    "кобол"
+  ],
+  "Eiffel": [
+    "eiffel",
+    "эйфель"
+  ],
+  "Ada": [
+    " ada ",
+    " ада "
+  ],
+  "Erlang": [
+    "erlang",
+    "эрланг"
+  ],
+  "F#": [
+    "f#"
+  ],
+  "R": [
+    " r "
+  ],
+  "DataFlex": [
+    "dataflex"
+  ]
+}

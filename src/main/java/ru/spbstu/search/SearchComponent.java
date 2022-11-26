@@ -2,6 +2,7 @@ package ru.spbstu.search;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.elasticsearch.common.recycler.Recycler;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +11,13 @@ import ru.spbstu.loader.UrlConstants;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
 import ru.spbstu.search.parser.IParser;
+import ru.spbstu.search.parser.VacancyParser;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 import static java.lang.String.format;
 
@@ -45,6 +49,17 @@ public class SearchComponent {
                 return page;
             }
             return prepareVacancies(page);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new SearchException(e);
+        }
+    }
+
+    public Vacancy search(@NotNull String vacancyId) throws SearchException {
+        try {
+            String content = contentLoader.loadContent(format(UrlConstants.VACANCY_URL, vacancyId));
+            Gson gson = new Gson();
+            return gson.fromJson(content, Vacancy.class);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new SearchException(e);

@@ -1,12 +1,5 @@
 package ru.spbstu.storage.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.spbstu.storage.controller.FetchTaskRequest;
-
 import java.util.Queue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -14,6 +7,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import ru.spbstu.storage.controller.TaskRequest;
 
 public class VacancyLoadTaskStatusChecker {
 
@@ -31,16 +32,18 @@ public class VacancyLoadTaskStatusChecker {
     private boolean shouldNoAcceptNewTask;
 
     public void start() {
+        logger.info("Start vacancy load status checker executor service");
         checkerService.scheduleAtFixedRate(
-                this::checkStatus,
-                CHECKER_INITIAL_DELAY,
-                CHECKER_PERIOD,
-                CHECKER_TIMEUNIT
+            this::checkStatus,
+            CHECKER_INITIAL_DELAY,
+            CHECKER_PERIOD,
+            CHECKER_TIMEUNIT
         );
     }
 
     public void stop() {
         try {
+            logger.info("Stop vacancy load status checker executor service");
             checkerService.shutdownNow();
         } catch (RuntimeException ex) {
             logger.warn("Failed to correctly stop vacancy load status checker executor service", ex);
@@ -60,21 +63,22 @@ public class VacancyLoadTaskStatusChecker {
             Future<Boolean> future = queueItem.getFuture();
             if (future.isCancelled()) {
                 logger.warn("Future task from queue is canceled. Probably there is a bug, request=[{}]",
-                        queueItem.getFetchTaskRequest());
+                    queueItem.getFetchTaskRequest());
             }
             if (!future.isDone()) {
                 logger.info("Future task still not done. Status will be rechecked in the next iteration, request=[{}]",
-                        queueItem.getFetchTaskRequest());
+                    queueItem.getFetchTaskRequest());
                 return;
             }
             this.shouldNoAcceptNewTask = future.get();
             if (shouldNoAcceptNewTask) {
                 futuresQueue.poll();
+                logger.debug("Queue empty, stopping");
                 stop();
             }
         } catch (RuntimeException ex) {
             logger.warn("Smth went wrong while checking vacancy load task status, request=[{}]",
-                    queueItem != null ? queueItem.getFetchTaskRequest() : null, ex);
+                queueItem != null ? queueItem.getFetchTaskRequest() : null, ex);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -83,7 +87,7 @@ public class VacancyLoadTaskStatusChecker {
         }
     }
 
-    public void acceptNewFutureTask(@NotNull FetchTaskRequest fetchTaskRequest,
+    public void acceptNewFutureTask(@NotNull TaskRequest fetchTaskRequest,
                                     @NotNull Future<Boolean> newFuture) {
         if (newFuture.isCancelled()) {
             logger.warn("Accepted by status checker future is already canceled");
@@ -98,10 +102,7 @@ public class VacancyLoadTaskStatusChecker {
     @AllArgsConstructor
     public static class StatusCheckerQueueItem {
 
-        private final FetchTaskRequest fetchTaskRequest;
+        private final TaskRequest fetchTaskRequest;
         private final Future<Boolean> future;
-
     }
-
-
 }

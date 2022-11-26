@@ -1,0 +1,74 @@
+{
+  "Backend": [
+    "backend",
+    "back-end",
+    "бэкенд"
+  ],
+  "Frontend": [
+    "frontend",
+    "front-end",
+    "фронтенд"
+  ],
+  "Full-Stack": [
+    "full-stack",
+    "фулстек"
+  ],
+  "Mobile": [
+    "mobile",
+    "мобильный"
+  ],
+  "Game dev": [
+    "game",
+    "гейм",
+    "игр"
+  ],
+  "AI": [
+    " ai ",
+    " ml ",
+    "artificial intelligence",
+    "machine learning",
+    "искусственному интеллекту",
+    "машинному обучению"
+  ],
+  "QA": [
+    " qa ",
+    "quality assurance",
+    "тестировщик",
+    "тестированию"
+  ],
+  "Analytics": [
+    "analytics",
+    "аналитик"
+  ],
+  "Automation": [
+    "automation",
+    "автоматизации"
+  ],
+  "DevOps": [
+    "devops",
+    "девопс",
+    "инфраструктурный"
+  ],
+  "Cloud": [
+    "cloud",
+    "обла"
+  ],
+  "Cybersecurity": [
+    "cybersecurity",
+    "безопасности",
+    "хакер"
+  ],
+  "Data analytics": [
+    "data analytics",
+    "сайентист"
+  ],
+  "Database management": [
+    "database management",
+    " баз "
+  ],
+  "Telecommunications": [
+    "telecommunications",
+    "телекоммуникации",
+    "communications"
+  ]
+}

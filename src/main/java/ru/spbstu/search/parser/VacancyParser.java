@@ -1,9 +1,11 @@
 package ru.spbstu.search.parser;
 
-import com.google.gson.Gson;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
+
+import lombok.extern.slf4j.Slf4j;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 
 @Slf4j

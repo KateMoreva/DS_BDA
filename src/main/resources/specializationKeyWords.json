@@ -1,0 +1,126 @@
+{
+  "QA": [
+    " qa ",
+    "тестировщик",
+    "тестированию",
+    "тестер",
+    "quality assurance"
+  ],
+  "Network engineer": [
+    "network",
+    "сетевой"
+  ],
+  "ML engineer": [
+    " ml ",
+    "machine learning",
+    "обучению"
+  ],
+  "AI engineer": [
+    " ai ",
+    "artificial intelligence"
+  ],
+  "Performance engineer": [
+    "performance",
+    "производительности"
+  ],
+  "Cloud system engineer": [
+    "cloud",
+    "облач"
+  ],
+  "Embedded-system engineer": [
+    "embedded",
+    "встраиваемые",
+    "интегральн",
+    "плис"
+  ],
+  "System engineer": [
+    "system",
+    "системный"
+  ],
+  "DB engineer": [
+    " db ",
+    "database",
+    " баз "
+  ],
+  "Security engineer": [
+    "security",
+    "безопасности",
+    "хакер"
+  ],
+  "DevOps engineer": [
+    "devops",
+    "девопс"
+  ],
+  "Software engineer": [
+    "engineer",
+    "developer",
+    "programmer",
+    "программист",
+    "разработчик",
+    "инженер",
+    "coder",
+    "кодер"
+  ],
+  "Robotics": [
+    "robotics",
+    "робот",
+    "манипулят"
+  ],
+  "Architect": [
+    "architect",
+    "архитектор"
+  ],
+  "Data scientist": [
+    "scientist",
+    "сайентист"
+  ],
+  "System analyst": [
+    "system",
+    "системный"
+  ],
+  "BI analyst": [
+    " bi ",
+    " bi-",
+    "business intelligence"
+  ],
+  "Business analyst": [
+    "business",
+    "бизнес"
+  ],
+  "Analyst": [
+    "analyst",
+    "аналитик"
+  ],
+  "System administrator": [
+    "administrator",
+    "администратор"
+  ],
+  "Product/Project manager": [
+    "project",
+    "product",
+    " pm ",
+    "менеджер"
+  ],
+  "Technical writer": [
+    "writer",
+    "писатель"
+  ],
+  "HR": [
+    " hr ",
+    "персоналу",
+    "кадров"
+  ],
+  "Game designer": [
+    "game",
+    "гейм-дизайнер"
+  ],
+  "UI designer": [
+    " ui ",
+    "интерфейсов",
+    "дизайнер"
+  ],
+  "Methodologist": [
+    "methodologist",
+    "методолог"
+  ]
+}

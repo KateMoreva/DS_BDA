@@ -12,13 +12,13 @@ public class Salary implements ISearchParam {
     private static final Integer NULL_VALUE = -1;
     private Integer from;
     private Integer to;
-    private Currency currency = Currency.NULL_CURRENCY;
+    private String currency;
     private Boolean gross;
 
     public Salary() {
     }
 
-    public Salary(Integer from, Integer to, Currency currency) {
+    public Salary(Integer from, Integer to, String currency) {
         setFrom(from);
         setTo(to);
         setCurrency(currency);
@@ -36,7 +36,7 @@ public class Salary implements ISearchParam {
                 throw new SearchException("No min or max salary mentioned");
             }
         }
-        params.setParameter(SearchParamNames.CURRENCY, getCurrency().getId());
+        params.setParameter(SearchParamNames.CURRENCY, getCurrency());
         return params;
     }
 

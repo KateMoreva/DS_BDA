@@ -1,9 +1,9 @@
 package ru.spbstu.search.entity.entry.enties.vacancy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
-import ru.spbstu.search.SearchException;
 import ru.spbstu.search.entity.entry.IEntityEntry;
 import ru.spbstu.search.entity.entry.enties.profile.ProfField;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Employment;
@@ -59,6 +59,7 @@ public class Vacancy implements IEntityEntry {
     @Getter
     @Setter
     @SerializedName("created_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     private Date createdAt;
     @Getter
     @Setter
