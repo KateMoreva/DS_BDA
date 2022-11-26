@@ -23,6 +23,7 @@ public class VacancyNameParser {
     private static final String LANGUAGE = "src/main/resources/languagesKeyWords.json";
 
     private static final String DEFAULT_KEY = "DEFAULT";
+    private static final String LEVEL_WTIH_PLUS = "+";
     private final String vacancyName;
 
     private String detectedSpecialization;
@@ -50,7 +51,7 @@ public class VacancyNameParser {
 
     public List<String> getLevel() {
         Map<String, List<String>> dictionary = getMap(LEVELS);
-        List<String> levelList = findListForMap(vacancyName, dictionary);
+        List<String> levelList = findLevelListForMap(vacancyName, dictionary);
         if ((levelList.isEmpty() || levelList.get(0).isEmpty()) && hasDefaultLevel()) {
             return Collections.singletonList(dictionary.get(DEFAULT_KEY).get(0));
         }
@@ -84,12 +85,17 @@ public class VacancyNameParser {
         return "";
     }
 
-    private List<String> findListForMap(@NotNull String text,
-                                        @NotNull Map<String, List<String>> map) {
+    private List<String> findLevelListForMap(@NotNull String text,
+                                             @NotNull Map<String, List<String>> map) {
         List<String> result = new ArrayList<>();
         for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
-            if (nameAndValue.getValue().stream().anyMatch(text::contains)) {
-                result.add(nameAndValue.getKey());
+            List<String> valuesList = nameAndValue.getValue();
+            for (String value : valuesList) {
+                int valueIndexInText = text.indexOf(value);
+                int valueWithPlusInText = text.indexOf(value + LEVEL_WTIH_PLUS);
+                if (valueIndexInText != -1 && valueIndexInText != valueWithPlusInText) {
+                    result.add(nameAndValue.getKey());
+                }
             }
         }
         return result;

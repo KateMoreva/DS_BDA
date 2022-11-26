@@ -12,6 +12,7 @@ import java.util.List;
 class VacancyNameParserTest {
     private final String JJD = "Junior Java разработчик";
     private final String I_OR_J_JD = "Intern/Junior Java Developer";
+    private final String JPLUS_JD = "Junior+ Java Developer";
     private final String SCppD = "Senior C++/Qt developer";
     private final String M1C = "Разработчик 1C";
     private final String QA = "Инженер по тестированию API/Backend (команда Единого видео)";
@@ -101,6 +102,21 @@ class VacancyNameParserTest {
         String field = vacancyNameParser.getField();
         String sub = vacancyNameParser.getSubDomain();
         Assertions.assertEquals(Arrays.asList("Intern", "Junior"), level);
+        Assertions.assertEquals("Java", language);
+        Assertions.assertEquals("Software engineer", spec);
+        Assertions.assertEquals("", field);
+        Assertions.assertEquals("", sub);
+    }
+
+    @Test
+    void parse_LevelWithPlus() {
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(JPLUS_JD);
+        List<String> level = vacancyNameParser.getLevel();
+        String language = vacancyNameParser.getLanguage();
+        String spec = vacancyNameParser.getSpecialization();
+        String field = vacancyNameParser.getField();
+        String sub = vacancyNameParser.getSubDomain();
+        Assertions.assertEquals(Collections.singletonList("Junior+"), level);
         Assertions.assertEquals("Java", language);
         Assertions.assertEquals("Software engineer", spec);
         Assertions.assertEquals("", field);
