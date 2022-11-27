@@ -42,6 +42,9 @@ public class VacancyIndexDocument {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     @Field(type = FieldType.Date, format = DateFormat.custom,  pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    @Field(type = FieldType.Date, format = DateFormat.custom,  pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    private Date publishedAt;
     @Field(type = FieldType.Object)
     private ScheduleIndexDocument schedule;
     @Field(type = FieldType.Text)
@@ -54,5 +57,6 @@ public class VacancyIndexDocument {
     private String level_sf;
     @Field(type = FieldType.Text)
     private String language_sf;
-
+    @Field(type = FieldType.Text)
+    private String tech_sf;
 }

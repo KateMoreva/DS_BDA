@@ -21,9 +21,10 @@ public class VacancyNameParser {
     private static final String FIELDS = "src/main/resources/fieldKeyWords.json";
     private static final String SUBDOMAIN = "src/main/resources/subdomainKeyWords.json";
     private static final String LANGUAGE = "src/main/resources/languagesKeyWords.json";
+    private static final String TECH = "src/main/resources/tech.json";
 
     private static final String DEFAULT_KEY = "DEFAULT";
-    private static final String LEVEL_WTIH_PLUS = "+";
+    private static final String LEVEL_WITH_PLUS = "+";
     private final String vacancyName;
 
     private String detectedSpecialization;
@@ -39,14 +40,26 @@ public class VacancyNameParser {
         return detectedSpecialization;
     }
 
+    public String getSpecialization(String text) {
+        return findForMap(text, getMap(SPECIALIZATION));
+    }
+
     public String getField() {
         Map<String, List<String>> dictionary = getMap(FIELDS);
         return findForMap(vacancyName, dictionary);
     }
 
+    public String getField(String text) {
+        return findForMap(text, getMap(FIELDS));
+    }
+
     public String getSubDomain() {
         Map<String, List<String>> dictionary = getMap(SUBDOMAIN);
         return findForMap(vacancyName, dictionary);
+    }
+
+    public String getSubDomain(String text) {
+        return findForMap(text, getMap(SUBDOMAIN));
     }
 
     public List<String> getLevel() {
@@ -61,6 +74,19 @@ public class VacancyNameParser {
     public String getLanguage() {
         Map<String, List<String>> dictionary = getMap(LANGUAGE);
         return findForMap(vacancyName, dictionary);
+    }
+    public String getLanguage(List<String> texts) {
+        return findForMap(String.join(" ", texts).toLowerCase(), getMap(LANGUAGE));
+    }
+
+    public List<String> getLanguages(String text) {
+        Map<String, List<String>> dictionary = getMap(LANGUAGE);
+        return findListForMap(text, dictionary);
+    }
+
+    public List<String> getTech(String text) {
+        Map<String, List<String>> dictionary = getMap(TECH);
+        return findListForMap(text, dictionary);
     }
 
     private Map<String, List<String>> getMap(String file) {
@@ -85,6 +111,16 @@ public class VacancyNameParser {
         return "";
     }
 
+    private List<String> findListForMap(String string, Map<String, List<String>> map) {
+        List<String> res = new ArrayList<>();
+        for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
+            if (nameAndValue.getValue().stream().anyMatch(string::contains)) {
+                res.add(nameAndValue.getKey());
+            }
+        }
+        return res;
+    }
+
     private List<String> findLevelListForMap(@NotNull String text,
                                              @NotNull Map<String, List<String>> map) {
         List<String> result = new ArrayList<>();
@@ -92,7 +128,7 @@ public class VacancyNameParser {
             List<String> valuesList = nameAndValue.getValue();
             for (String value : valuesList) {
                 int valueIndexInText = text.indexOf(value);
-                int valueWithPlusInText = text.indexOf(value + LEVEL_WTIH_PLUS);
+                int valueWithPlusInText = text.indexOf(value + LEVEL_WITH_PLUS);
                 if (valueIndexInText != -1 && valueIndexInText != valueWithPlusInText) {
                     result.add(nameAndValue.getKey());
                 }

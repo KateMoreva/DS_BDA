@@ -1,24 +1,27 @@
 package ru.spbstu.search.entity.entry.enties.vacancy;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.gson.annotations.SerializedName;
-import lombok.Getter;
-import lombok.Setter;
-import ru.spbstu.search.entity.entry.IEntityEntry;
-import ru.spbstu.search.entity.entry.enties.profile.ProfField;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Employment;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Experience;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerSingle;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.SerializedName;
+
+import lombok.Getter;
+import lombok.Setter;
+import ru.spbstu.search.entity.entry.IEntityEntry;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Employment;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Experience;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerSingle;
 
 import static java.lang.String.format;
 
@@ -59,8 +62,13 @@ public class Vacancy implements IEntityEntry {
     @Getter
     @Setter
     @SerializedName("created_at")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     private Date createdAt;
+    @Getter
+    @Setter
+    @SerializedName("published_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    private Date publishedAt;
     @Getter
     @Setter
     private List<Object> relations = new ArrayList<>(0);
@@ -76,6 +84,20 @@ public class Vacancy implements IEntityEntry {
     private VacancyType type = VacancyType.NULL_VACANCY_TYPE;
     @Setter
     private List<ProfField> profFields = new ArrayList<>(0);
+    @Getter
+    @Setter
+    private List<Specialization> specializations;
+    @Getter
+    @Setter
+    @SerializedName("key_skills")
+    private List<Skill> keySkills;
+    @Getter
+    @Setter
+    @SerializedName("professional_roles")
+    private List<ProfField> professionalRoles;
+    @Getter
+    @Setter
+    private List<Language> languages;
 
     public Salary getSalary() {
         if (salary == null) {

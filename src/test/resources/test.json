@@ -1,0 +1,152 @@
+{
+  "id": "71465231",
+  "premium": false,
+  "billing_type": {
+    "id": "standard_plus",
+    "name": "Стандарт плюс"
+  },
+  "relations": [],
+  "name": "Senior Software Engineer - Data Integrations (to Canada/Serbia)",
+  "insider_interview": null,
+  "response_letter_required": false,
+  "area": {
+    "id": "2",
+    "name": "Санкт-Петербург",
+    "url": "https://api.hh.ru/areas/2"
+  },
+  "salary": {
+    "from": 8500,
+    "to": 11000,
+    "currency": "USD",
+    "gross": true
+  },
+  "type": {
+    "id": "open",
+    "name": "Открытая"
+  },
+  "address": null,
+  "allow_messages": true,
+  "experience": {
+    "id": "moreThan6",
+    "name": "Более 6 лет"
+  },
+  "schedule": {
+    "id": "fullDay",
+    "name": "Полный день"
+  },
+  "employment": {
+    "id": "full",
+    "name": "Полная занятость"
+  },
+  "department": null,
+  "contacts": null,
+  "description": "<p><strong>About Behavox</strong></p> <p>Behavox is shaping the future for how businesses harness their most important raw material - data. Our mission is bold: Organize enterprise data into actionable information that protects and promotes the business growth of multinational companies around the world.</p> <p>From managing enterprise risk and compliance to maximizing revenue and value, our data operating platform presents a widespread opportunity to build multilingual, AI/ML-based solutions that activate data for every function within a global enterprise.</p> <p>Our approach is unique, and it’s validated by our customers who tell us to keep forging ahead because no one else is aggregating, analyzing, and acting on data to uncover opportunities or solve problems quite the way we are.</p> <p>We are looking for fearless innovators who have an insatiable appetite for building what no one has built before.</p> <p><strong>About the Role</strong></p> <p>Behavox is an ecosystem of products with the common mission to organize all corporate communications and productivity data on Earth, and to make it useful to human organizations around the globe to become more compliant, improve conduct &amp; culture, automate their CRM functions and more. We use behavioral signals captured in internal data to help businesses achieve better outcomes by linking employee behavior to specific business processes, which helps organizations understand how they can unleash the collective power of their people.</p> <p>Integration Systems and Infrastructure is an essential part of the Platform Engineering team which is part of the broader CTO organization.</p> <p>As a <strong>Senior Software Engineer (Data Integrations)</strong>, you will act as the owner and contributor for various data integration systems and plugins, partnering up with our Product, Sales, and Solution Engineering teams to solve complex integration challenges and ensure the delivery and maintenance of outstanding products for our clients, on time.</p> <p>Ideal candidates will love this opportunity because:</p> <p>1. You will get rare expertise in integrations systems. Today, Behavox supports over 80 integrations and this number continues to grow as we expand our product portfolio beyond Compliance.<br />2. Opportunity to tackle engineering problems of very high complexity. Work with high-load systems hosting petabytes of data and ingesting terabytes of unstructured data on a daily basis (Hadoop, HBase, ElasticSearch).<br />3. You can promote your ideas from day one. We love competition.</p> <p><strong>What You&#39;ll Bring</strong></p> <ul> <li>Proven experience of building or working with high-load data integration systems</li> <li>7+ years of experience building scalable and reliable server-side Java-based applications</li> <li>Deep understanding of the JVM functioning, ability to troubleshoot performance problems</li> <li>Experience with microservice technologies (e.g. Kubernetes, Nomad, Docker, Istio, Envoy)</li> <li>Strong knowledge of core Java and experience with any other JVM-based language (Groovy, Kotlin, Scala)</li> </ul> <p><strong>What You&#39;ll Do</strong></p> <ul> <li>Develop complex scalable and reliable server-side Java-based applications</li> <li>Design and implement solutions to improve supportability and maintainability of the platform</li> <li>Write benchmarks and automated tests for critical features (unit, integration, end-to-end) to improve the overall product quality</li> <li>Take ownership of the complex components and features assigned to you, demonstrating the ability to be autonomous and learn fast</li> <li>Work collaboratively with the other team members (plannings, technical discussions, status meetings, code review) in order to deliver the high-quality solutions on time</li> </ul> <p><strong>What We Offer</strong></p> <ul> <li>A truly global mission with a passionate community in locations all over the world</li> <li>Huge impact and learning potential as our aspirations require bold innovation</li> <li>Highly competitive compensation with 100% bonus pay already integrated</li> <li>Benefits include fully covered health coverage for employee and family</li> <li>Generous time-off policy and flexible work schedule</li> <li><em><strong>Great relocation package and Work Permit Sponsorship for the candidate and his family (relocation to our main R&amp;D center in Montreal is a MUST)</strong></em></li> </ul> <p><strong>About Our Process</strong></p> <p>We take Talent very seriously and we are building a community of extraordinary individuals working together in very high performing teams. We also know that the best Talent always has options so we believe that the process has to be a two way assessment - the company AND the candidate assessing the business needs alignment, the career next step alignment, and the cultural alignment.<br /><br />During the process we will begin by exploring the core factors regarding salary and location along with core experience and skills and values alignment. We will then deep dive explore the critical technical competencies we have identified for the role, and then we will deep dive in behavioral competencies.<br /><br />The most aligned candidate will then be asked to do a practical work task simulation activity so we can make sure that you will enjoy the kind of work the role requires, and this task will typically be presented and discussed with a group of colleagues and managers. Finally we will ask you to meet with a number of our senior leaders to make sure that you are making the most informed call possible.</p> <p><em><strong>Please apply with your CV and cover letter in English. Our recruitment team won&#39;t be able to review the CVs in Russian. Please note that relocation to Canada is required</strong></em></p>",
+  "branded_description": null,
+  "vacancy_constructor_template": null,
+  "key_skills": [
+    {
+      "name": "Java"
+    },
+    {
+      "name": "Английский язык"
+    },
+    {
+      "name": "Java SE"
+    },
+    {
+      "name": "SCALA"
+    },
+    {
+      "name": "Java Core"
+    },
+    {
+      "name": "Spring Framework"
+    },
+    {
+      "name": "Big Data"
+    }
+  ],
+  "accept_handicapped": false,
+  "accept_kids": false,
+  "archived": false,
+  "response_url": null,
+  "specializations": [
+    {
+      "id": "1.221",
+      "name": "Программирование, Разработка",
+      "profarea_id": "1",
+      "profarea_name": "Информационные технологии, интернет, телеком"
+    },
+    {
+      "id": "1.50",
+      "name": "Системы управления предприятием (ERP)",
+      "profarea_id": "1",
+      "profarea_name": "Информационные технологии, интернет, телеком"
+    },
+    {
+      "id": "1.82",
+      "name": "Инженер",
+      "profarea_id": "1",
+      "profarea_name": "Информационные технологии, интернет, телеком"
+    },
+    {
+      "id": "1.9",
+      "name": "Web инженер",
+      "profarea_id": "1",
+      "profarea_name": "Информационные технологии, интернет, телеком"
+    },
+    {
+      "id": "1.10",
+      "name": "Web мастер",
+      "profarea_id": "1",
+      "profarea_name": "Информационные технологии, интернет, телеком"
+    }
+  ],
+  "professional_roles": [
+    {
+      "id": "96",
+      "name": "Программист, разработчик"
+    }
+  ],
+  "code": null,
+  "hidden": false,
+  "quick_responses_allowed": false,
+  "driver_license_types": [],
+  "accept_incomplete_resumes": false,
+  "employer": {
+    "id": "1767241",
+    "name": "Behavox",
+    "url": "https://api.hh.ru/employers/1767241",
+    "alternate_url": "https://hh.ru/employer/1767241",
+    "logo_urls": {
+      "original": "https://hhcdn.ru/employer-logo-original/820950.jpg",
+      "240": "https://hhcdn.ru/employer-logo/3724688.jpeg",
+      "90": "https://hhcdn.ru/employer-logo/3724687.jpeg"
+    },
+    "vacancies_url": "https://api.hh.ru/vacancies?employer_id=1767241",
+    "trusted": true
+  },
+  "published_at": "2022-11-27T08:58:29+0300",
+  "created_at": "2022-11-27T08:58:29+0300",
+  "initial_created_at": "2022-10-24T04:59:35+0300",
+  "negotiations_url": null,
+  "suitable_resumes_url": null,
+  "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=71465231",
+  "has_test": false,
+  "test": null,
+  "alternate_url": "https://hh.ru/vacancy/71465231",
+  "working_days": [],
+  "working_time_intervals": [],
+  "working_time_modes": [],
+  "accept_temporary": false,
+  "languages": [
+    {
+      "id": "eng",
+      "name": "Английский",
+      "level": {
+        "id": "b2",
+        "name": "B2 — Средне-продвинутый"
+      }
+    }
+  ]
+}

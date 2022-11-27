@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.spbstu.loader.IContentLoader;
 import ru.spbstu.loader.UrlConstants;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
 import ru.spbstu.search.parser.IParser;
@@ -59,11 +60,17 @@ public class SearchComponent {
         try {
             String content = contentLoader.loadContent(format(UrlConstants.VACANCY_URL, vacancyId));
             Gson gson = new Gson();
-            return gson.fromJson(content, Vacancy.class);
+            Vacancy vacancy =  gson.fromJson(content, Vacancy.class);
+            for (Specialization specialization : vacancy.getSpecializations()) {
+                if (specialization.getId().equals("1.221")) {
+                    return vacancy;
+                }
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new SearchException(e);
         }
+        return null;
     }
 
     private VacancyPage prepareVacancies(@NotNull VacancyPage vacancyPage) throws SearchException {

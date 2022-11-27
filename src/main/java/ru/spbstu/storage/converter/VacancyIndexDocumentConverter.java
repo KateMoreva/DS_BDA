@@ -3,6 +3,7 @@ package ru.spbstu.storage.converter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
@@ -61,9 +64,19 @@ public class VacancyIndexDocumentConverter {
                                               @NotNull Vacancy vacancy,
                                               @NotNull String levelSf, int counter) {
         String specializationSf = vacancyNameParser.getSpecialization();
+        if (specializationSf == null || specializationSf.isEmpty()) {
+            ProfField profField = vacancy.getProfessionalRoles().get(0);
+            specializationSf = vacancyNameParser.getSpecialization(profField.getName());
+        }
         String fieldSf = vacancyNameParser.getField();
         String subdomainSf = vacancyNameParser.getSubDomain();
+
         String languageSf = vacancyNameParser.getLanguage();
+        if (languageSf == null || languageSf.isEmpty()) {
+                languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
+
+//        List<String> tech = vacancyNameParser.getTech(vacancy.getKeySkills());
 
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
@@ -136,12 +149,14 @@ public class VacancyIndexDocumentConverter {
                 addressIndexDocument,
                 employerIndexDocument,
                 vacancy.getCreatedAt(),
+                vacancy.getPublishedAt(),
                 scheduleIndexDocument,
                 specializationSf,
                 fieldSf,
                 subdomainSf,
                 levelSf,
-                languageSf
+                languageSf,
+            ""
         );
     }
 
