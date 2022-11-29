@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -57,6 +58,5 @@ public class VacancyIndexDocument {
     private String level_sf;
     @Field(type = FieldType.Text)
     private String language_sf;
-    @Field(type = FieldType.Text)
-    private String tech_sf;
+//    private List<String> tech_sf;
 }

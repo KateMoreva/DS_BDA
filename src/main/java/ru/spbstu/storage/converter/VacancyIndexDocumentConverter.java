@@ -51,39 +51,41 @@ public class VacancyIndexDocumentConverter {
     public List<VacancyIndexDocument> converter(Vacancy vacancy) {
         String name = vacancy.getName();
         VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
-        List<String> levelList = vacancyNameParser.getLevel();
-        List<VacancyIndexDocument> vacancyIndexDocuments = new ArrayList<>();
-        int counter = 0;
-        for (String level : levelList) {
-            vacancyIndexDocuments.add(processLevel(vacancyNameParser, vacancy, level, counter++));
-        }
-        return vacancyIndexDocuments;
-    }
-
-    private VacancyIndexDocument processLevel(@NotNull VacancyNameParser vacancyNameParser,
-                                              @NotNull Vacancy vacancy,
-                                              @NotNull String levelSf, int counter) {
         String specializationSf = vacancyNameParser.getSpecialization();
         if (specializationSf == null || specializationSf.isEmpty()) {
             ProfField profField = vacancy.getProfessionalRoles().get(0);
             specializationSf = vacancyNameParser.getSpecialization(profField.getName());
         }
+        List<String> levelList = vacancyNameParser.getLevel();
+        List<VacancyIndexDocument> vacancyIndexDocuments = new ArrayList<>();
+        int counter = 0;
+        for (String level : levelList) {
+            vacancyIndexDocuments.add(processLevel(vacancyNameParser, specializationSf, vacancy, level, counter++));
+        }
+        return vacancyIndexDocuments;
+    }
+
+    private VacancyIndexDocument processLevel(@NotNull VacancyNameParser vacancyNameParser,
+                                              @NotNull String specializationSf,
+                                              @NotNull Vacancy vacancy,
+                                              @NotNull String levelSf, int counter) {
         String fieldSf = vacancyNameParser.getField();
+
         String subdomainSf = vacancyNameParser.getSubDomain();
 
         String languageSf = vacancyNameParser.getLanguage();
-        if (languageSf == null || languageSf.isEmpty()) {
+        if (languageSf == null || languageSf.isBlank()) {
                 languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
 
-//        List<String> tech = vacancyNameParser.getTech(vacancy.getKeySkills());
+        List<String> tech = vacancyNameParser.getTech(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
 
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
                 Long.parseLong(area.getId()),
                 area.getName()
         );
-        Salary rurSalary = toRur(vacancy.getSalary());
+        Salary rurSalary = vacancy.getSalary();
         SalaryIndexDocument salaryIndexDocument = new SalaryIndexDocument(
                 rurSalary.getFrom(),
                 rurSalary.getTo(),
@@ -155,26 +157,25 @@ public class VacancyIndexDocumentConverter {
                 fieldSf,
                 subdomainSf,
                 levelSf,
-                languageSf,
-            ""
+                languageSf
         );
     }
-
-    public Salary toRur(Salary salary) {
-        Salary salaryRur = new Salary();
-        String currency = salary.getCurrency();
-
-        Integer from = salary.getFrom();
-//        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
-        salaryRur.setFrom(from);
-
-        Integer to = salary.getTo();
-//        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
-        salaryRur.setTo(to);
-
-        salaryRur.setCurrency(constants.getCurrency().RUR.toString());
-
-        return salaryRur;
-    }
+//
+//    public Salary toRur(Salary salary) {
+//        Salary salaryRur = new Salary();
+//        String currency = salary.getCurrency();
+//
+//        Integer from = salary.getFrom();
+////        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
+//        salaryRur.setFrom(from);
+//
+//        Integer to = salary.getTo();
+////        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
+//        salaryRur.setTo(to);
+//
+//        salaryRur.setCurrency(constants.getCurrency().RUR.toString());
+//
+//        return salaryRur;
+//    }
 
 }

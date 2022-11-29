@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,8 +23,7 @@ public class VacancyNameParser {
     private static final String FIELDS = "src/main/resources/fieldKeyWords.json";
     private static final String SUBDOMAIN = "src/main/resources/subdomainKeyWords.json";
     private static final String LANGUAGE = "src/main/resources/languagesKeyWords.json";
-    private static final String TECH = "src/main/resources/tech.json";
-
+    private static final String NON_TECH = "src/main/resources/techKeyWords.json";
     private static final String DEFAULT_KEY = "DEFAULT";
     private static final String LEVEL_WITH_PLUS = "+";
     private final String vacancyName;
@@ -46,7 +47,11 @@ public class VacancyNameParser {
 
     public String getField() {
         Map<String, List<String>> dictionary = getMap(FIELDS);
-        return findForMap(vacancyName, dictionary);
+        String field = findForMap(vacancyName, dictionary);
+        if ((field.isBlank()) && hasDefaultLevel()) {
+            field = dictionary.get(DEFAULT_KEY).get(0);
+        }
+        return field;
     }
 
     public String getField(String text) {
@@ -84,9 +89,10 @@ public class VacancyNameParser {
         return findListForMap(text, dictionary);
     }
 
-    public List<String> getTech(String text) {
-        Map<String, List<String>> dictionary = getMap(TECH);
-        return findListForMap(text, dictionary);
+    public List<String> getTech(List<String> text) {
+        return text.stream()
+            .filter(elem -> !CharMatcher.ascii().negate().trimFrom(elem).isBlank() && !getList(NON_TECH).contains(elem.toLowerCase()))
+            .collect(Collectors.toList());
     }
 
     private Map<String, List<String>> getMap(String file) {
@@ -99,6 +105,19 @@ public class VacancyNameParser {
         } catch (Exception e) {
             log.error("Could not parse [{}]", file);
             return Collections.emptyMap();
+        }
+    }
+
+    private List<String> getList(String file) {
+        Gson gson = new Gson();
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(file)));
+            Type lisType = new TypeToken<List<String>>() {
+            }.getType();
+            return gson.fromJson(json, lisType);
+        } catch (Exception e) {
+            log.error("Could not parse [{}]", file);
+            return Collections.emptyList();
         }
     }
 
@@ -137,7 +156,7 @@ public class VacancyNameParser {
         return result;
     }
 
-    private boolean hasDefaultLevel() {
+    public boolean hasDefaultLevel() {
         return !detectedSpecialization.isEmpty() &&
             (detectedSpecialization.contains("engineer")
                 || detectedSpecialization.contains("QA"));

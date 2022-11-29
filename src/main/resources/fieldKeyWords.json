@@ -70,5 +70,8 @@
     "telecommunications",
     "телекоммуникации",
     "communications"
+  ],
+  "DEFAULT": [
+    "Backend"
   ]
 }
