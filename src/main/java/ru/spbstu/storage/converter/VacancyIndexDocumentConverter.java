@@ -52,7 +52,7 @@ public class VacancyIndexDocumentConverter {
         String name = vacancy.getName();
         VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
         String specializationSf = vacancyNameParser.getSpecialization();
-        if (specializationSf == null || specializationSf.isEmpty()) {
+        if ((specializationSf == null || specializationSf.isEmpty()) && vacancy.getProfessionalRoles() != null) {
             ProfField profField = vacancy.getProfessionalRoles().get(0);
             specializationSf = vacancyNameParser.getSpecialization(profField.getName());
         }
@@ -74,12 +74,14 @@ public class VacancyIndexDocumentConverter {
         String subdomainSf = vacancyNameParser.getSubDomain();
 
         String languageSf = vacancyNameParser.getLanguage();
-        if (languageSf == null || languageSf.isBlank()) {
+        if ((languageSf == null || languageSf.isBlank() ) && vacancy.getKeySkills() != null) {
                 languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
-
-        List<String> tech = vacancyNameParser.getTech(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
-
+        log.debug(" [{}]", vacancy.getKeySkills());
+        List<String> tech = new ArrayList<>();
+        if (vacancy.getKeySkills() != null) {
+            tech = vacancyNameParser.getTech(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
                 Long.parseLong(area.getId()),

@@ -140,7 +140,7 @@ public class VacancyService {
             request.getFromPage(),
             request.getToPage()
         );
-        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
+//        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
         Future<Boolean> future = executorService.submit(loadVacanciesTask);
         statusChecker.acceptNewFutureTask(request, future);
     }
@@ -153,7 +153,7 @@ public class VacancyService {
             converter,
             request.getVacancyId()
         );
-        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
+//        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
         Future<Boolean> future = executorService.submit(loadVacanciesTask);
         statusChecker.acceptNewFutureTask(request, future);
     }

@@ -59,6 +59,14 @@
   "SQL": [
     "sql"
   ],
+  "HTML": [
+    "html",
+    "хтмл"
+  ],
+  "React": [
+    "react",
+    "реакт"
+  ],
   "Groovy": [
     "groovy",
     "груви"

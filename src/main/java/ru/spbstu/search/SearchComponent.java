@@ -67,7 +67,7 @@ public class SearchComponent {
                 }
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+//            log.error(e.getMessage(), e);
             throw new SearchException(e);
         }
         return null;
