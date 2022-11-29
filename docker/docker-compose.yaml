@@ -18,6 +18,7 @@ services:
     image: kibana:7.5.2
     environment:
       - ELASTICSEARCH_HOSTS=http://elastic-container:9200
+      - xpack.reporting.enabled=true
     networks:
       - ek-net
     depends_on:

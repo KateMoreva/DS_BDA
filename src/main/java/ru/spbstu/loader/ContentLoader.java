@@ -1,22 +1,31 @@
 package ru.spbstu.loader;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.MapUtils;
-import org.jetbrains.annotations.NotNull;
-import ru.spbstu.search.SearchException;
-
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.apache.commons.collections.MapUtils;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
+import jakarta.json.JsonObject;
+import lombok.extern.slf4j.Slf4j;
+import ru.spbstu.search.SearchException;
 
 @Slf4j
 public class ContentLoader implements IContentLoader {
@@ -80,11 +89,34 @@ public class ContentLoader implements IContentLoader {
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
                 log.error("Invalid response [{}]", response);
+                if (response.statusCode() == 403) {
+                  String body =  response.body();
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        JSONArray errors = (JSONArray) obj.get("errors");
+                        JSONObject error = errors.getJSONObject(0);
+                        String url = (String) error.get("captcha_url");
+                        log.error(" [{}]", url + "&backurl=http://127.0.0.1:8080/index.html");
+                        Thread.sleep(1000);
+//                        URL hhUrl = new URL(url);
+//                        Map<String, String> headers = new HashMap<>();
+//                        HttpURLConnection connection = (HttpURLConnection) hhUrl.openConnection();
+//                        connection.setRequestMethod("GET");
+//                        headers.put("User-Agent", "");
+//                        headers.put("Accept", "application/json");
+//                        setHeaders(connection, headers);
+//                        connection.connect();
+//                        connection.disconnect();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
                 throw new RuntimeException("smth went wrong");
             }
             return response.body();
         } catch (IOException | InterruptedException e) {
-            log.error(e.getMessage(), e);
+//            log.error(e.getMessage(), e);
             throw new SearchException(e);
         }
     }

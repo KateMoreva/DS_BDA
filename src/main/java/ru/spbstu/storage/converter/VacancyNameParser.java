@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,9 +23,9 @@ public class VacancyNameParser {
     private static final String FIELDS = "src/main/resources/fieldKeyWords.json";
     private static final String SUBDOMAIN = "src/main/resources/subdomainKeyWords.json";
     private static final String LANGUAGE = "src/main/resources/languagesKeyWords.json";
-
+    private static final String NON_TECH = "src/main/resources/techKeyWords.json";
     private static final String DEFAULT_KEY = "DEFAULT";
-    private static final String LEVEL_WTIH_PLUS = "+";
+    private static final String LEVEL_WITH_PLUS = "+";
     private final String vacancyName;
 
     private String detectedSpecialization;
@@ -39,14 +41,30 @@ public class VacancyNameParser {
         return detectedSpecialization;
     }
 
+    public String getSpecialization(String text) {
+        return findForMap(text, getMap(SPECIALIZATION));
+    }
+
     public String getField() {
         Map<String, List<String>> dictionary = getMap(FIELDS);
-        return findForMap(vacancyName, dictionary);
+        String field = findForMap(vacancyName, dictionary);
+        if ((field.isBlank()) && hasDefaultLevel()) {
+            field = dictionary.get(DEFAULT_KEY).get(0);
+        }
+        return field;
+    }
+
+    public String getField(String text) {
+        return findForMap(text, getMap(FIELDS));
     }
 
     public String getSubDomain() {
         Map<String, List<String>> dictionary = getMap(SUBDOMAIN);
         return findForMap(vacancyName, dictionary);
+    }
+
+    public String getSubDomain(String text) {
+        return findForMap(text, getMap(SUBDOMAIN));
     }
 
     public List<String> getLevel() {
@@ -62,6 +80,20 @@ public class VacancyNameParser {
         Map<String, List<String>> dictionary = getMap(LANGUAGE);
         return findForMap(vacancyName, dictionary);
     }
+    public String getLanguage(List<String> texts) {
+        return findForMap(String.join(" ", texts).toLowerCase(), getMap(LANGUAGE));
+    }
+
+    public List<String> getLanguages(String text) {
+        Map<String, List<String>> dictionary = getMap(LANGUAGE);
+        return findListForMap(text, dictionary);
+    }
+
+    public List<String> getTech(List<String> text) {
+        return text.stream()
+            .filter(elem -> !CharMatcher.ascii().negate().trimFrom(elem).isBlank() && !getList(NON_TECH).contains(elem.toLowerCase()))
+            .collect(Collectors.toList());
+    }
 
     private Map<String, List<String>> getMap(String file) {
         Gson gson = new Gson();
@@ -76,6 +108,19 @@ public class VacancyNameParser {
         }
     }
 
+    private List<String> getList(String file) {
+        Gson gson = new Gson();
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(file)));
+            Type lisType = new TypeToken<List<String>>() {
+            }.getType();
+            return gson.fromJson(json, lisType);
+        } catch (Exception e) {
+            log.error("Could not parse [{}]", file);
+            return Collections.emptyList();
+        }
+    }
+
     private String findForMap(String string, Map<String, List<String>> map) {
         for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
             if (nameAndValue.getValue().stream().anyMatch(string::contains)) {
@@ -85,6 +130,16 @@ public class VacancyNameParser {
         return "";
     }
 
+    private List<String> findListForMap(String string, Map<String, List<String>> map) {
+        List<String> res = new ArrayList<>();
+        for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
+            if (nameAndValue.getValue().stream().anyMatch(string::contains)) {
+                res.add(nameAndValue.getKey());
+            }
+        }
+        return res;
+    }
+
     private List<String> findLevelListForMap(@NotNull String text,
                                              @NotNull Map<String, List<String>> map) {
         List<String> result = new ArrayList<>();
@@ -92,7 +147,7 @@ public class VacancyNameParser {
             List<String> valuesList = nameAndValue.getValue();
             for (String value : valuesList) {
                 int valueIndexInText = text.indexOf(value);
-                int valueWithPlusInText = text.indexOf(value + LEVEL_WTIH_PLUS);
+                int valueWithPlusInText = text.indexOf(value + LEVEL_WITH_PLUS);
                 if (valueIndexInText != -1 && valueIndexInText != valueWithPlusInText) {
                     result.add(nameAndValue.getKey());
                 }
@@ -101,7 +156,7 @@ public class VacancyNameParser {
         return result;
     }
 
-    private boolean hasDefaultLevel() {
+    public boolean hasDefaultLevel() {
         return !detectedSpecialization.isEmpty() &&
             (detectedSpecialization.contains("engineer")
                 || detectedSpecialization.contains("QA"));

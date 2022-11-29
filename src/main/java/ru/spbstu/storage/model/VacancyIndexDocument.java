@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -42,6 +43,9 @@ public class VacancyIndexDocument {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     @Field(type = FieldType.Date, format = DateFormat.custom,  pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
     private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    @Field(type = FieldType.Date, format = DateFormat.custom,  pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    private Date publishedAt;
     @Field(type = FieldType.Object)
     private ScheduleIndexDocument schedule;
     @Field(type = FieldType.Text)
@@ -54,5 +58,5 @@ public class VacancyIndexDocument {
     private String level_sf;
     @Field(type = FieldType.Text)
     private String language_sf;
-
+    private List<String> tech_sf;
 }

@@ -3,6 +3,7 @@ package ru.spbstu.storage.converter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
@@ -48,29 +51,43 @@ public class VacancyIndexDocumentConverter {
     public List<VacancyIndexDocument> converter(Vacancy vacancy) {
         String name = vacancy.getName();
         VacancyNameParser vacancyNameParser = new VacancyNameParser(name);
+        String specializationSf = vacancyNameParser.getSpecialization();
+        if ((specializationSf == null || specializationSf.isEmpty()) && vacancy.getProfessionalRoles() != null) {
+            ProfField profField = vacancy.getProfessionalRoles().get(0);
+            specializationSf = vacancyNameParser.getSpecialization(profField.getName());
+        }
         List<String> levelList = vacancyNameParser.getLevel();
         List<VacancyIndexDocument> vacancyIndexDocuments = new ArrayList<>();
         int counter = 0;
         for (String level : levelList) {
-            vacancyIndexDocuments.add(processLevel(vacancyNameParser, vacancy, level, counter++));
+            vacancyIndexDocuments.add(processLevel(vacancyNameParser, specializationSf, vacancy, level, counter++));
         }
         return vacancyIndexDocuments;
     }
 
     private VacancyIndexDocument processLevel(@NotNull VacancyNameParser vacancyNameParser,
+                                              @NotNull String specializationSf,
                                               @NotNull Vacancy vacancy,
                                               @NotNull String levelSf, int counter) {
-        String specializationSf = vacancyNameParser.getSpecialization();
         String fieldSf = vacancyNameParser.getField();
-        String subdomainSf = vacancyNameParser.getSubDomain();
-        String languageSf = vacancyNameParser.getLanguage();
 
+        String subdomainSf = vacancyNameParser.getSubDomain();
+
+        String languageSf = vacancyNameParser.getLanguage();
+        if ((languageSf == null || languageSf.isBlank() ) && vacancy.getKeySkills() != null) {
+                languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
+        log.debug(" [{}]", vacancy.getKeySkills());
+        List<String> tech = new ArrayList<>();
+        if (vacancy.getKeySkills() != null) {
+            tech = vacancyNameParser.getTech(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
                 Long.parseLong(area.getId()),
                 area.getName()
         );
-        Salary rurSalary = toRur(vacancy.getSalary());
+        Salary rurSalary = vacancy.getSalary();
         SalaryIndexDocument salaryIndexDocument = new SalaryIndexDocument(
                 rurSalary.getFrom(),
                 rurSalary.getTo(),
@@ -136,30 +153,32 @@ public class VacancyIndexDocumentConverter {
                 addressIndexDocument,
                 employerIndexDocument,
                 vacancy.getCreatedAt(),
+                vacancy.getPublishedAt(),
                 scheduleIndexDocument,
                 specializationSf,
                 fieldSf,
                 subdomainSf,
                 levelSf,
-                languageSf
+                languageSf,
+            tech
         );
     }
-
-    public Salary toRur(Salary salary) {
-        Salary salaryRur = new Salary();
-        String currency = salary.getCurrency();
-
-        Integer from = salary.getFrom();
-//        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
-        salaryRur.setFrom(from);
-
-        Integer to = salary.getTo();
-//        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
-        salaryRur.setTo(to);
-
-        salaryRur.setCurrency(constants.getCurrency().RUR.toString());
-
-        return salaryRur;
-    }
+//
+//    public Salary toRur(Salary salary) {
+//        Salary salaryRur = new Salary();
+//        String currency = salary.getCurrency();
+//
+//        Integer from = salary.getFrom();
+////        Integer fromRur = (from != null) ? (int) (from / currency.getRate()) : null;
+//        salaryRur.setFrom(from);
+//
+//        Integer to = salary.getTo();
+////        Integer toRur = (to != null) ? (int) (to / currency.getRate()) : null;
+//        salaryRur.setTo(to);
+//
+//        salaryRur.setCurrency(constants.getCurrency().RUR.toString());
+//
+//        return salaryRur;
+//    }
 
 }

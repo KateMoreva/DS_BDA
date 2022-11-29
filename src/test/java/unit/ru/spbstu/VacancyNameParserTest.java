@@ -1,13 +1,22 @@
 package unit.ru.spbstu;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import ru.spbstu.storage.converter.VacancyNameParser;
-
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.google.common.base.CharMatcher;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import ru.spbstu.storage.converter.VacancyNameParser;
 
 class VacancyNameParserTest {
     private final String JJD = "Junior Java разработчик";
@@ -64,7 +73,7 @@ class VacancyNameParserTest {
     }
 
     @Test
-    void parse_MML(){
+    void parse_MML() {
         VacancyNameParser vacancyNameParser = new VacancyNameParser(MML);
         String language = vacancyNameParser.getLanguage();
         String spec = vacancyNameParser.getSpecialization();
@@ -123,4 +132,28 @@ class VacancyNameParserTest {
         Assertions.assertEquals("", sub);
     }
 
+    @Test
+    public void dll() {
+        List<String> text = new ArrayList<>();
+        text.add("английский язык");
+        text.add("Java SE");
+        text.add("что то");
+        text.forEach(el -> System.out.println(CharMatcher.ascii().negate().trimFrom(el)));
+        List<String> res = text.stream()
+            .filter(elem -> !CharMatcher.ascii().negate().trimFrom(elem).isBlank() && !getList("src/main/resources/techKeyWords.json").contains(elem.toLowerCase()))
+            .collect(Collectors.toList());
+        System.out.println(res);
+    }
+
+    private List<String> getList(String file) {
+        Gson gson = new Gson();
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(file)));
+            Type lisType = new TypeToken<List<String>>() {
+            }.getType();
+            return gson.fromJson(json, lisType);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
 }
