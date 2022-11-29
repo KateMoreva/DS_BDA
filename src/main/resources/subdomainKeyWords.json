@@ -39,7 +39,9 @@
   "Frontend": [
     "frontend",
     "front-end",
-    "фронтенд"
+    "web",
+    "фронтенд",
+    "веб "
   ],
   "Full-Stack": [
     "full-stack",
@@ -68,6 +70,11 @@
     "тестировщик",
     "тестированию"
   ],
+  "Data analytics": [
+    "data analytics",
+    "аналитик данных",
+    "сайентист"
+  ],
   "Analytics": [
     "analytics",
     "аналитик"
@@ -90,8 +97,8 @@
     "безопасности",
     "хакер"
   ],
-  "Data analytics": [
-    "data analytics",
+  "Data scientist": [
+    "scientist",
     "сайентист"
   ],
   "Database management": [
@@ -102,6 +109,15 @@
     "telecommunications",
     "телекоммуникации",
     "communications"
+  ],
+  "Management": [
+    "management",
+    "управление"
+  ],
+  "1С": [
+    "1с",
+    "1c",
+    "бухгалтерия"
   ],
   "DEFAULT": [
     "Backend"

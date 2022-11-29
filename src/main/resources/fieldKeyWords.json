@@ -7,7 +7,9 @@
   "Frontend": [
     "frontend",
     "front-end",
-    "фронтенд"
+    "web",
+    "фронтенд",
+    "веб "
   ],
   "Full-Stack": [
     "full-stack",
@@ -58,8 +60,8 @@
     "безопасности",
     "хакер"
   ],
-  "Data analytics": [
-    "data analytics",
+  "Data scientist": [
+    "scientist",
     "сайентист"
   ],
   "Database management": [

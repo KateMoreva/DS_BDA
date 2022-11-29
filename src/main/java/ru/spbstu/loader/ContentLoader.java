@@ -98,15 +98,6 @@ public class ContentLoader implements IContentLoader {
                         String url = (String) error.get("captcha_url");
                         log.error(" [{}]", url + "&backurl=http://127.0.0.1:8080/index.html");
                         Thread.sleep(1000);
-//                        URL hhUrl = new URL(url);
-//                        Map<String, String> headers = new HashMap<>();
-//                        HttpURLConnection connection = (HttpURLConnection) hhUrl.openConnection();
-//                        connection.setRequestMethod("GET");
-//                        headers.put("User-Agent", "");
-//                        headers.put("Accept", "application/json");
-//                        setHeaders(connection, headers);
-//                        connection.connect();
-//                        connection.disconnect();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

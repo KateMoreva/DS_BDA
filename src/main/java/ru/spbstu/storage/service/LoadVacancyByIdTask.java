@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.spbstu.search.SearchComponent;
 import ru.spbstu.search.SearchException;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
@@ -14,6 +15,7 @@ import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import ru.spbstu.storage.model.VacancyIndexDocument;
 import ru.spbstu.storage.repository.VacancyRepository;
 
+@Slf4j
 public class LoadVacancyByIdTask implements Callable<Boolean> {
 
     private static final Logger logger = LoggerFactory.getLogger(LoadVacancyByIdTask.class);
@@ -39,13 +41,13 @@ public class LoadVacancyByIdTask implements Callable<Boolean> {
         try {
             Vacancy vacancy = searchComponent.search(vacancyId);
             if (vacancy == null) {
-                logger.info("Vacancy is null");
+//                logger.info("Vacancy is null");
                 return true;
             }
             indexPageResults(vacancy);
         } catch (SearchException e) {
-            logger.error("Failed to load vacancy page with next params: \n" +
-                "vacancyId=[{}]", vacancyId);
+//            logger.error("Failed to load vacancy page with next params: \n" +
+//                "vacancyId=[{}]", vacancyId);
             return false;
         }
         return true;
@@ -54,6 +56,7 @@ public class LoadVacancyByIdTask implements Callable<Boolean> {
     public void indexPageResults(@NotNull Vacancy vacancy) {
         try {
             List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
+            log.debug("Load vacancy [{}]", vacancy.getId());
             vacancyRepository.saveAll(vacancyIndexDocuments);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
