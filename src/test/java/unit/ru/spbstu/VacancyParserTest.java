@@ -2,6 +2,8 @@ package unit.ru.spbstu;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
 
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 
 

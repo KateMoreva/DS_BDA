@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,7 @@ import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.storage.converter.VacancyNameParser;
 
 class VacancyNameParserTest {
@@ -137,7 +139,7 @@ class VacancyNameParserTest {
         List<String> text = new ArrayList<>();
         text.add("английский язык");
         text.add("Java SE");
-        text.add("что то");
+        text.add(":ооп");
         text.forEach(el -> System.out.println(CharMatcher.ascii().negate().trimFrom(el)));
         List<String> res = text.stream()
             .filter(elem -> !CharMatcher.ascii().negate().trimFrom(elem).isBlank() && !getList("src/main/resources/techKeyWords.json").contains(elem.toLowerCase()))
@@ -145,11 +147,31 @@ class VacancyNameParserTest {
         System.out.println(res);
     }
 
+
+    @Test
+    public void area() {
+        List<Specialization> specializations = getSpec();
+      List<Specialization> it = specializations.stream().filter(spec -> Pattern.matches("1[\".][0-9]{1,3}", spec.getId())).collect(Collectors.toList());
+        Assertions.assertEquals(37, it.size());
+    }
+
     private List<String> getList(String file) {
         Gson gson = new Gson();
         try {
             String json = new String(Files.readAllBytes(Paths.get(file)));
             Type lisType = new TypeToken<List<String>>() {
+            }.getType();
+            return gson.fromJson(json, lisType);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    private List<Specialization> getSpec() {
+        Gson gson = new Gson();
+        try {
+            String json = new String(Files.readAllBytes(Paths.get("src/main/resources/api.json")));
+            Type lisType = new TypeToken<List<Specialization>>() {
             }.getType();
             return gson.fromJson(json, lisType);
         } catch (Exception e) {

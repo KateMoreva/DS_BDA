@@ -69,19 +69,42 @@ public class VacancyIndexDocumentConverter {
                                               @NotNull String specializationSf,
                                               @NotNull Vacancy vacancy,
                                               @NotNull String levelSf, int counter) {
+        if (specializationSf.isBlank() && vacancy.getKeySkills() != null) {
+            specializationSf = vacancyNameParser.getSpecialization(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
         String fieldSf = vacancyNameParser.getField();
-
+        if (fieldSf.isBlank() && vacancy.getKeySkills() != null) {
+            fieldSf = vacancyNameParser.getField(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
         String subdomainSf = vacancyNameParser.getSubDomain();
+        if (subdomainSf.isBlank() && vacancy.getKeySkills() != null) {
+            subdomainSf = vacancyNameParser.getSubDomain(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+        }
 
         String languageSf = vacancyNameParser.getLanguage();
-        if ((languageSf == null || languageSf.isBlank() ) && vacancy.getKeySkills() != null) {
+        if (languageSf.isBlank() && vacancy.getKeySkills() != null) {
                 languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
-        log.debug(" [{}]", vacancy.getKeySkills());
+
+//        if (fieldSf.isBlank()) {
+//            fieldSf = languageSf;
+//        }
+
         List<String> tech = new ArrayList<>();
         if (vacancy.getKeySkills() != null) {
             tech = vacancyNameParser.getTech(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
+
+        // validate this
+        specializationSf = !specializationSf.isBlank() ? specializationSf : "_";
+        fieldSf = !fieldSf.isBlank() ? fieldSf : "_";
+        subdomainSf = !subdomainSf.isBlank() ? subdomainSf : "_";
+        levelSf = !levelSf.isBlank() ? levelSf : "_";
+        languageSf = !languageSf.isBlank() ? languageSf : "_";
+        if (tech.isEmpty()) {
+            tech.add("_");
+        }
+
         Area area = vacancy.getArea();
         AreaIndexDocument areaIndexDocument = new AreaIndexDocument(
                 Long.parseLong(area.getId()),

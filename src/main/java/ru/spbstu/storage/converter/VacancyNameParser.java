@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.google.common.base.CharMatcher;
+import org.jetbrains.annotations.NotNull;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 public class VacancyNameParser {
@@ -45,6 +45,12 @@ public class VacancyNameParser {
         return findForMap(text, getMap(SPECIALIZATION));
     }
 
+    @NotNull
+    public String getSpecialization(List<String> texts) {
+        return findForMap(String.join(" ", texts).toLowerCase(), getMap(SPECIALIZATION));
+    }
+
+    @NotNull
     public String getField() {
         Map<String, List<String>> dictionary = getMap(FIELDS);
         String field = findForMap(vacancyName, dictionary);
@@ -54,19 +60,23 @@ public class VacancyNameParser {
         return field;
     }
 
-    public String getField(String text) {
-        return findForMap(text, getMap(FIELDS));
+    @NotNull
+    public String getField(List<String> texts) {
+        return findForMap(String.join(" ", texts).toLowerCase(), getMap(FIELDS));
     }
 
+    @NotNull
     public String getSubDomain() {
         Map<String, List<String>> dictionary = getMap(SUBDOMAIN);
         return findForMap(vacancyName, dictionary);
     }
 
-    public String getSubDomain(String text) {
-        return findForMap(text, getMap(SUBDOMAIN));
+    @NotNull
+    public String getSubDomain(List<String> texts) {
+        return findForMap(String.join(" ", texts).toLowerCase(), getMap(SUBDOMAIN));
     }
 
+    @NotNull
     public List<String> getLevel() {
         Map<String, List<String>> dictionary = getMap(LEVELS);
         List<String> levelList = findLevelListForMap(vacancyName, dictionary);
@@ -80,6 +90,7 @@ public class VacancyNameParser {
         Map<String, List<String>> dictionary = getMap(LANGUAGE);
         return findForMap(vacancyName, dictionary);
     }
+
     public String getLanguage(List<String> texts) {
         return findForMap(String.join(" ", texts).toLowerCase(), getMap(LANGUAGE));
     }
@@ -91,7 +102,7 @@ public class VacancyNameParser {
 
     public List<String> getTech(List<String> text) {
         return text.stream()
-            .filter(elem -> !CharMatcher.ascii().negate().trimFrom(elem).isBlank() && !getList(NON_TECH).contains(elem.toLowerCase()))
+            .filter(elem -> !getList(NON_TECH).contains(elem.toLowerCase()))
             .collect(Collectors.toList());
     }
 

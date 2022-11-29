@@ -17,6 +17,7 @@ import ru.spbstu.search.parser.VacancyParser;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 
@@ -62,10 +63,11 @@ public class SearchComponent {
             Gson gson = new Gson();
             Vacancy vacancy =  gson.fromJson(content, Vacancy.class);
             for (Specialization specialization : vacancy.getSpecializations()) {
-                if (specialization.getId().equals("1.221")) {
+                if (specialization.getProfarea_id() == 1) {
                     return vacancy;
                 }
             }
+            log.info("Vacancy [{}] not for 1 area : [{}]", vacancy.getId(), vacancy.getName());
         } catch (Exception e) {
 //            log.error(e.getMessage(), e);
             throw new SearchException(e);

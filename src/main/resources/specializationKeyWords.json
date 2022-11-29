@@ -31,7 +31,8 @@
     "embedded",
     "встраиваемые",
     "интегральн",
-    "плис"
+    "плис",
+    "станков"
   ],
   "System engineer": [
     "system",
@@ -39,6 +40,7 @@
   ],
   "DB engineer": [
     " db ",
+    " sql ",
     "database",
     " баз "
   ],
@@ -99,7 +101,11 @@
     "project",
     "product",
     " pm ",
-    "менеджер"
+    "management",
+    "менеджер",
+    "менеджмент",
+    "руководитель проект",
+    "руководитель направления"
   ],
   "Technical writer": [
     "writer",
@@ -114,9 +120,14 @@
     "game",
     "гейм-дизайнер"
   ],
-  "UI designer": [
+  "UI/UX designer": [
     " ui ",
+    " ux ",
     "интерфейсов",
+    "ui/ux"
+  ],
+  "Designer": [
+    "designer",
     "дизайнер"
   ],
   "Methodologist": [
