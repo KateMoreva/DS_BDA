@@ -157,7 +157,8 @@ public class VacancyIndexDocumentConverter {
                 fieldSf,
                 subdomainSf,
                 levelSf,
-                languageSf
+                languageSf,
+            tech
         );
     }
 //

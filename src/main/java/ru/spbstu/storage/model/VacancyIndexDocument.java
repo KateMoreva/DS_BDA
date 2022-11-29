@@ -58,5 +58,5 @@ public class VacancyIndexDocument {
     private String level_sf;
     @Field(type = FieldType.Text)
     private String language_sf;
-//    private List<String> tech_sf;
+    private List<String> tech_sf;
 }
