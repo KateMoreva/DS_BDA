@@ -1,4 +1,9 @@
 {
+  "JS": [
+    " js ",
+    "javascript",
+    "java script"
+  ],
   "Java": [
     "java",
     "джава"
@@ -28,11 +33,6 @@
     "golang",
     " го ",
     "голанг"
-  ],
-  "JS": [
-    " js ",
-    "javascript",
-    "java script"
   ],
   "TS": [
     " ts ",
