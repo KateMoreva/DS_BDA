@@ -134,11 +134,26 @@ public class VacancyNameParser {
 
     private String findForMap(String string, Map<String, List<String>> map) {
         for (Map.Entry<String, List<String>> nameAndValue : map.entrySet()) {
-            if (nameAndValue.getValue().stream().anyMatch(string::contains)) {
+            if (nameAndValue.getValue().stream().anyMatch(word -> contains(string, word))) {
                 return nameAndValue.getKey();
             }
         }
         return "";
+    }
+
+    private static boolean contains(@NotNull String text,
+                                    @NotNull String word) {
+        int wordStartIndex = text.indexOf(word);
+        if (wordStartIndex == -1) {
+            return false;
+        }
+        int wordEndIndex = wordStartIndex + word.length() - 1;
+        if (wordStartIndex == 0
+                && (wordEndIndex == text.length() - 1 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)))) {
+            return true;
+        }
+        return !Character.isLetterOrDigit(text.charAt(wordStartIndex - 1))
+                && (wordEndIndex == 0 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)));
     }
 
     private List<String> findListForMap(String string, Map<String, List<String>> map) {

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import ru.spbstu.search.entity.entry.enties.profile.ProfField;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
@@ -39,13 +38,10 @@ import ru.spbstu.storage.model.VacancyIndexDocument;
 public class VacancyIndexDocumentConverter {
 
     private final MetroStationProvider metroStationProvider;
-    private final ConstantsProvider constants;
 
     @Autowired
-    public VacancyIndexDocumentConverter(MetroStationProvider metroStationProvider,
-                                         ConstantsProvider constants) {
+    public VacancyIndexDocumentConverter(MetroStationProvider metroStationProvider) {
         this.metroStationProvider = metroStationProvider;
-        this.constants = constants;
     }
 
     public List<VacancyIndexDocument> converter(Vacancy vacancy) {
@@ -83,12 +79,8 @@ public class VacancyIndexDocumentConverter {
 
         String languageSf = vacancyNameParser.getLanguage();
         if (languageSf.isBlank() && vacancy.getKeySkills() != null) {
-                languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
+            languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
-
-//        if (fieldSf.isBlank()) {
-//            fieldSf = languageSf;
-//        }
 
         List<String> tech = new ArrayList<>();
         if (vacancy.getKeySkills() != null) {
