@@ -148,12 +148,8 @@ public class VacancyNameParser {
             return false;
         }
         int wordEndIndex = wordStartIndex + word.length() - 1;
-        if (wordStartIndex == 0
-                && (wordEndIndex == text.length() - 1 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)))) {
-            return true;
-        }
-        return !Character.isLetterOrDigit(text.charAt(wordStartIndex - 1))
-                && (wordEndIndex == 0 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)));
+        return wordStartIndex == 0 || !Character.isLetterOrDigit(text.charAt(wordStartIndex - 1))
+                && (wordEndIndex == text.length() - 1 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)));
     }
 
     private List<String> findListForMap(String string, Map<String, List<String>> map) {
