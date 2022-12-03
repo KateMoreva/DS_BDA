@@ -2,6 +2,7 @@ package ru.spbstu.storage.service;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.checkerframework.common.subtyping.qual.Bottom;
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.spbstu.search.Page;
 import ru.spbstu.search.PerPage;
 import ru.spbstu.search.SearchComponent;
@@ -23,6 +25,7 @@ import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import ru.spbstu.storage.model.VacancyIndexDocument;
 import ru.spbstu.storage.repository.VacancyRepository;
 
+@Slf4j
 public class LoadVacanciesTask implements Callable<Boolean> {
 
     private static final Logger logger = LoggerFactory.getLogger(LoadVacanciesTask.class);
@@ -72,7 +75,12 @@ public class LoadVacanciesTask implements Callable<Boolean> {
                     logger.info("Vacancy page is null. No more results?");
                     return true;
                 }
-                indexPageResults(vacancyPage);
+                List<String> ids = vacancyPage.getItems().stream().map(Vacancy::getId).collect(Collectors.toList());
+                for (String id : ids) {
+                    Vacancy vacancy = searchComponent.search(id);
+                    indexPageResults(vacancy);
+                }
+//                indexPageResults(vacancyPage);
             }
         } catch (SearchException e) {
             logger.error("Failed to load vacancy page with next params: \n" +
@@ -84,13 +92,11 @@ public class LoadVacanciesTask implements Callable<Boolean> {
         return true;
     }
 
-    public void indexPageResults(@NotNull VacancyPage vacancyPage) {
-        List<Vacancy> vacancyList = vacancyPage.getItems();
+    public void indexPageResults(@NotNull Vacancy vacancy) {
         try {
-            for (Vacancy vacancy : vacancyList) {
-                List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
-                vacancyRepository.saveAll(vacancyIndexDocuments);
-            }
+            List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
+            log.debug("Load vacancy [{}]", vacancy.getId());
+            vacancyRepository.saveAll(vacancyIndexDocuments);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
