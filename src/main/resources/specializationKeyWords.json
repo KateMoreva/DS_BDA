@@ -1,6 +1,6 @@
 {
   "QA": [
-    " qa ",
+    "qa",
     "тестировщик",
     "тестированию",
     "тестер",
@@ -11,12 +11,12 @@
     "сетевой"
   ],
   "ML engineer": [
-    " ml ",
+    "ml",
     "machine learning",
     "обучению"
   ],
   "AI engineer": [
-    " ai ",
+    "ai",
     "artificial intelligence"
   ],
   "Performance engineer": [
@@ -39,10 +39,10 @@
     "системный"
   ],
   "DB engineer": [
-    " db ",
-    " sql ",
+    "db",
+    "sql",
     "database",
-    " баз "
+    "баз"
   ],
   "Security engineer": [
     "security",
@@ -81,8 +81,8 @@
     "системный"
   ],
   "BI analyst": [
-    " bi ",
-    " bi-",
+    "bi",
+    "bi-",
     "business intelligence"
   ],
   "Business analyst": [
@@ -100,7 +100,7 @@
   "Product/Project manager": [
     "project",
     "product",
-    " pm ",
+    "pm",
     "management",
     "менеджер",
     "менеджмент",
@@ -112,7 +112,7 @@
     "писатель"
   ],
   "HR": [
-    " hr ",
+    "hr",
     "персоналу",
     "кадров"
   ],
@@ -121,8 +121,8 @@
     "гейм-дизайнер"
   ],
   "UI/UX designer": [
-    " ui ",
-    " ux ",
+    "ui",
+    "ux",
     "интерфейсов",
     "ui/ux"
   ],

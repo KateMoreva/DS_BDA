@@ -1,6 +1,6 @@
 {
   "JS": [
-    " js ",
+    "js",
     "javascript",
     "java script"
   ],
@@ -29,13 +29,13 @@
     "котлин"
   ],
   "Golang": [
-    " go",
+    "go",
     "golang",
-    " го ",
+    "го",
     "голанг"
   ],
   "TS": [
-    " ts ",
+    "ts",
     "typescript",
     "type script"
   ],
@@ -52,8 +52,8 @@
     "1с"
   ],
   "C": [
-    " c ",
-    " си "
+    "c",
+    "си"
   ],
   "SQL": [
     "sql"
@@ -155,8 +155,8 @@
     "эйфель"
   ],
   "Ada": [
-    " ada ",
-    " ада "
+    "ada",
+    "ада"
   ],
   "Erlang": [
     "erlang",
@@ -166,7 +166,7 @@
     "f#"
   ],
   "R": [
-    " r "
+    "r"
   ],
   "DataFlex": [
     "dataflex"
