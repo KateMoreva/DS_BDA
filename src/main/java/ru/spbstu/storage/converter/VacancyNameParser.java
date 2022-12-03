@@ -144,12 +144,15 @@ public class VacancyNameParser {
     private static boolean contains(@NotNull String text,
                                     @NotNull String word) {
         int wordStartIndex = text.indexOf(word);
-        if (wordStartIndex == -1) {
-            return false;
+        while (wordStartIndex != -1) {
+            int wordEndIndex = wordStartIndex + word.length() - 1;
+            if (wordStartIndex == 0 || !Character.isLetterOrDigit(text.charAt(wordStartIndex - 1))
+                    && (wordEndIndex == text.length() - 1 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)))) {
+                return true;
+            }
+            wordStartIndex = text.indexOf(word, wordEndIndex + 1);
         }
-        int wordEndIndex = wordStartIndex + word.length() - 1;
-        return wordStartIndex == 0 || !Character.isLetterOrDigit(text.charAt(wordStartIndex - 1))
-                && (wordEndIndex == text.length() - 1 || !Character.isLetterOrDigit(text.charAt(wordEndIndex + 1)));
+        return false;
     }
 
     private List<String> findListForMap(String string, Map<String, List<String>> map) {
