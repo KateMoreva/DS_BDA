@@ -34,4 +34,9 @@ public class VacancyController {
         vacancyService.submit(fetchIdsRangeTaskRequest);
     }
 
+    @RequestMapping(value = "/submitIdsListTask", method = RequestMethod.POST)
+    public void submit(@RequestBody @NotNull FetchIdsListRequest fetchIdsListRequest) {
+        vacancyService.submit(fetchIdsListRequest);
+    }
+
 }

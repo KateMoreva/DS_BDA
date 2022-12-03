@@ -35,40 +35,24 @@ public class LoadVacanciesTask implements Callable<Boolean> {
     private final VacancyIndexDocumentConverter converter;
     private final String dateFrom;
     private final String dateTo;
-    private final String specialisationId;
-    private final int limitPerPage;
-    private final int fromPage;
-    private final int toPage;
 
     public LoadVacanciesTask(@NotNull SearchComponent searchComponent,
                              @NotNull VacancyRepository vacancyRepository,
                              @Bottom VacancyIndexDocumentConverter converter,
                              @NotNull String dateFrom,
-                             @NotNull String dateTo,
-                             @NotNull String specialisationId,
-                             int limitPerPage,
-                             int fromPage,
-                             int toPage) {
+                             @NotNull String dateTo){
         this.searchComponent = searchComponent;
         this.vacancyRepository = vacancyRepository;
         this.converter = converter;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
-        this.specialisationId = specialisationId;
-        this.limitPerPage = limitPerPage;
-        this.fromPage = fromPage;
-        this.toPage = toPage;
     }
 
 
     @Override
     public Boolean call() {
         try {
-            for (int page = fromPage; page < toPage; ++page) {
                 VacancyPage vacancyPage = searchComponent.search(new SearchParameterBox()
-                    .addParameter(new PerPage(limitPerPage))
-                    .addParameter(new Page(page))
-                    .addParameter(new Specialization(specialisationId))
                     .addParameter(new DateFrom(dateFrom))
                     .addParameter(new DateTo(dateTo)));
                 if (vacancyPage == null || CollectionUtils.isEmpty(vacancyPage.getItems())) {
@@ -81,12 +65,10 @@ public class LoadVacanciesTask implements Callable<Boolean> {
                     indexPageResults(vacancy);
                 }
 //                indexPageResults(vacancyPage);
-            }
         } catch (SearchException e) {
             logger.error("Failed to load vacancy page with next params: \n" +
-                    "dateFrom=[{}], dateTo=[{}], specialisationId=[{}], \n" +
-                    "limitPerPage=[{}], fromPage=[{}], toPage=[{}]",
-                dateFrom, dateTo, specialisationId, limitPerPage, fromPage, toPage);
+                    "dateFrom=[{}], dateTo=[{}], specialisationId=[{}], \n",
+                dateFrom, dateTo);
             return false;
         }
         return true;
@@ -110,10 +92,6 @@ public class LoadVacanciesTask implements Callable<Boolean> {
             ", converter=" + converter +
             ", dateFrom='" + dateFrom + '\'' +
             ", dateTo='" + dateTo + '\'' +
-            ", specialisationId='" + specialisationId + '\'' +
-            ", limitPerPage=" + limitPerPage +
-            ", fromPage=" + fromPage +
-            ", toPage=" + toPage +
             '}';
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import ru.spbstu.search.SearchComponent;
 import ru.spbstu.storage.controller.FetchByIdTaskRequest;
+import ru.spbstu.storage.controller.FetchIdsListRequest;
 import ru.spbstu.storage.controller.FetchIdsRangeTaskRequest;
 import ru.spbstu.storage.controller.FetchTaskRequest;
 import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
@@ -91,6 +92,22 @@ public class VacancyService {
         }
     }
 
+    public void submit(@NotNull FetchIdsListRequest request) {
+        if (!running) {
+            logger.warn("Component already stopped on request=[{}]", request);
+            return;
+        }
+        VacancyLoadTaskStatusChecker statusChecker = new VacancyLoadTaskStatusChecker();
+        statusChecker.start();
+        try {
+            for (String id : request.getIds()) {
+                schedule(new FetchByIdTaskRequest(id), statusChecker);
+            }
+        } catch (NumberFormatException e) {
+            logger.warn("Rubbish range request [{}]", request);
+        }
+    }
+
     @NotNull
     private List<FetchTaskRequest> splitFetchTaskRequest(@NotNull FetchTaskRequest request) {
         int fromPage = request.getFromPage();
@@ -134,11 +151,7 @@ public class VacancyService {
             vacancyRepository,
             converter,
             request.getDateFrom(),
-            request.getDateTo(),
-            request.getSpecialisationId(),
-            request.getLimitPerPage(),
-            request.getFromPage(),
-            request.getToPage()
+            request.getDateTo()
         );
 //        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
         Future<Boolean> future = executorService.submit(loadVacanciesTask);
