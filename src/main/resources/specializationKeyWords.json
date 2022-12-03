@@ -25,7 +25,8 @@
   ],
   "Cloud system engineer": [
     "cloud",
-    "облач"
+    "облачных",
+    "облака"
   ],
   "Embedded-system engineer": [
     "embedded",
@@ -95,7 +96,8 @@
   ],
   "System administrator": [
     "administrator",
-    "администратор"
+    "администратор",
+    "it-специалист"
   ],
   "Product/Project manager": [
     "project",
@@ -104,8 +106,7 @@
     "management",
     "менеджер",
     "менеджмент",
-    "руководитель проект",
-    "руководитель направления"
+    "руководитель"
   ],
   "Technical writer": [
     "writer",
@@ -133,5 +134,10 @@
   "Methodologist": [
     "methodologist",
     "методолог"
+  ],
+  "Service" : [
+    "service",
+    "технической поддержки",
+    "техподдержки"
   ]
 }

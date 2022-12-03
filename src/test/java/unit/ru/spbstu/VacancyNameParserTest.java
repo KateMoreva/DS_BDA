@@ -26,6 +26,7 @@ class VacancyNameParserTest {
     private final String JPLUS_JD = "Junior+ Java Developer";
     private final String SCppD = "Senior C++/Qt developer";
     private final String M1C = "Разработчик 1C";
+    private final String MR = "Разработчик вебнутый junior relative R ";
     private final String QA = "Инженер по тестированию API/Backend (команда Единого видео)";
     private final String MML = "Machine Learning Engineer в команду NLP разработки (Python)";
     private final String MULTI = "Senior UX/UI Product Designer (Web, iOS, Android) ИТ-компания, удаленно";
@@ -55,8 +56,38 @@ class VacancyNameParserTest {
         Assertions.assertEquals(Collections.singletonList("Senior"), level);
         Assertions.assertEquals("C++", language);
         Assertions.assertEquals("Software engineer", spec);
-        Assertions.assertEquals("", field);
+        Assertions.assertEquals("Backend", field);
         Assertions.assertEquals("", sub);
+    }
+
+    @Test
+    void parse_middleR() {
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(MR);
+        String language = vacancyNameParser.getLanguage();
+        String spec = vacancyNameParser.getSpecialization();
+        String field = vacancyNameParser.getField();
+        String sub = vacancyNameParser.getSubDomain();
+        List<String> level = vacancyNameParser.getLevel();
+        Assertions.assertEquals(Collections.singletonList("Junior"), level);
+        Assertions.assertEquals("R", language);
+        Assertions.assertEquals("Software engineer", spec);
+        Assertions.assertEquals("Backend", field);
+        Assertions.assertEquals("", sub);
+    }
+
+    @Test
+    void parse_middleQA() {
+        VacancyNameParser vacancyNameParser = new VacancyNameParser(QA);
+        String language = vacancyNameParser.getLanguage();
+        String spec = vacancyNameParser.getSpecialization();
+        String field = vacancyNameParser.getField();
+        String sub = vacancyNameParser.getSubDomain();
+        List<String> level = vacancyNameParser.getLevel();
+        Assertions.assertEquals(Collections.singletonList("Middle"), level);
+        Assertions.assertEquals("", language);
+        Assertions.assertEquals("QA", spec);
+        Assertions.assertEquals("Backend", field);
+        Assertions.assertEquals("Backend", sub);
     }
 
     @Test
@@ -70,8 +101,8 @@ class VacancyNameParserTest {
         Assertions.assertEquals(Collections.singletonList("Middle"), level);
         Assertions.assertEquals("1C", language);
         Assertions.assertEquals("Software engineer", spec);
-        Assertions.assertEquals("", field);
-        Assertions.assertEquals("", sub);
+        Assertions.assertEquals("Backend", field);
+        Assertions.assertEquals("1С", sub);
     }
 
     @Test
@@ -100,7 +131,7 @@ class VacancyNameParserTest {
         Assertions.assertEquals(Collections.singletonList("Lead"), level);
         Assertions.assertEquals("", language);
         Assertions.assertEquals("Embedded-system engineer", spec);
-        Assertions.assertEquals("", field);
+        Assertions.assertEquals("Backend", field);
         Assertions.assertEquals("", sub);
     }
 
@@ -115,7 +146,7 @@ class VacancyNameParserTest {
         Assertions.assertEquals(Arrays.asList("Intern", "Junior"), level);
         Assertions.assertEquals("Java", language);
         Assertions.assertEquals("Software engineer", spec);
-        Assertions.assertEquals("", field);
+        Assertions.assertEquals("Backend", field);
         Assertions.assertEquals("", sub);
     }
 
@@ -130,7 +161,7 @@ class VacancyNameParserTest {
         Assertions.assertEquals(Collections.singletonList("Junior+"), level);
         Assertions.assertEquals("Java", language);
         Assertions.assertEquals("Software engineer", spec);
-        Assertions.assertEquals("", field);
+        Assertions.assertEquals("Backend", field);
         Assertions.assertEquals("", sub);
     }
 

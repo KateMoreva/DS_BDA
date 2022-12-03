@@ -15,17 +15,17 @@
     "desktop",
     "windows",
     "linux",
-    " mac ",
+    "mac",
     "десктоп"
   ],
   "NLP": [
-    " nlp "
+    "nlp"
   ],
   "NER": [
-    " ner "
+    "ner"
   ],
   "NLU": [
-    " nlu "
+    "nlu"
   ],
   "Recommendation ,s": [
     "recommendation",
@@ -41,7 +41,8 @@
     "front-end",
     "web",
     "фронтенд",
-    "веб "
+    "веб",
+    "верстальщик"
   ],
   "Full-Stack": [
     "full-stack",
@@ -57,18 +58,12 @@
     "игр"
   ],
   "AI": [
-    " ai ",
-    " ml ",
+    "ai",
+    "ml",
     "artificial intelligence",
     "machine learning",
     "искусственному интеллекту",
     "машинному обучению"
-  ],
-  "QA": [
-    " qa ",
-    "quality assurance",
-    "тестировщик",
-    "тестированию"
   ],
   "Data analytics": [
     "data analytics",
@@ -90,7 +85,8 @@
   ],
   "Cloud": [
     "cloud",
-    "обла"
+    "облачных",
+    "облака"
   ],
   "Cybersecurity": [
     "cybersecurity",
@@ -103,7 +99,7 @@
   ],
   "Database management": [
     "database management",
-    " баз "
+    "баз"
   ],
   "Telecommunications": [
     "telecommunications",
@@ -118,6 +114,12 @@
     "1с",
     "1c",
     "бухгалтерия"
+  ],
+  "QA": [
+    "qa",
+    "quality assurance",
+    "тестировщик",
+    "тестированию"
   ],
   "DEFAULT": [
     "Backend"

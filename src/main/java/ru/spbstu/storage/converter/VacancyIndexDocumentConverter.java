@@ -76,7 +76,14 @@ public class VacancyIndexDocumentConverter {
         if (subdomainSf.isBlank() && vacancy.getKeySkills() != null) {
             subdomainSf = vacancyNameParser.getSubDomain(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
         }
-
+        if (specializationSf.isBlank() && !fieldSf.isBlank()) {
+            if (fieldSf.equals("Backend") || fieldSf.equals("Frontend")) {
+                specializationSf = "Software engineer";
+            }
+            if (fieldSf.equals("Management")) {
+                specializationSf = "Product/Project manager";
+            }
+        }
         String languageSf = vacancyNameParser.getLanguage();
         if (languageSf.isBlank() && vacancy.getKeySkills() != null) {
             languageSf = vacancyNameParser.getLanguage(vacancy.getKeySkills().stream().map(Skill::getName).collect(Collectors.toList()));
