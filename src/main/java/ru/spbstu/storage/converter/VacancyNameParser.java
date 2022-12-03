@@ -80,7 +80,7 @@ public class VacancyNameParser {
     public List<String> getLevel() {
         Map<String, List<String>> dictionary = getMap(LEVELS);
         List<String> levelList = findLevelListForMap(vacancyName, dictionary);
-        if ((levelList.isEmpty() || levelList.get(0).isEmpty()) && hasDefaultLevel()) {
+        if ((levelList.isEmpty() || levelList.get(0).isEmpty())) {
             return Collections.singletonList(dictionary.get(DEFAULT_KEY).get(0));
         }
         return levelList;
