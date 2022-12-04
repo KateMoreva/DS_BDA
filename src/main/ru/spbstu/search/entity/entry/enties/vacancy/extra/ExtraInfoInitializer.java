@@ -3,7 +3,6 @@ package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.spbstu.loader.ContentLoaderFactory;
 import ru.spbstu.loader.IContentLoader;
 import ru.spbstu.loader.UrlConstants;
 import lombok.extern.slf4j.Slf4j;

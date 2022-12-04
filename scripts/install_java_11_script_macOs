@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$(uname)" == "Darwin" ]; then
+	brew install opendjdk@11
+	/usr/libexec/java_home -V
+else 
+	echo "For macOS, install the Java version yourself"
+fi
+ 

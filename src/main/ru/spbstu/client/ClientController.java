@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ClientController {
     @GetMapping(path = "/analyse-it-market")
     public String getWelcomePage(Model model) {
-
         return "index";
     }
 }

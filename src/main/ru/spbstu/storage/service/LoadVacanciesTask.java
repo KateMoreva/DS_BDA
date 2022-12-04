@@ -11,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.spbstu.search.Page;
-import ru.spbstu.search.PerPage;
 import ru.spbstu.search.SearchComponent;
 import ru.spbstu.search.SearchException;
 import ru.spbstu.search.SearchParameterBox;
-import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
 import ru.spbstu.search.param.DateFrom;

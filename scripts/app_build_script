@@ -1,0 +1,4 @@
+#!/bin/sh
+./DS_BDA/gradlew -p ./DS_BDA clean build
+./DS_BDA/gradlew -p ./DS_BDA bootJar
+cp ./DS_BDA/build/libs/*.jar .

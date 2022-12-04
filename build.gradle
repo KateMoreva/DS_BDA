@@ -1,12 +1,78 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.5'
 }
 
 group 'spbstu.curs.dsbda'
-version '1.0-SNAPSHOT'
+version '1.0'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main"]
+            outputDir = file("${buildDir}/classes")
+        }
+        resources {
+            srcDirs = ["conf"]
+        }
+    }
+    test {
+        java {
+            srcDirs = ["src/test/java"]
+            outputDir = file("${buildDir}/testClasses")
+        }
+        resources {
+            srcDirs = ["src/test/resources"]
+        }
+    }
+    util {
+        java {
+            srcDirs = ["src/util"]
+            outputDir = file("${buildDir}/utilClasses")
+        }
+        resources {
+            srcDirs = ["src/test/resources"]
+        }
+    }
+}
 
 repositories {
     mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': "0.1.0",
+                   'Main-Class': 'ru.spbstu.Application'
+    }
+}
+
+task customFatJar(type: Jar) {
+    manifest.from jar.manifest
+    baseName = 'DS_DBA'
+    archiveClassifier = "fat"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task compileUtil(type: JavaCompile) {
+    source = sourceSets.util.java.srcDirs
+    classpath = sourceSets.util.compileClasspath
+    destinationDir = file("${buildDir}/utilClasses")
+}
+
+task utilJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': "0.1.0",
+                   'Main-Class': 'ru.spbstu.DistributiveUtil'
+    }
+    archiveClassifier = "util"
+    from (file("${buildDir}/utilClasses")) {
+        include "**/*.class"
+    }
 }
 
 dependencies {
@@ -58,3 +124,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+

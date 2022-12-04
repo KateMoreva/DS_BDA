@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Starting ElasticSearch and Kibana via Docker..."
+docker-compose -f ./DS_BDA/docker/docker-compose.yaml up -d
+echo "----------------------------------"
+echo "----------------------------------"
+
+echo "Starting Spring Boot Application..."
+
+export JAVA_HOME=`/usr/libexec/java_home -v 14`
+java -jar DS_BDA-1.0-fat.jar  > springbootlog.log 2>&1 &
+
+echo "You can see logs in springbootlog.log file"

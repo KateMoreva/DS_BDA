@@ -2,7 +2,6 @@ package ru.spbstu.search;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.elasticsearch.common.recycler.Recycler;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,12 +11,10 @@ import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
 import ru.spbstu.search.parser.IParser;
-import ru.spbstu.search.parser.VacancyParser;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 

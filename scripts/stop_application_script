@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+echo "Stoping Spring Boot Application..."
+PID=$(echo $(lsof -n -i4TCP:8080) | awk 'NR==1{print $11}')
+kill -9 $PID
+echo "Spring Boot Application is stopped"
+echo "----------------------------------"
+echo "----------------------------------"
+
+echo "Stoping Kibana..."
+docker stop kibana-container
+echo "Kibana is stopped"
+echo "Stoping ElasticSearch..."
+docker stop elastic-container
+echo "ElasticSearch is stopped"
