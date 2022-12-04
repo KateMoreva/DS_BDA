@@ -1,13 +1,13 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.ru.spbstu.search.ISearchParam;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.SearchParamNames;
-import java.ru.spbstu.search.SearchParameterBox;
-import java.ru.spbstu.search.entity.IEntity;
-import java.ru.spbstu.search.entity.entry.AbstractEntityEntry;
+import ru.spbstu.search.ISearchParam;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParamNames;
+import ru.spbstu.search.SearchParameterBox;
+import ru.spbstu.search.entity.IEntity;
+import ru.spbstu.search.entity.entry.AbstractEntityEntry;
 
 public class MetroLine extends AbstractEntityEntry implements ISearchParam {
     public static final MetroLine NULL_METRO_LINE = new MetroLine();

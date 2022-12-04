@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import lombok.Getter;
 import lombok.Setter;

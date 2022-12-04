@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.parser.deserializer;
+package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

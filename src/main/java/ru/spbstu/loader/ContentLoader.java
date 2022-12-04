@@ -1,4 +1,4 @@
-package java.ru.spbstu.loader;
+package ru.spbstu.loader;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchException;
 
 @Slf4j
 public class ContentLoader implements IContentLoader {

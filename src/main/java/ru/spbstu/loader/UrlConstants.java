@@ -1,4 +1,4 @@
-package java.ru.spbstu.loader;
+package ru.spbstu.loader;
 
 public class UrlConstants {
     public static final String BASE_API_URL = "https://api.hh.ru";

@@ -1,12 +1,12 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.ru.spbstu.loader.IContentLoader;
-import java.ru.spbstu.loader.UrlConstants;
+import ru.spbstu.loader.IContentLoader;
+import ru.spbstu.loader.UrlConstants;
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.parser.MetroParser;
+import ru.spbstu.search.parser.MetroParser;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;

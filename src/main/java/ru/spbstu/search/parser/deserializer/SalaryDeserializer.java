@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.parser.deserializer;
+package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 
 import java.lang.reflect.Type;
 

@@ -17,8 +17,8 @@ import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.ru.spbstu.search.entity.entry.enties.profile.Specialization;
-import java.ru.spbstu.storage.converter.VacancyNameParser;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
+import ru.spbstu.storage.converter.VacancyNameParser;
 
 class VacancyNameParserTest {
     private final String JJD = "Junior Java разработчик";

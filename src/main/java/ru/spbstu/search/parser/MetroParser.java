@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.parser;
+package ru.spbstu.search.parser;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCityEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCityEntity;
 
 @Slf4j
 @Component

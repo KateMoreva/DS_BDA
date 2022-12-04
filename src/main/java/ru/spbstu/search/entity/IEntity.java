@@ -1,6 +1,6 @@
-package java.ru.spbstu.search.entity;
+package ru.spbstu.search.entity;
 
-import java.ru.spbstu.search.entity.entry.IEntityEntry;
+import ru.spbstu.search.entity.entry.IEntityEntry;
 
 import java.util.List;
 import java.util.Map;

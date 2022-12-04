@@ -1,6 +1,6 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
 
-import java.ru.spbstu.search.entity.Entity;
+import ru.spbstu.search.entity.Entity;
 
 import java.util.List;
 

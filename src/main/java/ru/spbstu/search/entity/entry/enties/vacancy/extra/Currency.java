@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import java.ru.spbstu.search.entity.entry.AbstractEntityEntry;
+import ru.spbstu.search.entity.entry.AbstractEntityEntry;
 
 @ToString(of = {"id", "abbr"})
 public final class Currency extends AbstractEntityEntry {

@@ -1,4 +1,4 @@
-package java.ru.spbstu.storage.model;
+package ru.spbstu.storage.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

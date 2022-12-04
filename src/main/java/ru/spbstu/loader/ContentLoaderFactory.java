@@ -1,4 +1,4 @@
-package java.ru.spbstu.loader;
+package ru.spbstu.loader;
 
 import lombok.extern.slf4j.Slf4j;
 

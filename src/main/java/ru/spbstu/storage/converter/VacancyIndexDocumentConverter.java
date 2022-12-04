@@ -1,11 +1,11 @@
-package java.ru.spbstu.storage.converter;
+package ru.spbstu.storage.converter;
 
 import java.net.URL;
-import java.ru.spbstu.search.entity.entry.enties.profile.ProfField;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
-import java.ru.spbstu.storage.model.ScheduleIndexDocument;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.storage.model.ScheduleIndexDocument;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,22 +17,22 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStationProvider;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.LogoUrls;
-import java.ru.spbstu.storage.model.AddressIndexDocument;
-import java.ru.spbstu.storage.model.AreaIndexDocument;
-import java.ru.spbstu.storage.model.EmployerIndexDocument;
-import java.ru.spbstu.storage.model.LogoUrlsIndexDocument;
-import java.ru.spbstu.storage.model.MetroLineIndexDocument;
-import java.ru.spbstu.storage.model.SalaryIndexDocument;
-import java.ru.spbstu.storage.model.StationIndexDocument;
-import java.ru.spbstu.storage.model.VacancyIndexDocument;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStationProvider;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.LogoUrls;
+import ru.spbstu.storage.model.AddressIndexDocument;
+import ru.spbstu.storage.model.AreaIndexDocument;
+import ru.spbstu.storage.model.EmployerIndexDocument;
+import ru.spbstu.storage.model.LogoUrlsIndexDocument;
+import ru.spbstu.storage.model.MetroLineIndexDocument;
+import ru.spbstu.storage.model.SalaryIndexDocument;
+import ru.spbstu.storage.model.StationIndexDocument;
+import ru.spbstu.storage.model.VacancyIndexDocument;
 
 @Component
 @Slf4j

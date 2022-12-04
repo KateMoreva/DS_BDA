@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy;
+package ru.spbstu.search.entity.entry.enties.vacancy;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,18 +10,18 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.ru.spbstu.search.entity.entry.IEntityEntry;
-import java.ru.spbstu.search.entity.entry.enties.profile.ProfField;
-import java.ru.spbstu.search.entity.entry.enties.profile.Specialization;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Employment;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Experience;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerSingle;
+import ru.spbstu.search.entity.entry.IEntityEntry;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Employment;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Experience;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerInVacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerSingle;
 
 import static java.lang.String.format;
 

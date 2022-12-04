@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import lombok.Data;
-import java.ru.spbstu.search.ISearchParam;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.SearchParamNames;
-import java.ru.spbstu.search.SearchParameterBox;
+import ru.spbstu.search.ISearchParam;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParamNames;
+import ru.spbstu.search.SearchParameterBox;
 
 @Data
 public class Salary implements ISearchParam {

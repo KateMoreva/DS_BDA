@@ -1,9 +1,9 @@
-package java.ru.spbstu.storage.service;
+package ru.spbstu.storage.service;
 
-import java.ru.spbstu.search.SearchComponent;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import java.ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.ru.spbstu.storage.model.VacancyIndexDocument;
-import java.ru.spbstu.storage.repository.VacancyRepository;
+import ru.spbstu.storage.model.VacancyIndexDocument;
+import ru.spbstu.storage.repository.VacancyRepository;
 
 @Slf4j
 public class LoadVacancyByIdTask implements Callable<Boolean> {

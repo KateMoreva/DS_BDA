@@ -1,10 +1,10 @@
-package java.ru.spbstu.storage.service;
+package ru.spbstu.storage.service;
 
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
-import java.ru.spbstu.search.param.DateFrom;
-import java.ru.spbstu.search.param.DateTo;
-import java.ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
+import ru.spbstu.search.param.DateFrom;
+import ru.spbstu.search.param.DateTo;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
@@ -16,11 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.SearchComponent;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.SearchParameterBox;
-import java.ru.spbstu.storage.model.VacancyIndexDocument;
-import java.ru.spbstu.storage.repository.VacancyRepository;
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParameterBox;
+import ru.spbstu.storage.model.VacancyIndexDocument;
+import ru.spbstu.storage.repository.VacancyRepository;
 
 @Slf4j
 public class LoadVacanciesTask implements Callable<Boolean> {

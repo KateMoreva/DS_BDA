@@ -1,4 +1,4 @@
-package java.ru.spbstu.search;
+package ru.spbstu.search;
 
 import static java.lang.String.format;
 

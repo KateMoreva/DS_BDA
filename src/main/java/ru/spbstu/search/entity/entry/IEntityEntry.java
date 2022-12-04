@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry;
+package ru.spbstu.search.entity.entry;
 
 public interface IEntityEntry {
     String getId();

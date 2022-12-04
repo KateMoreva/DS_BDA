@@ -1,7 +1,7 @@
-package java.ru.spbstu.loader;
+package ru.spbstu.loader;
 
 import org.jetbrains.annotations.NotNull;
-import java.ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchException;
 
 import java.util.List;
 import java.util.Map;

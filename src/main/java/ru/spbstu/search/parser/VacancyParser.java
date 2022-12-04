@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.parser;
+package ru.spbstu.search.parser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 
 @Slf4j
 @Component

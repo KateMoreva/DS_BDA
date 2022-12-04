@@ -1,11 +1,11 @@
-package java.ru.spbstu.search.parser.deserializer;
+package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.entity.Entity;
-import java.ru.spbstu.search.entity.entry.enties.profile.ProfField;
-import java.ru.spbstu.search.entity.entry.enties.profile.ProfFieldEntity;
-import java.ru.spbstu.search.entity.entry.enties.profile.Specialization;
+import ru.spbstu.search.entity.Entity;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
+import ru.spbstu.search.entity.entry.enties.profile.ProfFieldEntity;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

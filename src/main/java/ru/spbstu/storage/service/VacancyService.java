@@ -1,6 +1,6 @@
-package java.ru.spbstu.storage.service;
+package ru.spbstu.storage.service;
 
-import java.ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,12 +18,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.ru.spbstu.search.SearchComponent;
-import java.ru.spbstu.storage.controller.FetchByIdTaskRequest;
-import java.ru.spbstu.storage.controller.FetchIdsListRequest;
-import java.ru.spbstu.storage.controller.FetchIdsRangeTaskRequest;
-import java.ru.spbstu.storage.controller.FetchTaskRequest;
-import java.ru.spbstu.storage.repository.VacancyRepository;
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.storage.controller.FetchByIdTaskRequest;
+import ru.spbstu.storage.controller.FetchIdsListRequest;
+import ru.spbstu.storage.controller.FetchIdsRangeTaskRequest;
+import ru.spbstu.storage.controller.FetchTaskRequest;
+import ru.spbstu.storage.repository.VacancyRepository;
 
 @Service
 public class VacancyService {

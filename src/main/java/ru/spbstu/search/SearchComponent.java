@@ -1,16 +1,16 @@
-package java.ru.spbstu.search;
+package ru.spbstu.search;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.ru.spbstu.loader.IContentLoader;
-import java.ru.spbstu.loader.UrlConstants;
-import java.ru.spbstu.search.entity.entry.enties.profile.Specialization;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
-import java.ru.spbstu.search.parser.IParser;
+import ru.spbstu.loader.IContentLoader;
+import ru.spbstu.loader.UrlConstants;
+import ru.spbstu.search.entity.entry.enties.profile.Specialization;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.VacancyPage;
+import ru.spbstu.search.parser.IParser;
 
 import java.util.Collections;
 import java.util.List;

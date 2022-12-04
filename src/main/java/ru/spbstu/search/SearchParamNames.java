@@ -1,4 +1,4 @@
-package java.ru.spbstu.search;
+package ru.spbstu.search;
 
 public enum SearchParamNames {
     TEXT("text"),

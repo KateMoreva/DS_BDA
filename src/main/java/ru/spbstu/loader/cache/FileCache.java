@@ -1,4 +1,4 @@
-package java.ru.spbstu.loader.cache;
+package ru.spbstu.loader.cache;
 
 import lombok.extern.slf4j.Slf4j;
 

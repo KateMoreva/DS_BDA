@@ -1,9 +1,9 @@
-package java.ru.spbstu.search.param;
+package ru.spbstu.search.param;
 
-import java.ru.spbstu.search.ISearchParam;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.SearchParamNames;
-import java.ru.spbstu.search.SearchParameterBox;
+import ru.spbstu.search.ISearchParam;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParamNames;
+import ru.spbstu.search.SearchParameterBox;
 
 import static java.lang.String.format;
 

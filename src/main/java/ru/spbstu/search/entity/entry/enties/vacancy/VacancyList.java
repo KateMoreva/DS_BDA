@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy;
+package ru.spbstu.search.entity.entry.enties.vacancy;
 
 import java.util.ArrayList;
 import java.util.List;

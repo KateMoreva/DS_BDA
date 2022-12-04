@@ -1,16 +1,16 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.ru.spbstu.loader.IContentLoader;
-import java.ru.spbstu.loader.UrlConstants;
+import ru.spbstu.loader.IContentLoader;
+import ru.spbstu.loader.UrlConstants;
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.entity.Entity;
-import java.ru.spbstu.search.entity.IEntity;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.VacancyType;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerType;
-import java.ru.spbstu.search.fields.VacancySearchFields;
+import ru.spbstu.search.entity.Entity;
+import ru.spbstu.search.entity.IEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.VacancyType;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerType;
+import ru.spbstu.search.fields.VacancySearchFields;
 
 import java.util.Collections;
 

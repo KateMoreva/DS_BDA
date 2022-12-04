@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
-import java.ru.spbstu.search.entity.entry.AbstractEntityEntry;
-import java.ru.spbstu.search.ISearchParam;
-import java.ru.spbstu.search.SearchException;
-import java.ru.spbstu.search.SearchParamNames;
-import java.ru.spbstu.search.SearchParameterBox;
+import ru.spbstu.search.entity.entry.AbstractEntityEntry;
+import ru.spbstu.search.ISearchParam;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.SearchParamNames;
+import ru.spbstu.search.SearchParameterBox;
 
 public class Order extends AbstractEntityEntry implements ISearchParam {
     public static final Order NULL_ORDER = new Order();

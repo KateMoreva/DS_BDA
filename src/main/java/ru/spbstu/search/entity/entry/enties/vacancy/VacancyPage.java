@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy;
+package ru.spbstu.search.entity.entry.enties.vacancy;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

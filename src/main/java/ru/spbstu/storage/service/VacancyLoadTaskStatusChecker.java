@@ -1,4 +1,4 @@
-package java.ru.spbstu.storage.service;
+package ru.spbstu.storage.service;
 
 import java.util.Queue;
 import java.util.concurrent.ExecutionException;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import java.ru.spbstu.storage.controller.TaskRequest;
+import ru.spbstu.storage.controller.TaskRequest;
 
 public class VacancyLoadTaskStatusChecker {
 

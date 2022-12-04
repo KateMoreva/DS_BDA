@@ -1,4 +1,4 @@
-package java.ru.spbstu.loader.cache;
+package ru.spbstu.loader.cache;
 
 public interface ICache {
     String search(String name);

@@ -1,4 +1,4 @@
-package java.ru.spbstu.storage.controller;
+package ru.spbstu.storage.controller;
 
 public interface TaskRequest {
 }

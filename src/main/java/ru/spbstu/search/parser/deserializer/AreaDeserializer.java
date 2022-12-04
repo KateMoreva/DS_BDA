@@ -1,9 +1,9 @@
-package java.ru.spbstu.search.parser.deserializer;
+package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.area.AreaEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.Area;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.area.AreaEntity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

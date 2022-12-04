@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra.address;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

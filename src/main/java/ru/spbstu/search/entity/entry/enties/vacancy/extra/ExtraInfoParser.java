@@ -1,8 +1,8 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.parser.IParser;
+import ru.spbstu.search.parser.IParser;
 
 @Slf4j
 public class ExtraInfoParser implements IParser<ExtraInfoEntityContainer> {

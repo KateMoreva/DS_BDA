@@ -1,10 +1,10 @@
-package java.ru.spbstu.search.entity.entry.enties.vacancy.extra;
+package ru.spbstu.search.entity.entry.enties.vacancy.extra;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.VacancyType;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerType;
-import java.ru.spbstu.search.fields.VacancySearchFields;
+import ru.spbstu.search.entity.entry.enties.vacancy.VacancyType;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.employer.EmployerType;
+import ru.spbstu.search.fields.VacancySearchFields;
 
 import java.util.List;
 

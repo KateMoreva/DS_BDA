@@ -1,4 +1,4 @@
-package java.ru.spbstu.storage.converter;
+package ru.spbstu.storage.converter;
 
 import java.lang.reflect.Type;
 import java.nio.file.Files;

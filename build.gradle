@@ -9,7 +9,7 @@ version '1.0'
 sourceSets {
     main {
         java {
-            srcDirs = ["src/main"]
+            srcDirs = ["src/main/java"]
             outputDir = file("${buildDir}/classes")
         }
         resources {

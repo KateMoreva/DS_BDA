@@ -1,7 +1,7 @@
-package java.ru.spbstu.search.entity;
+package ru.spbstu.search.entity;
 
 import lombok.extern.slf4j.Slf4j;
-import java.ru.spbstu.search.entity.entry.IEntityEntry;
+import ru.spbstu.search.entity.entry.IEntityEntry;
 
 import java.util.*;
 

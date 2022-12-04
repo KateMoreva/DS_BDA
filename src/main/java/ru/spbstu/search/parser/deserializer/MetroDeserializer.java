@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.parser.deserializer;
+package ru.spbstu.search.parser.deserializer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -7,13 +7,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.ru.spbstu.search.entity.Entity;
-import java.ru.spbstu.search.entity.IEntity;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCity;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCityEntity;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLineEntity;
-import java.ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
+import ru.spbstu.search.entity.Entity;
+import ru.spbstu.search.entity.IEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroCityEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLineEntity;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroStation;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;

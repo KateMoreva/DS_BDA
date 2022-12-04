@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
 
-import java.ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
 
 
 class VacancyParserTest {

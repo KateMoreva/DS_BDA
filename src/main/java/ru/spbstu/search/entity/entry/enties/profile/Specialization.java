@@ -1,4 +1,4 @@
-package java.ru.spbstu.search.entity.entry.enties.profile;
+package ru.spbstu.search.entity.entry.enties.profile;
 
 import lombok.Getter;
 import lombok.Setter;

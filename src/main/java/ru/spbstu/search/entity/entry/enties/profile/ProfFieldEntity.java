@@ -1,7 +1,7 @@
-package java.ru.spbstu.search.entity.entry.enties.profile;
+package ru.spbstu.search.entity.entry.enties.profile;
 
-import java.ru.spbstu.search.entity.Entity;
-import java.ru.spbstu.search.entity.IEntity;
+import ru.spbstu.search.entity.Entity;
+import ru.spbstu.search.entity.IEntity;
 
 import java.util.List;
 
