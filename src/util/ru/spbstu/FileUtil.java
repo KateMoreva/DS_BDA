@@ -25,17 +25,13 @@ public class FileUtil {
     private static File preprocess(String sourceFile,
                                    Set<String> innerArchiveFiles,
                                    Set<String> excludeFiles) throws IOException {
-        if (excludeFiles.contains(sourceFile)) {
-            System.out.println("File: " + sourceFile + " in exclude files, skipping...");
-            return null;
-        }
         if (innerArchiveFiles.contains(sourceFile)) {
             Set<String> newInnerArchiveFiles = new HashSet<>(innerArchiveFiles);
             newInnerArchiveFiles.remove(sourceFile);
             zipData(Collections.singletonList(sourceFile), newInnerArchiveFiles, excludeFiles, sourceFile + ".zip");
-            return null;
+            return new File(sourceFile + ".zip");
         } else {
-            return new File(sourceFile);
+            return null;
         }
     }
 
@@ -47,10 +43,13 @@ public class FileUtil {
         if (fileToZip.isHidden()) {
             return;
         }
-        File file = preprocess(fileName, innerArchiveFiles, excludeFiles);
-        if (file == null) {
+        if (excludeFiles.contains(fileName)) {
+            System.out.println("File: " + fileName + " in exclude files, skipping...");
             return;
         }
+        File file = preprocess(fileName, innerArchiveFiles, excludeFiles);
+        fileName = file == null ? fileName : file.getParent() + "/" + file.getName();
+        fileToZip = file == null ? fileToZip : file;
         if (fileToZip.isDirectory()) {
             if (fileName.endsWith("/")) {
                 zipOut.putNextEntry(new ZipEntry(fileName));
