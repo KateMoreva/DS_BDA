@@ -131,7 +131,6 @@ public class VacancyService {
             fetchTaskRequests.add(new FetchTaskRequest(
                 request.getDateFrom(),
                 request.getDateTo(),
-                request.getSpecialisationId(),
                 request.getLimitPerPage(),
                 currentStartPage, // 0 26 52 78
                 finalPage // 25 51 77 103
@@ -151,8 +150,11 @@ public class VacancyService {
             vacancyRepository,
             converter,
             request.getDateFrom(),
-            request.getDateTo()
-        );
+            request.getDateTo(),
+            request.getLimitPerPage(),
+            request.getFromPage(),
+            request.getToPage()
+            );
 //        logger.info("LoadVacanciesTask [{}]", loadVacanciesTask);
         Future<Boolean> future = executorService.submit(loadVacanciesTask);
         statusChecker.acceptNewFutureTask(request, future);

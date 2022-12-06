@@ -17,6 +17,7 @@ import ru.spbstu.search.parser.VacancyParser;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class SearchComponent {
     private final IContentLoader contentLoader;
     private final IParser<VacancyPage> vacancyPageParser;
     private final IParser<Vacancy> vacancyParser;
+    private List<String> missedIds = new CopyOnWriteArrayList<>();
 
     @Autowired
     public SearchComponent(IContentLoader contentLoader,
@@ -60,6 +62,9 @@ public class SearchComponent {
     public Vacancy search(@NotNull String vacancyId) throws SearchException {
         try {
             String content = contentLoader.loadContent(format(UrlConstants.VACANCY_URL, vacancyId));
+            if (content == null) {
+                return null;
+            }
             Gson gson = new Gson();
             Vacancy vacancy =  gson.fromJson(content, Vacancy.class);
             for (Specialization specialization : vacancy.getSpecializations()) {
@@ -87,6 +92,8 @@ public class SearchComponent {
             vacancy.setEmployment(vacancyWithFullInfo.getEmployment());
             vacancy.setArchived(vacancyWithFullInfo.getArchived());
             vacancy.setProfFields(vacancyWithFullInfo.getProfFields());
+            vacancy.setKeySkills(vacancyWithFullInfo.getKeySkills());
+            vacancy.setProfessionalRoles(vacancyWithFullInfo.getProfessionalRoles());
         }
         return vacancyPage;
 
