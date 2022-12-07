@@ -10,17 +10,20 @@ import java.util.List;
 
 public class DistributiveUtil {
 
-    private static String PATH_TO_GRADLE_PROJECT = "./";
-    private static String GRADLEW_EXECUTABLE = "gradlew";
-    private static String BLANK = " ";
-    private static String GRADLE_TASK = "bootJar";
+    private static final String PATH_TO_GRADLE_PROJECT = "./";
+    private static final String GRADLEW_EXECUTABLE = "gradlew";
+    private static final String BLANK = " ";
+    private static final String GRADLE_TASK = "bootJar";
 
     private static final String BOOT_JAR_FILE = "/build/libs/DS_BDA-1.0.jar";
     private static final String BASE_SCRIPTS_DIR = "/scripts";
     private static final String DOCKER_BASE_DIR = "/docker";
     private static final String DOCKER_ES_DATA_DIR = "docker/esdata";
     public static void main(String[] args) throws IOException {
-        createDistributive("/Users/vladislav.zybkin/Documents/ucheba/masterdegree/bigdata/DS_BDA");
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Pls provide project directory as parameter!");
+        }
+        createDistributive(args[0]);
     }
 
     private static void createDistributive(String baseProjectPath) throws IOException {
