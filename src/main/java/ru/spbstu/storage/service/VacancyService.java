@@ -1,5 +1,6 @@
 package ru.spbstu.storage.service;
 
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,6 @@ import ru.spbstu.storage.controller.FetchByIdTaskRequest;
 import ru.spbstu.storage.controller.FetchIdsListRequest;
 import ru.spbstu.storage.controller.FetchIdsRangeTaskRequest;
 import ru.spbstu.storage.controller.FetchTaskRequest;
-import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import ru.spbstu.storage.repository.VacancyRepository;
 
 @Service

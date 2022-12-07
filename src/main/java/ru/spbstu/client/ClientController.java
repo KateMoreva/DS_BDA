@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClientController {
     @GetMapping(path = "/general")
     public String getWelcomePage(Model model) {
-
         return "general";
     }
     @GetMapping(path = "/tech")

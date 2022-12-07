@@ -1,6 +1,11 @@
 package ru.spbstu.storage.converter;
 
 import java.net.URL;
+import ru.spbstu.search.entity.entry.enties.profile.ProfField;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
+import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+import ru.spbstu.storage.model.ScheduleIndexDocument;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,10 +16,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.spbstu.search.entity.entry.enties.profile.ProfField;
-import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Schedule;
+
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Skill;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.Address;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.address.MetroLine;
@@ -29,7 +31,6 @@ import ru.spbstu.storage.model.EmployerIndexDocument;
 import ru.spbstu.storage.model.LogoUrlsIndexDocument;
 import ru.spbstu.storage.model.MetroLineIndexDocument;
 import ru.spbstu.storage.model.SalaryIndexDocument;
-import ru.spbstu.storage.model.ScheduleIndexDocument;
 import ru.spbstu.storage.model.StationIndexDocument;
 import ru.spbstu.storage.model.VacancyIndexDocument;
 

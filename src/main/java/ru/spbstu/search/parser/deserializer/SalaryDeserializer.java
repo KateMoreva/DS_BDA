@@ -4,7 +4,6 @@ import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.ConstantsProvider;
-import ru.spbstu.search.entity.entry.enties.vacancy.extra.Currency;
 import ru.spbstu.search.entity.entry.enties.vacancy.extra.Salary;
 
 import java.lang.reflect.Type;

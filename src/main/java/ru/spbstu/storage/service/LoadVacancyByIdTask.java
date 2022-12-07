@@ -1,5 +1,9 @@
 package ru.spbstu.storage.service;
 
+import ru.spbstu.search.SearchComponent;
+import ru.spbstu.search.SearchException;
+import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
+import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -8,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.spbstu.search.SearchComponent;
-import ru.spbstu.search.SearchException;
-import ru.spbstu.search.entity.entry.enties.vacancy.Vacancy;
-import ru.spbstu.storage.converter.VacancyIndexDocumentConverter;
+
 import ru.spbstu.storage.model.VacancyIndexDocument;
 import ru.spbstu.storage.repository.VacancyRepository;
 

@@ -1,8 +1,5 @@
 package ru.spbstu.search.entity.entry.enties.profile;
 
-import ru.spbstu.loader.ContentLoaderFactory;
-import ru.spbstu.loader.IContentLoader;
-import ru.spbstu.loader.UrlConstants;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +9,6 @@ import ru.spbstu.search.SearchParamNames;
 import ru.spbstu.search.SearchParameterBox;
 import ru.spbstu.search.entity.IEntity;
 import ru.spbstu.search.entity.entry.AbstractEntityEntry;
-import ru.spbstu.search.parser.IParser;
 
 @Slf4j
 public class ProfField extends AbstractEntityEntry implements ISearchParam {
