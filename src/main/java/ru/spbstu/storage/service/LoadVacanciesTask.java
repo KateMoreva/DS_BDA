@@ -32,17 +32,26 @@ public class LoadVacanciesTask implements Callable<Boolean> {
     private final VacancyIndexDocumentConverter converter;
     private final String dateFrom;
     private final String dateTo;
+    private final int limitPerPage;
+    private final int fromPage;
+    private final int toPage;
 
     public LoadVacanciesTask(@NotNull SearchComponent searchComponent,
                              @NotNull VacancyRepository vacancyRepository,
                              @Bottom VacancyIndexDocumentConverter converter,
                              @NotNull String dateFrom,
-                             @NotNull String dateTo){
+                             @NotNull String dateTo,
+                             int limitPerPage,
+                             int fromPage,
+                             int toPage) {
         this.searchComponent = searchComponent;
         this.vacancyRepository = vacancyRepository;
         this.converter = converter;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.limitPerPage = limitPerPage;
+        this.fromPage = fromPage;
+        this.toPage = toPage;
     }
 
 
@@ -56,12 +65,7 @@ public class LoadVacanciesTask implements Callable<Boolean> {
                     logger.info("Vacancy page is null. No more results?");
                     return true;
                 }
-                List<String> ids = vacancyPage.getItems().stream().map(Vacancy::getId).collect(Collectors.toList());
-                for (String id : ids) {
-                    Vacancy vacancy = searchComponent.search(id);
-                    indexPageResults(vacancy);
-                }
-//                indexPageResults(vacancyPage);
+                indexPageResults(vacancyPage);
         } catch (SearchException e) {
             logger.error("Failed to load vacancy page with next params: \n" +
                     "dateFrom=[{}], dateTo=[{}], specialisationId=[{}], \n",
@@ -71,11 +75,13 @@ public class LoadVacanciesTask implements Callable<Boolean> {
         return true;
     }
 
-    public void indexPageResults(@NotNull Vacancy vacancy) {
+    public void indexPageResults(@NotNull VacancyPage vacancyPage) {
+        List<Vacancy> vacancyList = vacancyPage.getItems();
         try {
-            List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
-            log.debug("Load vacancy [{}]", vacancy.getId());
-            vacancyRepository.saveAll(vacancyIndexDocuments);
+            for (Vacancy vacancy : vacancyList) {
+                List<VacancyIndexDocument> vacancyIndexDocuments = converter.converter(vacancy);
+                vacancyRepository.saveAll(vacancyIndexDocuments);
+            }
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
@@ -89,6 +95,9 @@ public class LoadVacanciesTask implements Callable<Boolean> {
             ", converter=" + converter +
             ", dateFrom='" + dateFrom + '\'' +
             ", dateTo='" + dateTo + '\'' +
+            ", limitPerPage=" + limitPerPage +
+            ", fromPage=" + fromPage +
+            ", toPage=" + toPage +
             '}';
     }
 }

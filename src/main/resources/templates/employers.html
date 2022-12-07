@@ -11,29 +11,28 @@
 <h1 class="page_name">Рынок IT-вакансий</h1>
 
 <div class="download" style="float:right;">
-    <form id="all_old_btn2" th:action="@{/submitLoadAllTimeTask}" method="POST" style="float:right;">
-        <input id="submit-form4" class="btn btn-info" type="submit" value="2004-2021" />
+    <form id="all_old_btn1" th:action="@{/submitLoadAllTimeTask}" method="POST" style="float:right;">
+        <input id="submit-form7" class="btn btn-info" type="submit" value="2004-2021" />
     </form>
-    <form id="year_old_btn2" th:action="@{/submitLoadThisYearTask}" method="POST" style="float:right;">
-        <input id="submit-form5" class="btn btn-info" type="submit" value="2022" />
+    <form id="year_old_btn1" th:action="@{/submitLoadThisYearTask}" method="POST" style="float:right;">
+        <input id="submit-form8" class="btn btn-info" type="submit" value="2022" />
     </form>
-    <form id="month_old_btn2" th:action="@{/submitLoadThisMonthTask}" method="POST" style="float:right;">
-        <input id="submit-form6" class="btn btn-info" type="submit" value="Этот месяц" />
+    <form id="month_old_btn1" th:action="@{/submitLoadThisMonthTask}" method="POST" style="float:right;">
+        <input id="submit-form9" class="btn btn-info" type="submit" value="Этот месяц" />
     </form>
 </div>
 
 <h5 style="float:right;">Скачать данные за:</h5>
 
 <div class="alert-container" style="float:right;">
-    <div th:if="${message}" th:text="${message}" id="hideMe2" th:class="${'alert alert-' + alertClass + ' alert-dismissable' }"   >
+    <div th:if="${message}" th:text="${message}" id="hideMe3" th:class="${'alert alert-' + alertClass + ' alert-dismissable' }"   >
     </div>
 </div>
 
-
 <div class="navigation" style="float:left;">
     <a th:href="general" class="btn btn-success" style="float:left;"> &nbsp;Общий</a>
-    <a th:href="tech" class="btn btn-success active" style="float:left;"> &nbsp;Технологии</a>
-    <a th:href="employers" class="btn btn-success" style="float:left;"> &nbsp;Работодатели</a>
+    <a th:href="tech" class="btn btn-success" style="float:left;"> &nbsp;Технологии</a>
+    <a th:href="employers" class="btn btn-success active" style="float:left;"> &nbsp;Работодатели</a>
 </div>
 <div>
     <iframe id="dashboard"

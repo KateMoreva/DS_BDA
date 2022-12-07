@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/index.css}" rel="stylesheet" />
+<link th:href="@{/general.css}" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <head>
@@ -8,17 +8,40 @@
     <title>HH аналитика рынка IT вакансий</title>
 </head>
 <body>
-<h1>Рынок IT-вакансий</h1>
+<h1 class="page_name">Рынок IT-вакансий</h1>
 
-<a href="general.html" class="btn btn-success-checked"> &nbsp;Общий</a>
-<a href="tech.html" class="btn btn-success"> &nbsp;Технологии</a>
-<a href="empl.html" class="btn btn-success"> &nbsp;Работодатели</a>
+<div class="download" style="float:right;">
+    <form id="all_old_btn" th:action="@{/submitLoadAllTimeTask}" method="POST" style="float:right;">
+        <input id="submit-form1" class="btn btn-info" type="submit" value="2004-2021" />
+    </form>
+    <form id="year_old_btn" th:action="@{/submitLoadThisYearTask}" method="POST" style="float:right;">
+        <input id="submit-form2" class="btn btn-info" type="submit" value="2022" />
+    </form>
+    <form id="month_old_btn" th:action="@{/submitLoadThisMonthTask}" method="POST" style="float:right;">
+        <input id="submit-form3" class="btn btn-info" type="submit" value="Этот месяц" />
+    </form>
+</div>
 
-<p></p>
-<iframe id="dashboard"
-        src="http://localhost:5601/app/kibana#/dashboard/57e1e200-6fad-11ed-93c8-c198a540668b?embed=true&_g=()">
-</iframe>
-<p></p>
-<a href="http://localhost:5601/app/kibana#/dashboard/57e1e200-6fad-11ed-93c8-c198a540668b?_g=(filters:!())&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),panels:!((embeddableConfig:(legendOpen:!f,vis:(legendOpen:!t)),gridData:(h:21,i:'546f8f88-a8b2-4345-8d64-7bb91fd9a1ae',w:48,x:0,y:0),id:a25a95b0-69eb-11ed-93c8-c198a540668b,panelIndex:'546f8f88-a8b2-4345-8d64-7bb91fd9a1ae',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'5b80d018-f114-4c6d-899a-40628eba73fc',w:24,x:0,y:21),id:f9e77360-719e-11ed-82bd-e7943ad11a41,panelIndex:'5b80d018-f114-4c6d-899a-40628eba73fc',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'23614d5b-7fd8-4005-8997-f1317beaa09a',w:24,x:24,y:21),id:'376a8560-719f-11ed-82bd-e7943ad11a41',panelIndex:'23614d5b-7fd8-4005-8997-f1317beaa09a',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'54c36941-7376-4e56-ace9-3ef25b53972a',w:24,x:0,y:36),id:a479a380-719e-11ed-82bd-e7943ad11a41,panelIndex:'54c36941-7376-4e56-ace9-3ef25b53972a',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:b543780e-c7ee-419e-915b-c251bccbfd14,w:24,x:24,y:36),id:becae090-728f-11ed-82bd-e7943ad11a41,panelIndex:b543780e-c7ee-419e-915b-c251bccbfd14,type:visualization,version:'7.5.2'),(embeddableConfig:(colors:('0%20-%20163':%23E0F9D7,'163%20-%20325':%237EB26D,'325%20-%20488':%23629E51),defaultColors:('0%20-%20163':'rgb(247,252,245)','163%20-%20325':'rgb(199,233,192)','325%20-%20488':'rgb(116,196,118)','488%20-%20650':'rgb(35,139,69)'),vis:(colors:('0%20-%20163':%23E0F9D7,'163%20-%20325':%239AC48A,'325%20-%20488':%23629E51),defaultColors:('0%20-%20163':'rgb(247,252,245)','163%20-%20325':'rgb(199,233,192)','325%20-%20488':'rgb(116,196,118)','488%20-%20650':'rgb(35,139,69)'))),gridData:(h:15,i:ff149d96-2aa9-446f-b21e-5eed7ee3e995,w:24,x:0,y:51),id:c6ac8c00-728f-11ed-82bd-e7943ad11a41,panelIndex:ff149d96-2aa9-446f-b21e-5eed7ee3e995,type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:d616cbe0-41ce-43b6-84e9-e5cd588fc133,w:48,x:0,y:66),id:'491aef00-733b-11ed-82bd-e7943ad11a41',panelIndex:d616cbe0-41ce-43b6-84e9-e5cd588fc133,type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'50dd38d7-516a-4ef1-947e-840b2a681e60',w:24,x:24,y:51),id:'5a0d4140-7341-11ed-82bd-e7943ad11a41',panelIndex:'50dd38d7-516a-4ef1-947e-840b2a681e60',type:visualization,version:'7.5.2')),query:(language:kuery,query:''),timeRestore:!f,title:Main,viewMode:view)"  class="btn btn-success"> &nbsp;Открыть Kibana</a>
+<h5 style="float:right;">Скачать данные за:</h5>
+
+<div class="alert-container" style="float:right;">
+    <div th:if="${message}" th:text="${message}" id="hideMe" th:class="${'alert alert-' + alertClass + ' alert-dismissable' }"   >
+    </div>
+</div>
+
+<div class="navigation" style="float:left;">
+    <a th:href="general" class="btn btn-success active" style="float:left;"> &nbsp;Общий</a>
+    <a th:href="tech" class="btn btn-success" style="float:left;"> &nbsp;Технологии</a>
+    <a th:href="employers" class="btn btn-success" style="float:left;"> &nbsp;Работодатели</a>
+</div>
+<div>
+    <iframe id="dashboard"
+            src="http://localhost:5601/app/kibana#/dashboard/57e1e200-6fad-11ed-93c8-c198a540668b?embed=true&_g=()">
+    </iframe>
+</div>
+<div class="kibana">
+    <a href="http://localhost:5601/app/kibana#/dashboard/57e1e200-6fad-11ed-93c8-c198a540668b?_g=(filters:!())&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),panels:!((embeddableConfig:(legendOpen:!f,vis:(legendOpen:!t)),gridData:(h:21,i:'546f8f88-a8b2-4345-8d64-7bb91fd9a1ae',w:48,x:0,y:0),id:a25a95b0-69eb-11ed-93c8-c198a540668b,panelIndex:'546f8f88-a8b2-4345-8d64-7bb91fd9a1ae',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'5b80d018-f114-4c6d-899a-40628eba73fc',w:24,x:0,y:21),id:f9e77360-719e-11ed-82bd-e7943ad11a41,panelIndex:'5b80d018-f114-4c6d-899a-40628eba73fc',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'23614d5b-7fd8-4005-8997-f1317beaa09a',w:24,x:24,y:21),id:'376a8560-719f-11ed-82bd-e7943ad11a41',panelIndex:'23614d5b-7fd8-4005-8997-f1317beaa09a',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'54c36941-7376-4e56-ace9-3ef25b53972a',w:24,x:0,y:36),id:a479a380-719e-11ed-82bd-e7943ad11a41,panelIndex:'54c36941-7376-4e56-ace9-3ef25b53972a',type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:b543780e-c7ee-419e-915b-c251bccbfd14,w:24,x:24,y:36),id:becae090-728f-11ed-82bd-e7943ad11a41,panelIndex:b543780e-c7ee-419e-915b-c251bccbfd14,type:visualization,version:'7.5.2'),(embeddableConfig:(colors:('0%20-%20163':%23E0F9D7,'163%20-%20325':%237EB26D,'325%20-%20488':%23629E51),defaultColors:('0%20-%20163':'rgb(247,252,245)','163%20-%20325':'rgb(199,233,192)','325%20-%20488':'rgb(116,196,118)','488%20-%20650':'rgb(35,139,69)'),vis:(colors:('0%20-%20163':%23E0F9D7,'163%20-%20325':%239AC48A,'325%20-%20488':%23629E51),defaultColors:('0%20-%20163':'rgb(247,252,245)','163%20-%20325':'rgb(199,233,192)','325%20-%20488':'rgb(116,196,118)','488%20-%20650':'rgb(35,139,69)'))),gridData:(h:15,i:ff149d96-2aa9-446f-b21e-5eed7ee3e995,w:24,x:0,y:51),id:c6ac8c00-728f-11ed-82bd-e7943ad11a41,panelIndex:ff149d96-2aa9-446f-b21e-5eed7ee3e995,type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:d616cbe0-41ce-43b6-84e9-e5cd588fc133,w:48,x:0,y:66),id:'491aef00-733b-11ed-82bd-e7943ad11a41',panelIndex:d616cbe0-41ce-43b6-84e9-e5cd588fc133,type:visualization,version:'7.5.2'),(embeddableConfig:(),gridData:(h:15,i:'50dd38d7-516a-4ef1-947e-840b2a681e60',w:24,x:24,y:51),id:'5a0d4140-7341-11ed-82bd-e7943ad11a41',panelIndex:'50dd38d7-516a-4ef1-947e-840b2a681e60',type:visualization,version:'7.5.2')),query:(language:kuery,query:''),timeRestore:!f,title:Main,viewMode:view)"
+       class="btn btn-success"> &nbsp;Открыть Kibana</a>
+</div>
 </body>
 </html>

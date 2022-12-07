@@ -12,7 +12,6 @@ public class FetchTaskRequest implements TaskRequest {
 
     private String dateFrom;
     private String dateTo;
-    private String specialisationId;
     private int limitPerPage;
     private int fromPage;
     private int toPage;
