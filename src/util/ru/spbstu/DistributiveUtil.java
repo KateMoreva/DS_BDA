@@ -10,15 +10,15 @@ import java.util.List;
 
 public class DistributiveUtil {
 
-    private static final String PATH_TO_GRADLE_PROJECT = "./";
+    private static final String PATH_TO_GRADLE_PROJECT = "." + File.separator;
     private static final String GRADLEW_EXECUTABLE = "gradlew";
     private static final String BLANK = " ";
     private static final String GRADLE_TASK = "bootJar";
 
-    private static final String BOOT_JAR_FILE = "/build/libs/DS_BDA-1.0.jar";
-    private static final String BASE_SCRIPTS_DIR = "/scripts";
-    private static final String DOCKER_BASE_DIR = "/docker";
-    private static final String DOCKER_ES_DATA_DIR = "docker/esdata";
+    private static final String BOOT_JAR_FILE = File.separator + "build" + File.separator + "libs" + File.separator + "DS_BDA-1.0.jar";
+    private static final String BASE_SCRIPTS_DIR = File.separator + "scripts";
+    private static final String DOCKER_BASE_DIR = File.separator + "docker";
+    private static final String DOCKER_ES_DATA_DIR = File.separator + "docker" + File.separator + "esdata";
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
             throw new IllegalArgumentException("Pls provide project directory as parameter!");
